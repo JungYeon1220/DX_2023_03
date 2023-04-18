@@ -6,6 +6,12 @@
 
 #define MAX_LOADSTRING 100
 
+// WIN API
+// Window 창에 대한 Application Interface(접근 방법을 제공하는 무언가 -> 함수)
+
+// hWnd : 윈도우 핸들 : 윈도우를 수정하거나, 기타 등등에 필요한 얘
+// hdc(deviceContexHandle) : 모든 출력을 담당하는 얘
+
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -121,10 +127,29 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+float mousePosX = 0.0f;
+float mousePosY = 0.0f;
+
+HPEN bluePen;
+HPEN redPen;
+
+HBRUSH blueBrush;
+HBRUSH redBrush;
+
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+    {
+        bluePen = CreatePen(PS_SOLID, 3, RGB(0, 0, 255));
+        redPen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+
+        blueBrush = CreateSolidBrush(RGB(0, 0, 255));
+        redBrush = CreateSolidBrush(RGB(255, 0, 0));
+    }
+
     case WM_COMMAND:
         {
             int wmId = LOWORD(wParam);
@@ -142,16 +167,44 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_MOUSEMOVE:
+    {
+        mousePosX = static_cast<float>(LOWORD(lParam));
+        mousePosY = static_cast<float>(HIWORD(lParam));
+        InvalidateRect(hWnd, nullptr, true);
+
+        break;
+    }
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
+            SelectObject(hdc, redBrush);
+            SelectObject(hdc, bluePen);
+            Rectangle(hdc, 100, 100, 300, 300);
+
+            SelectObject(hdc, blueBrush);
+            SelectObject(hdc, redPen);
+            Ellipse(hdc, 100, 100, 300, 300);
+
+            // 선그리기
+            MoveToEx(hdc, 0, 0, nullptr); // 시작점
+            LineTo(hdc, mousePosX, mousePosY);// 끝점
+
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
+    {
+        DeleteObject(blueBrush);
+        DeleteObject(redBrush);
+        DeleteObject(bluePen);
+        DeleteObject(redPen);
         PostQuitMessage(0);
+    }
         break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
