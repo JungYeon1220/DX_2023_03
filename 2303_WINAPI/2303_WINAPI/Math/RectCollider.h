@@ -15,14 +15,16 @@ public:
 	float Bottom() const { return _center.y + _size.y * 0.5f; }
 	float Top() const { return _center.y - _size.y * 0.5f; }
 
+	bool IsCollision(shared_ptr<RectCollider> other);
+	bool IsCollision(const Vector2& pos);
+	bool IsCollision(shared_ptr<CircleCollider> other);
+
 	void SetCenter(Vector2 center) { _center = center; }
 	const Vector2& GetCenter() { return _center; }
 
 	void SetSize(Vector2 size) { _size = size; }
 	const Vector2& GetSize() { return _size; }
 
-	bool IsCollision(shared_ptr<RectCollider> other);
-	bool IsCollision(const Vector2& pos);
 
 	void SetGreen() { _curPenIdex = 0; }
 	void SetRed() { _curPenIdex = 1; }

@@ -39,6 +39,11 @@ bool RectCollider::IsCollision(const Vector2& pos)
 	return false;
 }
 
+bool IsCollision(shared_ptr<CircleCollider> other)
+{
+	return false;
+}
+
 void RectCollider::CreatePens()
 {
 	_curPenIdex = 0;
