@@ -1,12 +1,10 @@
 #pragma once
-class CircleCollider
+class CircleCollider : public enable_shared_from_this<CircleCollider>
 {
 public:
 	CircleCollider() { CreatePens(); }
 	CircleCollider(Vector2 center, float radius)
-		:_center(center), _radius(radius) {
-		CreatePens();
-	}
+		:_center(center), _radius(radius) { CreatePens(); }
 	~CircleCollider()
 	{
 		for (auto pen : _pens)
@@ -14,6 +12,11 @@ public:
 			DeleteObject(pen);
 		}
 	}
+
+	float Left() const { return _center.x - _radius; }
+	float Right() const { return _center.x + _radius; }
+	float Bottom() const { return _center.y + _radius; }
+	float Top() const { return _center.y - _radius; }
 
 	void Update();
 	void Render(HDC hdc);

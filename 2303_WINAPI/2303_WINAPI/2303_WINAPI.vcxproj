@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2303_WINAPI.h" />
+    <ClInclude Include="Math\Line.h" />
     <ClInclude Include="Scene\LIneScene.h" />
     <ClInclude Include="Math\CircleCollider.h" />
     <ClInclude Include="framework.h" />
@@ -166,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2303_WINAPI.cpp" />
+    <ClCompile Include="Math\Line.cpp" />
     <ClCompile Include="Scene\LIneScene.cpp" />
     <ClCompile Include="Math\CircleCollider.cpp" />
     <ClCompile Include="framework.cpp">

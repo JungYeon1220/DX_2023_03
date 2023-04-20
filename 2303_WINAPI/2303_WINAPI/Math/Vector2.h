@@ -46,6 +46,12 @@ public:
         return result = Vector2(this->x * value, this->y * value);
     }
 
+    Vector2 operator/(const float& value) const
+    {
+        Vector2 result;
+        return result = Vector2(this->x / value, this->y / value);
+    }
+
     Vector2& operator=(const Vector2& other)
     {
         x = other.x;
@@ -83,8 +89,8 @@ public:
 
     float Angle() const
     {
+        float result = atan2f(y, x);
 
-            float result = atan2f(y, x);
         return result;
     }
 
