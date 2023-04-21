@@ -68,10 +68,3 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 
 	return false;
 }
-
-void RectCollider::CreatePens()
-{
-	_curPenIdex = 0;
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED));   // 1
-}

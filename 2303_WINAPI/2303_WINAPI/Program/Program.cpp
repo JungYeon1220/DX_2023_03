@@ -7,7 +7,7 @@
 
 Program::Program()
 {
-	_scene = make_shared<LIneScene>();
+	_scene = make_shared<PaintScene>();
 }
 
 Program::~Program()

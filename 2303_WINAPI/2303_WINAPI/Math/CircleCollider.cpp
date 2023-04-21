@@ -17,7 +17,7 @@ void CircleCollider::Render(HDC hdc)
 	Ellipse(hdc, left, right, bottom, top);
 }
 
-bool CircleCollider::IsCollision(Vector2 pos)
+bool CircleCollider::IsCollision(const Vector2& pos)
 {
 	float distance = _center.Distance(pos);
 	return distance < _radius;
@@ -35,9 +35,3 @@ bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 	return other->IsCollision(shared_from_this());
 }
 
-void CircleCollider::CreatePens()
-{
-	_curPenIdex = 0;
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED));   // 1
-}

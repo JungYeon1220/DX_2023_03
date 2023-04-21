@@ -1,11 +1,11 @@
 #pragma once
-class RectCollider
+class RectCollider : public Collider
 {
 public:
-	RectCollider() { CreatePens(); }
+	RectCollider() : Collider(Vector2 (0,0)) { _type = Collider::Type::RECT; }
 	RectCollider(Vector2 center, Vector2 size)
-		: _center(center), _size(size) { CreatePens(); }
-	~RectCollider() {}
+		: Collider(center), _size(size) { _type = Collider::Type::RECT; }
+	virtual ~RectCollider() {}
 
 	void Update();
 	void Render(HDC hdc);
@@ -15,27 +15,20 @@ public:
 	float Bottom() const { return _center.y + _size.y * 0.5f; }
 	float Top() const { return _center.y - _size.y * 0.5f; }
 
-	bool IsCollision(shared_ptr<RectCollider> other);
-	bool IsCollision(const Vector2& pos);
-	bool IsCollision(shared_ptr<CircleCollider> other);
+	virtual bool IsCollision(const Vector2& pos) override;
+	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
+	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
 
-	void SetCenter(Vector2 center) { _center = center; }
-	const Vector2& GetCenter() { return _center; }
+
 
 	void SetSize(Vector2 size) { _size = size; }
 	const Vector2& GetSize() { return _size; }
 
 
-	void SetGreen() { _curPenIdex = 0; }
-	void SetRed() { _curPenIdex = 1; }
+
 
 private:
-	void CreatePens();
 
-	int _curPenIdex;
-	vector<HPEN> _pens;
-
-	Vector2 _center = { 0.0f, 0.0f };
 	Vector2 _size = { 0.0f, 0.0f };
 };
 
