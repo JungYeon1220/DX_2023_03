@@ -155,7 +155,7 @@
     <ClInclude Include="Scene\LineCollisionScene.h" />
     <ClInclude Include="Math\Collider.h" />
     <ClInclude Include="Math\Line.h" />
-    <ClInclude Include="Scene\LIneScene.h" />
+    <ClInclude Include="Scene\LineScene.h" />
     <ClInclude Include="Math\CircleCollider.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Math\RectCollider.h" />
@@ -172,7 +172,7 @@
     <ClCompile Include="Scene\LineCollisionScene.cpp" />
     <ClCompile Include="Math\Collider.cpp" />
     <ClCompile Include="Math\Line.cpp" />
-    <ClCompile Include="Scene\LIneScene.cpp" />
+    <ClCompile Include="Scene\LineScene.cpp" />
     <ClCompile Include="Math\CircleCollider.cpp" />
     <ClCompile Include="framework.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

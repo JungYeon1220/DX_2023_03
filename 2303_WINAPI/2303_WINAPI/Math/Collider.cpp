@@ -29,9 +29,11 @@ bool Collider::IsCollision(shared_ptr<Collider> col)
 	case Collider::Type::NONE:
 		return false;
 	case Collider::Type::CIRCLE:
-
+		return IsCollision(dynamic_pointer_cast<CircleCollider>(col));
+	case Collider::Type::RECT:
+		return IsCollision(dynamic_pointer_cast<RectCollider>(col));
 	default:
-		break;
+		return false;
 	}
 }
 

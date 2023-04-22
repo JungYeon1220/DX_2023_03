@@ -1,9 +1,9 @@
 #pragma once
-class LIneScene : public Scene
+class LineScene : public Scene
 {
 public:
-	LIneScene();
-	virtual ~LIneScene();
+	LineScene();
+	virtual ~LineScene();
 
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

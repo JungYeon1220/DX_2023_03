@@ -77,6 +77,7 @@ public:
     float Dot(const Vector2& other) const
     {
         float result = x * other.x + y * other.y;
+
         return result;
     }
 
