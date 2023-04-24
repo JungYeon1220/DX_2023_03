@@ -17,10 +17,11 @@ void LineCollisionScene::Update()
 {
 	_line2->_endPos = mousePos;
 
-	_circle->SetCenter(_line2->GetIntersectPoint(_line1));
+	HitResult result = _line1->IsCollision(_line2);
 
-	if (_line2->IsCollision(_line1))
+	if (result.isCollision)
 	{
+		_circle->SetCenter(result.contact);
 		_line1->SetRed();
 		_line2->SetRed();
 

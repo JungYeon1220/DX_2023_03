@@ -60,6 +60,14 @@ public:
         return *this;
     }
 
+    Vector2& operator+=(const Vector2& other)
+    {
+        x += other.x;
+        y += other.y;
+
+        return *this;
+    }
+
     float Length() const
     {
         float result = sqrtf(x * x + y * y);
@@ -109,6 +117,8 @@ public:
         x /= Length();
         y /= Length();
     }
+
+    bool IsBetween(Vector2 a, Vector2 b);
 
 public:
     float x;

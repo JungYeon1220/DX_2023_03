@@ -1,4 +1,6 @@
 #pragma once
+#include "../Type.h"
+
 class Line
 {
 public:
@@ -8,7 +10,7 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
-	bool IsCollision(shared_ptr<Line> other);
+	HitResult IsCollision(shared_ptr<Line> other);
 	Vector2 GetIntersectPoint(shared_ptr<Line> other);
 
 	void SetGreen() { _curPenIdex = 0; }

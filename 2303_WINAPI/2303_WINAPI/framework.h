@@ -22,7 +22,6 @@
 
 using namespace std;
 
-#include "Type.h"
 
 // Math
 #include "Math/Vector2.h"
@@ -30,6 +29,12 @@ using namespace std;
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
 #include "Math/Line.h"
+
+#include "Type.h"
+
+// Object
+#include "Object/Bullet.h"
+#include "Object/Cannon.h"
 
 // Scene
 #include "Scene/Scene.h"

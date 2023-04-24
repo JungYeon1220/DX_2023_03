@@ -19,8 +19,13 @@ void Line::Render(HDC hdc)
 	LineTo(hdc, _endPos.x, _endPos.y);
 }
 
-bool Line::IsCollision(shared_ptr<Line> other)
+HitResult Line::IsCollision(shared_ptr<Line> other)
 {
+	HitResult result;
+	result.col = nullptr;
+	result.contact = Vector2(-10000, -10000);
+	result.isCollision = false;
+
 	Vector2 lineVector1 = _endPos - _startPos;
 	Vector2 startVector1 = other->_startPos - _startPos;
 	Vector2 endVector1 = other->_endPos - _startPos;
@@ -29,19 +34,22 @@ bool Line::IsCollision(shared_ptr<Line> other)
 	Vector2 startVector2 = _startPos - other->_startPos;
 	Vector2 endVector2 = _endPos - other->_startPos;
 
-	float result1 = lineVector1.Cross(startVector1) * lineVector1.Cross(endVector1);
-	float result2 = lineVector2.Cross(startVector2) * lineVector2.Cross(endVector2);
+	float leftTriangle = abs(lineVector1.Cross(startVector1));
+	float rightTriangle = abs(lineVector1.Cross(endVector1));
 
-	if (result1 <= 0 && result2 <= 0)
-		return true;
-	else
-		return false;
+	float t = (leftTriangle / (leftTriangle + rightTriangle));
+
+	Vector2 contact = other->_startPos + (other->_endPos - other->_startPos) * t;
+
+	result.contact = contact;
+
+	result.isCollision = lineVector1.IsBetween(startVector1, endVector1) && lineVector2.IsBetween(startVector2, endVector2);
+
+	return result;
 }
 
 Vector2 Line::GetIntersectPoint(shared_ptr<Line> other)
 {
-	if (IsCollision(other))
-	{
 		Vector2 unitLine1Vector = (_endPos - _startPos).NormalVector2();
 		Vector2 unitLine2Vector = (other->_endPos - other->_startPos).NormalVector2();
 
@@ -56,9 +64,6 @@ Vector2 Line::GetIntersectPoint(shared_ptr<Line> other)
 		Vector2 intersectPoint = _startPos + (unitLine1Vector * length);
 
 		return intersectPoint;
-	}
-	else
-		return Vector2();
 }
 
 void Line::CreatePens()
