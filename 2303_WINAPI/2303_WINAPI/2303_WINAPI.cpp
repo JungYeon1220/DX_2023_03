@@ -54,7 +54,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
         {
             TranslateMessage(&msg);
-            DispatchMessage(&msg);
+             DispatchMessage(&msg);
         }
     }
 
@@ -111,6 +111,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
       return FALSE;
    }
 
+   SetMenu(hWnd, nullptr);
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 

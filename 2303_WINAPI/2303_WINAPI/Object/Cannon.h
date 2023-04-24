@@ -17,7 +17,7 @@ private:
 
 	Vector2 _pos = CENTER;
 	float _barrelLength = 100;
-	float _speed = 0.2f;
+	float _speed = 1.0f;
 
 	shared_ptr<Line> _barrel;
 	Vector2 _direction;

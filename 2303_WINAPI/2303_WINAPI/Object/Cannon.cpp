@@ -18,6 +18,7 @@ Cannon::~Cannon()
 void Cannon::Update()
 {
 	MoveByInput();
+	Fire();
 
 	_body->SetCenter(_pos);
 	_barrel->_startPos = _pos;
@@ -41,19 +42,19 @@ void Cannon::MoveByInput()
 {
 	if (GetAsyncKeyState('A'))
 	{
-		_pos.x += _speed;
+		_pos.x -= _speed;
 	}
 	if (GetAsyncKeyState('D'))
 	{
-		_pos.x -= _speed;
+		_pos.x += _speed;
 	}
 	if (GetAsyncKeyState('W'))
 	{
-		_angle += 0.1f;
+		_angle -= 0.1f;
 	}
 	if (GetAsyncKeyState('S'))
 	{
-		_angle -= 0.1f;
+		_angle += 0.1f;
 	}
 
 	_direction.x = cos(_angle);
@@ -64,8 +65,8 @@ void Cannon::Fire()
 {
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		_bullet->SetDirection(_direction);
 		Vector2 muzzle = _barrel->_endPos;
 		_bullet->SetPos(muzzle);
+		_bullet->SetDirection(_direction);
 	}
 }

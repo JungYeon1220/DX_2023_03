@@ -13,6 +13,9 @@ Bullet::~Bullet()
 
 void Bullet::Update()
 {
+	_pos += _direction * _speed;
+	_circle->SetCenter(_pos);
+
 	_circle->Update();
 
 }
