@@ -35,6 +35,9 @@ using namespace std;
 // Object
 #include "Object/Bullet.h"
 #include "Object/Cannon.h"
+#include "Object/Bar.h"
+#include "Object/Brick.h"
+#include "Object/Ball.h"
 
 // Scene
 #include "Scene/Scene.h"

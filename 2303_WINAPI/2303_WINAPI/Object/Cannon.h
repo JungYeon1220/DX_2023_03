@@ -28,10 +28,10 @@ private:
 
 	shared_ptr<CircleCollider> _body;
 	Vector2 _pos = CENTER;
-	float _barrelLength = 100;
 	float _speed = 1.0f;
 
 	shared_ptr<Line> _barrel;
+	float _barrelLength = 100;
 	Vector2 _direction;
 	float _angle = 0.0f;
 
