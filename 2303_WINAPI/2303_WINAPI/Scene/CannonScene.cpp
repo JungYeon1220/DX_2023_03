@@ -15,15 +15,13 @@ CannonScene::~CannonScene()
 void CannonScene::Update()
 {
 	_cannon1->Update();
-	if(_cannon2->_isDead())
 	_cannon2->Update();
 
 	for (auto bullet : _cannon1->GetBullets())
 	{
-		if (bullet->AttackCannon(_cannon2))
-		{
-
-		}
+		if (bullet->IsActive() == false)
+			continue;
+		bullet->AttackCannon(_cannon2);
 	}
 }
 

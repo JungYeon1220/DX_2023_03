@@ -22,6 +22,9 @@ Cannon::~Cannon()
 
 void Cannon::Update()
 {
+	if (_isDead())
+		return;
+
 	if (_isControl)
 	{
 		MoveByInput();
@@ -43,6 +46,9 @@ void Cannon::Update()
 
 void Cannon::Render(HDC hdc)
 {
+	if (_isDead())
+		return;
+
 	_barrel->Render(hdc);
 	_body->Render(hdc);
 

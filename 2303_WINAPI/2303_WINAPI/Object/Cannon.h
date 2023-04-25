@@ -12,26 +12,18 @@ public:
 	void Fire();
 
 	int& GetHp() { return _hp; }
+	void TakeDamage(int amount) { _hp -= amount; }
 
 	shared_ptr<Bullet> SetBullet();
-
 	void SetPosition(const Vector2& pos) { _pos = pos; }
 
 	vector<shared_ptr<Bullet>>& GetBullets() { return _bullets; }
+
 	shared_ptr<CircleCollider> GetBody() { return _body; }
 
+	bool _isDead() { return _hp <= 0; }
+
 	bool _isControl = true;
-	bool _isDead()
-	{
-		if (_hp <= 0)
-		{
-			_hp = 0;
-			return true;
-		}
-
-		return false;
-	}
-
 private:
 
 	shared_ptr<CircleCollider> _body;
@@ -47,7 +39,7 @@ private:
 	// 내가 입력할 때마다 생성(동적할당)하지 않고 미리 생성해놓은 풀에서 껐다 켰다를 반복
 	// => 오브젝트 풀링
 	bool _spacePress = false;
-	bool _spaceUp = false;
+	bool _spaceUp = true;
 	float _power;
 	vector<shared_ptr<Bullet>> _bullets;
 
