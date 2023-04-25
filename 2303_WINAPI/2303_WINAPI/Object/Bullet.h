@@ -11,11 +11,19 @@ public:
 	void SetDirection(Vector2 dir) { _direction = dir.NormalVector2(); }
 	void SetPos(const Vector2& pos) { _pos = pos; }
 
+	void SetActive(bool value) { _isActive = value; }
+	bool IsActive() { return _isActive; }
+
+	bool AttackCannon(shared_ptr<class Cannon> cannon);
+
 private:
-	shared_ptr<CircleCollider> _circle;
+	bool _isActive = false;
+	shared_ptr<Collider> _circle;
 
 	Vector2 _direction = Vector2();
 	Vector2 _pos = Vector2();
-	float _speed = 3.0f;
+	float _speed = 10.0f;
+
+	int _damage = 10;
 };
 

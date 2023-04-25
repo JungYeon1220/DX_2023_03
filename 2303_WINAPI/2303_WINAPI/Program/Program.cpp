@@ -9,6 +9,8 @@
 
 Program::Program()
 {
+	HDC hdc = GetDC(hWnd);
+
 	_scene = make_shared<CannonScene>();
 }
 
