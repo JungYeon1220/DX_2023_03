@@ -3,7 +3,7 @@
 
 Brick::Brick()
 {
-	_rect = make_shared<RectCollider>(CENTER, Vector2(60, 15));
+	_rect = make_shared<RectCollider>(CENTER, Vector2(60, 20));
 }
 
 Brick::~Brick()

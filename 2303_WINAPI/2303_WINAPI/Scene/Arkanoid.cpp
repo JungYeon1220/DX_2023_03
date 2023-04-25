@@ -29,6 +29,6 @@ void Arkanoid::Update()
 void Arkanoid::Render(HDC hdc)
 {
 	_bar->Render(hdc);
-	_ball->Render(hdc);
 	_brick->Render(hdc);
+	_ball->Render(hdc);
 }
