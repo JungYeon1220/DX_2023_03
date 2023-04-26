@@ -152,6 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="2303_WINAPI.h" />
+    <ClInclude Include="Object\Maze\Maze.h" />
+    <ClInclude Include="Object\Maze\MazeBlock.h" />
+    <ClInclude Include="Object\Maze\Player.h" />
+    <ClInclude Include="Scene\MazeScene.h" />
     <ClInclude Include="Object\Brick.h" />
     <ClInclude Include="Object\Ball.h" />
     <ClInclude Include="Object\Bar.h" />
@@ -176,6 +180,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="2303_WINAPI.cpp" />
+    <ClCompile Include="Object\Maze\Maze.cpp" />
+    <ClCompile Include="Object\Maze\MazeBlock.cpp" />
+    <ClCompile Include="Object\Maze\Player.cpp" />
+    <ClCompile Include="Scene\MazeScene.cpp" />
     <ClCompile Include="Object\Brick.cpp" />
     <ClCompile Include="Object\Ball.cpp" />
     <ClCompile Include="Object\Bar.cpp" />

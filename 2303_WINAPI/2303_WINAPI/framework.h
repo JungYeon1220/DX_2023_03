@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <string>
 #include <algorithm>
+#include <time.h>
 
 using namespace std;
 
@@ -38,6 +39,9 @@ using namespace std;
 #include "Object/Bar.h"
 #include "Object/Brick.h"
 #include "Object/Ball.h"
+#include "Object/Maze/MazeBlock.h"
+#include "Object/Maze/Maze.h"
+#include "Object/Maze/Player.h"
 
 // Scene
 #include "Scene/Scene.h"
