@@ -11,7 +11,7 @@ public:
 private:
 	shared_ptr<Bar> _bar;
 	shared_ptr<Ball> _ball;
-	shared_ptr<Brick> _brick;
+	vector<shared_ptr<Brick>> _bricks;
 
 };
 

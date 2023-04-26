@@ -12,10 +12,18 @@ Brick::~Brick()
 
 void Brick::Update()
 {
-	_rect->Update();
+	if(_isActive == true)
+	{
+		dynamic_pointer_cast<RectCollider>(_rect)->SetSize(_size);
+		_rect->SetCenter(_pos);
+		_rect->Update();
+	}
 }
 
 void Brick::Render(HDC hdc)
 {
-	_rect->Render(hdc);
+	if (_isActive == true)
+	{
+		_rect->Render(hdc);
+	}
 }

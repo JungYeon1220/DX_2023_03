@@ -3,7 +3,7 @@
 
 Ball::Ball()
 {
-	_circle = make_shared<CircleCollider>(CENTER, 10);
+	_circle = make_shared<CircleCollider>(Vector2(), 10);
 }
 
 Ball::~Ball()
@@ -42,4 +42,33 @@ void Ball::Collision(shared_ptr<Bar> bar)
 {
 	if (_circle->GetCenter().y < bar->GetTop() && _circle->IsCollision(bar->GetRect()))
 		SetDirection(_circle->GetCenter() - bar->GetPosition());
+}
+
+bool Ball::Collision(shared_ptr<Brick> brick)
+{
+	if (_circle->IsCollision(brick->GetRect()) && brick->_isActive == true)
+	{
+		if (_circle->GetCenter().x > brick->GetRect()->Left() && _circle->GetCenter().x < brick->GetRect()->Right())
+		{
+			_direction.y = -_direction.y;
+		}
+		else if (_circle->GetCenter().y > brick->GetRect()->Top() && _circle->GetCenter().y < brick->GetRect()->Bottom())
+		{
+			_direction.x = -_direction.x;
+		}
+		else
+		{
+			bool xPos = _pos.x > brick->GetRect()->GetCenter().x;
+			bool yPos = _pos.y > brick->GetRect()->GetCenter().y;
+
+			Vector2 normal = Vector2(1 - (2 * xPos), 1 - (2 * yPos)).NormalVector2();
+
+			_direction = _direction - normal * _direction.Dot(normal) * 2;
+		}
+
+		brick->_isActive = false;
+		return true;
+	}
+
+	return false;
 }
