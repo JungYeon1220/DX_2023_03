@@ -36,9 +36,12 @@ using namespace std;
 // Object
 #include "Object/Bullet.h"
 #include "Object/Cannon.h"
-#include "Object/Bar.h"
-#include "Object/Brick.h"
-#include "Object/Ball.h"
+
+#include "Object/Arkanoid/Bar.h"
+#include "Object/Arkanoid/Brick.h"
+#include "Object/Arkanoid/Ball.h"
+#include "Object/Arkanoid/Stage.h"
+
 #include "Object/Maze/MazeBlock.h"
 #include "Object/Maze/Maze.h"
 #include "Object/Maze/Player.h"

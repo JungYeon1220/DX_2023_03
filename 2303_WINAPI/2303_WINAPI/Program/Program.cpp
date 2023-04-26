@@ -20,7 +20,7 @@ Program::Program()
 	_hBit = CreateCompatibleBitmap(hdc, WIN_WIDTH, WIN_HEIGHT);
 	SelectObject(_backBuffer, _hBit);
 
-	_scene = make_shared<MazeScene>();
+	_scene = make_shared<Arkanoid>();
 }
 
 Program::~Program()

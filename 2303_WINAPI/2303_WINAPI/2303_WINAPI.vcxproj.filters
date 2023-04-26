@@ -72,13 +72,13 @@
     <ClInclude Include="Scene\Arkanoid.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Bar.h">
+    <ClInclude Include="Object\Arkanoid\Bar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Ball.h">
+    <ClInclude Include="Object\Arkanoid\Ball.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Brick.h">
+    <ClInclude Include="Object\Arkanoid\Brick.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Scene\MazeScene.h">
@@ -91,6 +91,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\Maze\Player.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Arkanoid\Stage.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,13 +146,13 @@
     <ClCompile Include="Scene\Arkanoid.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Bar.cpp">
+    <ClCompile Include="Object\Arkanoid\Bar.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Ball.cpp">
+    <ClCompile Include="Object\Arkanoid\Ball.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Brick.cpp">
+    <ClCompile Include="Object\Arkanoid\Brick.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Scene\MazeScene.cpp">
@@ -162,6 +165,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\Maze\Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Arkanoid\Stage.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

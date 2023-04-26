@@ -19,7 +19,7 @@ private:
 	shared_ptr<Collider> _rect;
 
 	Vector2 _pos = Vector2(CENTER.x, 650.0f);
-	Vector2 _size = Vector2(100, 20);
+	Vector2 _size = Vector2(100, 15);
 	float _speed = 4.5f;
 
 };

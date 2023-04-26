@@ -5,14 +5,11 @@ Arkanoid::Arkanoid()
 {
 	_bar = make_shared<Bar>();
 	_ball = make_shared<Ball>();
-	for (int i = 0; i < 3; i++)
-	{
-		shared_ptr<Brick> brick = make_shared<Brick>();
-		_bricks.push_back(brick);
-	}
-	_bricks[0]->SetPosition(CENTER);
-	_bricks[1]->SetPosition(Vector2(CENTER.x - 60, CENTER.y));
-	_bricks[2]->SetPosition(Vector2(CENTER.x + 60, CENTER.y));
+
+	_stage = make_shared<Stage>();
+
+	_wall1 = make_shared<Line>(Vector2((int)CENTER.x - BRICKSIZEX * 6, 0), Vector2((int)CENTER.x - BRICKSIZEX * 6, WIN_HEIGHT));
+	_wall2 = make_shared<Line>(Vector2((int)CENTER.x + BRICKSIZEX * 6, 0), Vector2((int)CENTER.x + BRICKSIZEX * 6, WIN_HEIGHT));
 }
 
 Arkanoid::~Arkanoid()
@@ -27,27 +24,32 @@ void Arkanoid::Update()
 	}
 
 	_ball->Collision(_bar);
-
-	for (auto brick : _bricks)
+	for (auto brickArr : _stage->GetBricks())
 	{
-		if (_ball->Collision(brick))
+		bool hit;
+		for (auto brick : brickArr)
+		{
+			hit = _ball->Collision(brick);
+			if (hit)
+				break;
+		}
+		if (hit)
 			break;
 	}
 
-	for (auto brick : _bricks)
-	{
-		brick->Update();
-	}
 	_bar->Update();
 	_ball->Update();
+	_wall1->Update();
+	_wall2->Update();
+	_stage->Update();
 }
 
 void Arkanoid::Render(HDC hdc)
 {
 	_bar->Render(hdc);
 	_ball->Render(hdc);
-	for (auto brick : _bricks)
-	{
-		brick->Render(hdc);
-	}
+
+	_wall1->Render(hdc);
+	_wall2->Render(hdc);
+	_stage->Render(hdc);
 }

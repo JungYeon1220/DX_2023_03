@@ -25,11 +25,11 @@ void Bar::Render(HDC hdc)
 
 void Bar::MoveByInput()
 {
-	if (GetAsyncKeyState('A') && dynamic_pointer_cast<RectCollider>(_rect)->Left() > 0)
+	if (GetAsyncKeyState('A') && dynamic_pointer_cast<RectCollider>(_rect)->Left() > CENTER.x - BRICKSIZEX * 6 + 5)
 	{
 		_pos.x -= _speed;
 	}
-	if (GetAsyncKeyState('D') && dynamic_pointer_cast<RectCollider>(_rect)->Right() < WIN_WIDTH)
+	if (GetAsyncKeyState('D') && dynamic_pointer_cast<RectCollider>(_rect)->Right() < CENTER.x + BRICKSIZEX * 6 - 2)
 	{
 		_pos.x += _speed;
 	}

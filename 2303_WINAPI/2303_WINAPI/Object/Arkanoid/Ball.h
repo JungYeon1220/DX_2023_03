@@ -21,7 +21,7 @@ private:
 	shared_ptr<Collider> _circle;
 	Vector2 _pos = Vector2();
 
-	float _speed = 4.5f;
+	float _speed = 5.5f;
 	Vector2 _direction = Vector2(0, 0);
 
 

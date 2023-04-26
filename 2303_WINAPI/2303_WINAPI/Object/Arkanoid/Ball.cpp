@@ -3,7 +3,7 @@
 
 Ball::Ball()
 {
-	_circle = make_shared<CircleCollider>(Vector2(), 10);
+	_circle = make_shared<CircleCollider>(Vector2(), 8);
 }
 
 Ball::~Ball()
@@ -20,7 +20,7 @@ void Ball::Update()
 		_pos += _direction * _speed;
 	}
 
-	if (_pos.x > WIN_WIDTH - GetRadius() || _pos.x < 0 + GetRadius())
+	if (_pos.x > CENTER.x + BRICKSIZEX * 6 - GetRadius() || _pos.x < CENTER.x - BRICKSIZEX * 6 + GetRadius())
 		_direction.x = -_direction.x;
 	if (_pos.y < 0 + GetRadius())
 		_direction.y = -_direction.y;
@@ -48,11 +48,11 @@ bool Ball::Collision(shared_ptr<Brick> brick)
 {
 	if (_circle->IsCollision(brick->GetRect()) && brick->_isActive == true)
 	{
-		if (_circle->GetCenter().x > brick->GetRect()->Left() && _circle->GetCenter().x < brick->GetRect()->Right())
+		if (_circle->GetCenter().x > brick->GetRect()->Left() - 3 && _circle->GetCenter().x < brick->GetRect()->Right() + 3)
 		{
 			_direction.y = -_direction.y;
 		}
-		else if (_circle->GetCenter().y > brick->GetRect()->Top() && _circle->GetCenter().y < brick->GetRect()->Bottom())
+		else if (_circle->GetCenter().y > brick->GetRect()->Top() - 3 && _circle->GetCenter().y < brick->GetRect()->Bottom() + 3)
 		{
 			_direction.x = -_direction.x;
 		}

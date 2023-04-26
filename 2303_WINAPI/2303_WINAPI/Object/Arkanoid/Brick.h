@@ -18,6 +18,6 @@ private:
 	shared_ptr<Collider> _rect;
 
 	Vector2 _pos = CENTER;
-	Vector2 _size = Vector2(60, 20);
+	Vector2 _size = Vector2(BRICKSIZEX, BRICKSIZEY);
 };
 
