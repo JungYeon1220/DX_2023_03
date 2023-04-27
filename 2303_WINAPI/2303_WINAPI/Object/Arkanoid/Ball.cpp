@@ -20,7 +20,8 @@ void Ball::Update()
 		_pos += _direction * _speed;
 	}
 
-	if (_pos.x > CENTER.x + BRICKSIZEX * 6 - GetRadius() || _pos.x < CENTER.x - BRICKSIZEX * 6 + GetRadius())
+	if ((_pos.x > CENTER.x + BRICKSIZEX * 6 - GetRadius() && _direction.x > 0)
+	|| (_pos.x < CENTER.x - BRICKSIZEX * 6 + GetRadius() && _direction.x < 0))
 		_direction.x = -_direction.x;
 	if (_pos.y < 0 + GetRadius())
 		_direction.y = -_direction.y;
@@ -48,11 +49,11 @@ bool Ball::Collision(shared_ptr<Brick> brick)
 {
 	if (_circle->IsCollision(brick->GetRect()) && brick->_isActive == true)
 	{
-		if (_circle->GetCenter().x > brick->GetRect()->Left() - 3 && _circle->GetCenter().x < brick->GetRect()->Right() + 3)
+		if (_circle->GetCenter().x > brick->GetRect()->Left() && _circle->GetCenter().x < brick->GetRect()->Right())
 		{
 			_direction.y = -_direction.y;
 		}
-		else if (_circle->GetCenter().y > brick->GetRect()->Top() - 3 && _circle->GetCenter().y < brick->GetRect()->Bottom() + 3)
+		else if (_circle->GetCenter().y > brick->GetRect()->Top() && _circle->GetCenter().y < brick->GetRect()->Bottom())
 		{
 			_direction.x = -_direction.x;
 		}
@@ -63,7 +64,16 @@ bool Ball::Collision(shared_ptr<Brick> brick)
 
 			Vector2 normal = Vector2(1 - (2 * xPos), 1 - (2 * yPos)).NormalVector2();
 
-			_direction = _direction - normal * _direction.Dot(normal) * 2;
+			if(_direction.Dot(normal) > 0)
+				_direction = _direction - normal * _direction.Dot(normal) * 2;
+			else if(fabsf(_direction.x) > fabsf(_direction.y))
+			{
+				_direction.y = -_direction.y;
+			}
+			else
+			{
+				_direction.x = -_direction.x;
+			}
 		}
 
 		brick->_isActive = false;
