@@ -68,6 +68,16 @@ public:
         return *this;
     }
 
+    bool operator==(const Vector2& other) const
+    {
+        return (x == other.x) && (y == other.y);
+    }
+
+    bool operator!=(const Vector2& other) const
+    {
+        return !this->operator==(other);
+    }
+
     float Length() const
     {
         float result = sqrtf(x * x + y * y);

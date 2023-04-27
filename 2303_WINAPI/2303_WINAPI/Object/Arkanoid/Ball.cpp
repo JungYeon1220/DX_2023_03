@@ -64,7 +64,7 @@ bool Ball::Collision(shared_ptr<Brick> brick)
 
 			Vector2 normal = Vector2(1 - (2 * xPos), 1 - (2 * yPos)).NormalVector2();
 
-			if(_direction.Dot(normal) > 0)
+			if(_direction.Dot(normal) < 0)
 				_direction = _direction - normal * _direction.Dot(normal) * 2;
 			else if(fabsf(_direction.x) > fabsf(_direction.y))
 			{
