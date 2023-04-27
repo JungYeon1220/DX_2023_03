@@ -7,13 +7,16 @@ MazeBlock::MazeBlock()
 
 	HBRUSH able = CreateSolidBrush(GREEN);
 	HBRUSH disable = CreateSolidBrush(RED);
-	HBRUSH player = CreateSolidBrush(GREY);
+	HBRUSH player = CreateSolidBrush(WHITE);
 	HBRUSH end = CreateSolidBrush(BLUE);
+	HBRUSH path = CreateSolidBrush(GREY);
 
 	_brushes.push_back(able);
 	_brushes.push_back(disable);
 	_brushes.push_back(player);
 	_brushes.push_back(end);
+	_brushes.push_back(path);
+
 }
 
 MazeBlock::~MazeBlock()

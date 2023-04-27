@@ -21,7 +21,7 @@ Player::~Player()
 
 void Player::Update()
 {
-	_time += 0.3f;
+	_time += 0.2f;
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
@@ -34,8 +34,13 @@ void Player::Update()
 	}
 
 	Vector2 temp = _path[_pathIndex];
-
 	_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
+
+	if (_pathIndex != 0)
+	{
+		Vector2 temp2 = _path[_pathIndex - 1];
+		_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::PATH);
+	}
 }
 
 bool Player::Cango(Vector2 pos)
@@ -98,6 +103,7 @@ void Player::RightHand()
 	
 
 	stack<Vector2> s;
+
 	for (int i = 0; i < _path.size() - 1; i++)
 	{
 		if (s.empty() == false && s.top() == _path[i + 1])
@@ -110,6 +116,8 @@ void Player::RightHand()
 
 	s.push(_endPos);
 
+	_path.clear();
+
 	while (true)
 	{
 		if (s.empty())
@@ -119,5 +127,7 @@ void Player::RightHand()
 	}
 
 	std::reverse(_path.begin(), _path.end());
+
+	return;
 
 }

@@ -8,6 +8,7 @@ public:
 		DISABLE,
 		PLAYER,
 		END,
+		PATH,
 		NONE
 	};
 
