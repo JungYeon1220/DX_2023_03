@@ -8,6 +8,7 @@ public:
 	void Update();
 
 	void RightHand();
+	void BFS();
 
 	bool Cango(Vector2 pos);
 
@@ -21,5 +22,8 @@ private:
 	vector<Vector2> _path;
 
 	weak_ptr<Maze> _maze;
+
+	vector<vector<bool>> _discovered;
+	vector<vector<Vector2>> _parent;
 };
 

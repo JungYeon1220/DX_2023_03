@@ -9,6 +9,7 @@ public:
 		PLAYER,
 		END,
 		PATH,
+		VISITED,
 		NONE
 	};
 

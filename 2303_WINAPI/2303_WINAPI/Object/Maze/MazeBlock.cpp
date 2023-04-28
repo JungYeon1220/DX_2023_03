@@ -10,12 +10,14 @@ MazeBlock::MazeBlock()
 	HBRUSH player = CreateSolidBrush(WHITE);
 	HBRUSH end = CreateSolidBrush(BLUE);
 	HBRUSH path = CreateSolidBrush(GREY);
+	HBRUSH visited = CreateSolidBrush(DARK_GREY);
 
 	_brushes.push_back(able);
 	_brushes.push_back(disable);
 	_brushes.push_back(player);
 	_brushes.push_back(end);
 	_brushes.push_back(path);
+	_brushes.push_back(visited);
 
 }
 
