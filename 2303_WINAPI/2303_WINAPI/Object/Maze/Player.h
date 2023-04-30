@@ -19,7 +19,9 @@ private:
 	float _time = 0.0f;
 
 	int _pathIndex = 0;
+	int _visitedIndex = 0;
 	vector<Vector2> _path;
+	vector<Vector2> _visited;
 
 	weak_ptr<Maze> _maze;
 

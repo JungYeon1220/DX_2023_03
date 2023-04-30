@@ -9,6 +9,7 @@ public:
 	void Render(HDC hdc);
 
 	shared_ptr<RectCollider> GetRect() { return dynamic_pointer_cast<RectCollider>(_rect); }
+	Vector2 GetSize() { return _size; }
 
 	void SetPosition(Vector2 pos) { _pos = pos; }
 	void SetSize(Vector2 size) { _size = size; }

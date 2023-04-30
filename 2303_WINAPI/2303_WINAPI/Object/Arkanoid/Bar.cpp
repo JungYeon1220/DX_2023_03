@@ -20,6 +20,8 @@ void Bar::Update()
 
 void Bar::Render(HDC hdc)
 {
+	SelectObject(hdc, CreateSolidBrush(WHITE));
+
 	_rect->Render(hdc);
 }
 

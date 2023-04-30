@@ -62,7 +62,7 @@ bool Ball::Collision(shared_ptr<Brick> brick)
 			bool xPos = _pos.x > brick->GetRect()->GetCenter().x;
 			bool yPos = _pos.y > brick->GetRect()->GetCenter().y;
 
-			Vector2 normal = Vector2(1 - (2 * xPos), 1 - (2 * yPos)).NormalVector2();
+			Vector2 normal = Vector2(-1 + (2 * xPos), -1 + (2 * yPos)).NormalVector2();
 
 			if(_direction.Dot(normal) < 0)
 				_direction = _direction - normal * _direction.Dot(normal) * 2;

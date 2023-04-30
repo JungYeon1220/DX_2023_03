@@ -13,7 +13,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->Block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	RightHand();
+	BFS();
 }
 
 Player::~Player()
@@ -26,21 +26,39 @@ void Player::Update()
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
-		_pathIndex++;
+		_visitedIndex++;
+		if (_visitedIndex >= _visited.size())
+		{
+			_pathIndex++;
+		}
 	}
 
-	if (_pathIndex >= _path.size())
+	if (_visitedIndex >= _visited.size())
 	{
-		return;
+		if (_pathIndex >= _path.size())
+		{
+			return;
+		}
+
+		Vector2 temp = _path[_pathIndex];
+		_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
+
+		if (_pathIndex != 0)
+		{
+			Vector2 temp2 = _path[_pathIndex - 1];
+			_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::PATH);
+		}
 	}
-
-	Vector2 temp = _path[_pathIndex];
-	_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
-
-	if (_pathIndex != 0)
+	else if(_visited.empty() == false)
 	{
-		Vector2 temp2 = _path[_pathIndex - 1];
-		_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::PATH);
+		Vector2 temp = _visited[_visitedIndex];
+		_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
+
+		if (_visitedIndex != 0)
+		{
+			Vector2 temp2 = _visited[_visitedIndex - 1];
+			_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::VISITED);
+		}
 	}
 }
 
@@ -146,16 +164,56 @@ void Player::BFS()
 	q.push(_startPos);
 	_discovered[_startPos.y][_startPos.x] = true;
 	_parent[_startPos.y][_startPos.x] = _startPos;
+	_visited.push_back(_startPos);
+
+	Vector2 frontPos[4] =
+	{
+		Vector2 {0, -1}, // UP
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {0, 1}, // DOWN
+		Vector2 {1, 0} // RIGHT
+	};
 
 	while (true)
 	{
 		Vector2 here = q.front();
 		q.pop();
 
-		for (int y = 0; y < poolCountY; y++)
+		for (int i = 0; i < 4; i++)
 		{
-			for(int)
+			Vector2 temp = here + frontPos[i];
+			if (_maze.lock()->Block(temp.x, temp.y)->GetType() == MazeBlock::BlockType::DISABLE)
+				continue;
+
+			if (_discovered[temp.y][temp.x] == true)
+				continue;
+
+			q.push(temp);
+			_discovered[temp.y][temp.x] = true;
+			_parent[temp.y][temp.x] = here;
+			_visited.push_back(temp);
+
+			if (temp == _endPos)
+				break;
+		}
+
+		if (_visited.back() == _endPos)
+		{
+			Vector2 check = _endPos;
+
+			while (true)
+			{
+				_path.push_back(check);
+
+				if (check == _parent[check.y][check.x])
+					break;
+
+				check = _parent[check.y][check.x];
+			}
+
+			std::reverse(_path.begin(), _path.end());
+			break;
 		}
 	}
-
+	return;
 }

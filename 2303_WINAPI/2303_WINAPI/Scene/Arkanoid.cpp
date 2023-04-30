@@ -26,7 +26,7 @@ void Arkanoid::Update()
 	_ball->Collision(_bar);
 	for (auto brickArr : _stage->GetBricks())
 	{
-		bool hit;
+		bool hit = false;
 		for (auto brick : brickArr)
 		{
 			hit = _ball->Collision(brick);
@@ -48,8 +48,8 @@ void Arkanoid::Render(HDC hdc)
 {
 	_bar->Render(hdc);
 	_ball->Render(hdc);
+	_stage->Render(hdc);
 
 	_wall1->Render(hdc);
 	_wall2->Render(hdc);
-	_stage->Render(hdc);
 }

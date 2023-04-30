@@ -8,7 +8,7 @@ void CircleCollider::Update()
 
 void CircleCollider::Render(HDC hdc)
 {
-	SelectObject(hdc, _pens[_curPenIdex]);
+	//SelectObject(hdc, _pens[_curPenIdex]);
 
 	float left = _center.x - _radius;
 	float right = _center.y - _radius;

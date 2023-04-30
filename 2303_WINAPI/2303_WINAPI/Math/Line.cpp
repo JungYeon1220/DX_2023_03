@@ -69,6 +69,6 @@ Vector2 Line::GetIntersectPoint(shared_ptr<Line> other)
 void Line::CreatePens()
 {
 	_curPenIdex = 0;
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
-	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED));   // 1
+	_pens.emplace_back(CreatePen(PS_SOLID, 1, GREEN)); // 0
+	_pens.emplace_back(CreatePen(PS_SOLID, 1, RED));   // 1
 }

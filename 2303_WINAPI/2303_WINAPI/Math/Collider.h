@@ -27,16 +27,19 @@ public:
 	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
 
-	void SetGreen() { _curPenIdex = 0; }
-	void SetRed() { _curPenIdex = 1; }
+	void SetGreen() { _curPenIndex = 0; }
+	void SetRed() { _curPenIndex = 1; }
 
 protected:
 	Type _type;
 
 	void CreatePens();
+	void CreateBrushes();
 
-	int _curPenIdex;
+	int _curBrushIndex;
+	int _curPenIndex;
 	vector<HPEN> _pens;
+	vector<HBRUSH> _brushes;
 
 	Vector2 _center = { 0.0f, 0.0f };
 };

@@ -6,6 +6,7 @@ Collider::Collider(Vector2 center)
 {
 	_type = Type::NONE;
 	CreatePens();
+	CreateBrushes();
 }
 
 Collider::~Collider()
@@ -39,9 +40,21 @@ bool Collider::IsCollision(shared_ptr<Collider> col)
 
 void Collider::CreatePens()
 {
-	_curPenIdex = 0;
+	_curPenIndex = 0;
 	_pens.emplace_back(CreatePen(PS_SOLID, 3, GREEN)); // 0
 	_pens.emplace_back(CreatePen(PS_SOLID, 3, RED));   // 1
+}
+
+void Collider::CreateBrushes()
+{
+	_curBrushIndex = 0;
+
+	_brushes.push_back(CreateSolidBrush(WHITE));
+	_brushes.push_back(CreateSolidBrush(GREY));
+	_brushes.push_back(CreateSolidBrush(DARK_GREY));
+	_brushes.push_back(CreateSolidBrush(RED));
+	_brushes.push_back(CreateSolidBrush(GREEN));
+	_brushes.push_back(CreateSolidBrush(BLUE));
 }
 
 bool Collider::IsCollision(const Vector2& pos)
