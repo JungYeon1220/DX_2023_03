@@ -13,7 +13,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->Block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	BFS();
+	DFS();
 }
 
 Player::~Player()
@@ -216,4 +216,53 @@ void Player::BFS()
 		}
 	}
 	return;
+}
+
+void Player::DFS()
+{
+	Vector2 poolCount = _maze.lock()->PoolCount();
+	int poolCountX = (int)poolCount.x;
+	int poolCountY = (int)poolCount.y;
+	_discovered = vector<vector<bool>>(poolCountY, vector<bool>(poolCountX, false));
+
+	_discovered[_startPos.y][_startPos.x] = true;
+	_visited.push_back(_startPos);
+
+	DFS(_startPos);
+
+	std::reverse(_path.begin(), _path.end());
+}
+
+void Player::DFS(Vector2 here)
+{
+	Vector2 frontPos[4] =
+	{
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {1, 0}, // RIGHT
+		Vector2 {0, -1}, // UP
+		Vector2 {0, 1} // DOWN
+	};
+
+	_discovered[here.y][here.x] = true;
+	_visited.push_back(here);
+
+	for (int i = 0; i < 4; i++)
+	{
+		Vector2 there = here + frontPos[i];
+		if (here == there)
+			continue;
+		if (Cango(there) == false)
+			continue;
+		if (_discovered[there.y][there.x] == true)
+			continue;
+		if (_visited.back() == _endPos)
+			break;
+
+		DFS(there);
+	}
+
+	if (_visited.back() == _endPos)
+	{
+		_path.push_back(here);
+	}
 }

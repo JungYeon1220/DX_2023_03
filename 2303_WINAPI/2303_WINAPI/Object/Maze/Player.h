@@ -9,6 +9,8 @@ public:
 
 	void RightHand();
 	void BFS();
+	void DFS();
+	void DFS(Vector2 here);
 
 	bool Cango(Vector2 pos);
 
