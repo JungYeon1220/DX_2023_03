@@ -181,19 +181,19 @@ void Player::BFS()
 
 		for (int i = 0; i < 4; i++)
 		{
-			Vector2 temp = here + frontPos[i];
-			if (_maze.lock()->Block(temp.x, temp.y)->GetType() == MazeBlock::BlockType::DISABLE)
+			Vector2 there = here + frontPos[i];
+			if (Cango(there) == false)
 				continue;
 
-			if (_discovered[temp.y][temp.x] == true)
+			if (_discovered[there.y][there.x] == true)
 				continue;
 
-			q.push(temp);
-			_discovered[temp.y][temp.x] = true;
-			_parent[temp.y][temp.x] = here;
-			_visited.push_back(temp);
+			q.push(there);
+			_discovered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here;
+			_visited.push_back(there);
 
-			if (temp == _endPos)
+			if (there == _endPos)
 				break;
 		}
 

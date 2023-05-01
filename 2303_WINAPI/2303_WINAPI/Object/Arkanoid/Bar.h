@@ -20,7 +20,7 @@ private:
 
 	Vector2 _pos = Vector2(CENTER.x, 650.0f);
 	Vector2 _size = Vector2(100, 15);
-	float _speed = 4.5f;
+	float _speed = 4.8f;
 
 };
 
