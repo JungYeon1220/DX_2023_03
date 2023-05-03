@@ -13,7 +13,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->Block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	DFS();
+	BFS();
 }
 
 Player::~Player()
@@ -166,12 +166,17 @@ void Player::BFS()
 	_parent[_startPos.y][_startPos.x] = _startPos;
 	_visited.push_back(_startPos);
 
-	Vector2 frontPos[4] =
+	Vector2 frontPos[8] =
 	{
 		Vector2 {0, -1}, // UP
 		Vector2 {-1, 0}, // LEFT
 		Vector2 {0, 1}, // DOWN
-		Vector2 {1, 0} // RIGHT
+		Vector2 {1, 0}, // RIGHT
+
+		Vector2 {1, 1},
+		Vector2 {1, -1},
+		Vector2 {-1, 1},
+		Vector2 {-1, -1}
 	};
 
 	while (true)
@@ -179,7 +184,7 @@ void Player::BFS()
 		Vector2 here = q.front();
 		q.pop();
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 8; i++)
 		{
 			Vector2 there = here + frontPos[i];
 			if (Cango(there) == false)
@@ -240,7 +245,7 @@ void Player::DFS(Vector2 here)
 		Vector2 {0, -1}, // UP
 		Vector2 {-1, 0}, // LEFT
 		Vector2 {0, 1}, // DOWN
-		Vector2 {1, 0} // RIGHT
+		Vector2 {1, 0}, // RIGHT
 	};
 
 	_discovered[here.y][here.x] = true;
@@ -264,5 +269,87 @@ void Player::DFS(Vector2 here)
 	if (_visited.back() == _endPos)
 	{
 		_path.push_back(here);
+	}
+}
+
+void Player::Dijkstra()
+{
+	struct Vertex
+	{
+		Vector2 vertexVector;
+		int cost;
+
+		bool operator<(const Vertex& other) const
+		{
+			return cost < other.cost;
+		}
+
+		bool operator>(const Vertex& other) const
+		{
+			return cost > other.cost;
+		}
+	};
+
+	Vector2 frontPos[8] =
+	{
+		Vector2 {0, -1}, // UP
+		Vector2 {-1, 0}, // LEFT
+		Vector2 {0, 1}, // DOWN
+		Vector2 {1, 0}, // RIGHT
+
+		Vector2 {1, 1},
+		Vector2 {1, -1},
+		Vector2 {-1, 1},
+		Vector2 {-1, -1}
+	};
+
+	Vector2 poolCount = _maze.lock()->PoolCount();
+	int poolCountX = (int)poolCount.x;
+	int poolCountY = (int)poolCount.y;
+
+	priority_queue<Vertex, vector<Vertex>, greater<Vertex>> pq;
+	vector<vector<int>> _best = vector<vector<int>>(poolCountY, vector<int>(poolCountX, INT_MAX));
+	_parent = vector<vector<Vector2>>(poolCountY, vector<Vector2>(poolCountX, Vector2(-1, -1)));
+
+	Vertex start;
+	start.vertexVector = _startPos;
+	start.cost = 0;
+
+	pq.push(start);
+	_best[start.vertexVector.y][start.vertexVector.x] = start.cost;
+	_parent[start.vertexVector.y][start.vertexVector.x] = start.vertexVector;
+	_visited.push_back(start.vertexVector);
+
+	while (true)
+	{
+		if (pq.empty())
+			break;
+
+		int cost = pq.top().cost;
+		Vector2 here = pq.top().vertexVector;
+
+		pq.pop();
+
+		if (here == _endPos)
+			break;
+
+		if (_best[here.y][here.x] < cost)
+			continue;
+
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 there = here + frontPos[i];
+
+			if (Cango(there) == false)
+				continue;
+
+			int nextCost;
+			if (i < 4)
+				nextCost = _best[here.y][here.x] + 10;
+			else
+				nextCost = _best[here.y][here.x] + 14;
+
+
+		}
 	}
 }

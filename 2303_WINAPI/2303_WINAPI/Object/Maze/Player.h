@@ -12,6 +12,8 @@ public:
 	void DFS();
 	void DFS(Vector2 here);
 
+	void Dijkstra();
+
 	bool Cango(Vector2 pos);
 
 private:
