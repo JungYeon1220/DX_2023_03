@@ -13,7 +13,7 @@ Player::Player(shared_ptr<Maze> maze)
 		_maze.lock()->Block(_startPos.x, _startPos.y)->SetType(MazeBlock::BlockType::PLAYER);
 	}
 
-	BFS();
+	Dijkstra();
 }
 
 Player::~Player()
@@ -318,7 +318,6 @@ void Player::Dijkstra()
 	pq.push(start);
 	_best[start.vertexVector.y][start.vertexVector.x] = start.cost;
 	_parent[start.vertexVector.y][start.vertexVector.x] = start.vertexVector;
-	_visited.push_back(start.vertexVector);
 
 	while (true)
 	{
@@ -327,11 +326,12 @@ void Player::Dijkstra()
 
 		int cost = pq.top().cost;
 		Vector2 here = pq.top().vertexVector;
-
-		pq.pop();
+		_visited.push_back(here);
 
 		if (here == _endPos)
 			break;
+
+		pq.pop();
 
 		if (_best[here.y][here.x] < cost)
 			continue;
@@ -349,7 +349,28 @@ void Player::Dijkstra()
 			else
 				nextCost = _best[here.y][here.x] + 14;
 
+			if (nextCost >= _best[there.y][there.x])
+				continue;
 
+			Vertex v;
+			v.vertexVector = there;
+			v.cost = nextCost;
+			pq.push(v);
+			_best[there.y][there.x] = nextCost;
+			_parent[there.y][there.x] = here;
 		}
 	}
+
+	Vector2 check = pq.top().vertexVector;
+	while (true)
+	{
+		_path.push_back(check);
+
+		if (_parent[check.y][check.x] == check)
+			break;
+
+		check = _parent[check.y][check.x];
+	}
+
+	std::reverse(_path.begin(), _path.end());
 }
