@@ -130,6 +130,8 @@ public:
 
     bool IsBetween(Vector2 a, Vector2 b);
 
+    int ManhattenDistance(const Vector2& other) const;
+
 public:
     float x;
     float y;

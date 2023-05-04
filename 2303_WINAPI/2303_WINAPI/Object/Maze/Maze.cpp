@@ -19,6 +19,46 @@ Maze::Maze()
 		}
 	}
 
+	CreateMaze();
+}
+
+Maze::~Maze()
+{
+}
+
+void Maze::Update()
+{
+	for (auto blockArr : _blocks)
+	{
+		for (auto block : blockArr)
+			block->Update();
+	}
+}
+
+void Maze::Render(HDC hdc)
+{
+	for (auto blockArr : _blocks)
+	{
+		for (auto block : blockArr)
+			block->Render(hdc);
+	}
+}
+
+void Maze::CreateMaze()
+{
+
+	// 노드 뚫기
+	for (int y = 0; y < _poolCountY; y++)
+	{
+		for (int x = 0; x < _poolCountX; x++)
+		{
+			if (x % 2 == 0 || y % 2 == 0)
+				continue;
+
+			_blocks[y][x]->SetType(MazeBlock::BlockType::ABLE);
+		}
+	}
+
 	for (int y = 0; y < _poolCountY; y++) // y축부터 만든다
 	{
 		for (int x = 0; x < _poolCountX; x++)
@@ -53,46 +93,6 @@ Maze::Maze()
 		}
 	}
 
-	CreateMaze();
 
 	_blocks[_poolCountX - 2][_poolCountY - 2]->SetType(MazeBlock::BlockType::END);
-}
-
-Maze::~Maze()
-{
-}
-
-void Maze::Update()
-{
-	for (auto blockArr : _blocks)
-	{
-		for (auto block : blockArr)
-			block->Update();
-	}
-}
-
-void Maze::Render(HDC hdc)
-{
-	for (auto blockArr : _blocks)
-	{
-		for (auto block : blockArr)
-			block->Render(hdc);
-	}
-}
-
-void Maze::CreateMaze()
-{
-	// 노드 뚫기
-	for (int y = 0; y < _poolCountY; y++)
-	{
-		for (int x = 0; x < _poolCountX; x++)
-		{
-			if (x % 2 == 0 || y % 2 == 0)
-				continue;
-
-			_blocks[y][x]->SetType(MazeBlock::BlockType::ABLE);
-		}
-	}
-
-
 }
