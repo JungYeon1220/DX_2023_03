@@ -22,44 +22,34 @@ Player::~Player()
 
 void Player::Update()
 {
-	_time += 0.2f;
+	_time += 0.4f;
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
-		_visitedIndex++;
-		if (_visitedIndex >= _visited.size())
-		{
-			_pathIndex++;
-		}
+		_pathIndex++;
 	}
 
-	if (_visitedIndex >= _visited.size())
+	if (_pathIndex >= _path.size())
 	{
-		if (_pathIndex >= _path.size())
-		{
-			return;
-		}
+		_pathIndex = 0;
+		_path.clear();
 
-		Vector2 temp = _path[_pathIndex];
-		_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
+		_maze.lock()->CreateMaze_Kruskal();
 
-		if (_pathIndex != 0)
-		{
-			Vector2 temp2 = _path[_pathIndex - 1];
-			_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::PATH);
-		}
+		Astar();
+
+		return;
 	}
-	else if(_visited.empty() == false)
+
+	Vector2 temp = _path[_pathIndex];
+
+	if (_pathIndex > 1)
 	{
-		Vector2 temp = _visited[_visitedIndex];
-		_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
-
-		if (_visitedIndex != 0)
-		{
-			Vector2 temp2 = _visited[_visitedIndex - 1];
-			_maze.lock()->Block(temp2.x, temp2.y)->SetType(MazeBlock::BlockType::VISITED);
-		}
+		Vector2 footPrint = _path[_pathIndex - 1];
+		_maze.lock()->Block(footPrint.x, footPrint.y)->SetType(MazeBlock::BlockType::PATH);
 	}
+
+	_maze.lock()->Block(temp.x, temp.y)->SetType(MazeBlock::BlockType::PLAYER);
 }
 
 bool Player::Cango(Vector2 pos)

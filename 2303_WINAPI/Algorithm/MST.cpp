@@ -144,7 +144,7 @@ void CreateGraph() // 메모리를 더 차지하지만 탐색 속도가 빠름
 }
 
 
-vector<Edge> Kruska()
+vector<Edge> Kruskal()
 {
 	vector<Edge> result;
 	// edges 정렬하기
@@ -171,7 +171,7 @@ vector<Edge> Kruska()
 int main()
 {
 	CreateGraph();
-	auto result = Kruska();
+	auto result = Kruskal();
 
 	return 0;
 }

@@ -19,7 +19,7 @@ Maze::Maze()
 		}
 	}
 
-	CreateMaze_Kruska();
+	CreateMaze_Kruskal();
 }
 
 Maze::~Maze()
@@ -46,6 +46,13 @@ void Maze::Render(HDC hdc)
 
 void Maze::CreateMaze()
 {
+	for (int y = 0; y < _poolCountY; y++)
+	{
+		for (int x = 0; x < _poolCountX; x++)
+		{
+			_blocks[y][x]->SetType(MazeBlock::BlockType::DISABLE);
+		}
+	}
 
 	// ³ëµå ¶Õ±â
 	for (int y = 0; y < _poolCountY; y++)
@@ -97,8 +104,16 @@ void Maze::CreateMaze()
 	_blocks[_poolCountX - 2][_poolCountY - 2]->SetType(MazeBlock::BlockType::END);
 }
 
-void Maze::CreateMaze_Kruska()
+void Maze::CreateMaze_Kruskal()
 {
+	for (int y = 0; y < _poolCountY; y++)
+	{
+		for (int x = 0; x < _poolCountX; x++)
+		{
+			_blocks[y][x]->SetType(MazeBlock::BlockType::DISABLE);
+		}
+	}
+
 	// ³ëµå ¶Õ±â
 	for (int y = 0; y < _poolCountY; y++)
 	{
@@ -117,20 +132,28 @@ void Maze::CreateMaze_Kruska()
 	{
 		for (int x = 0; x < _poolCountX; x++)
 		{
-			if (_blocks[y][x]->GetType() == MazeBlock::BlockType::DISABLE)
+			if (x % 2 == 0 || y % 2 == 0)
 				continue;
 
-			Edge edge1;
-			edge1.u = Vector2(x, y);
-			edge1.v = Vector2(x + 2, y);
-			edge1.cost = rand() % 100;
-			edges.push_back(edge1);
+			if (x < _poolCountX - 2)
+			{
+				const int randValue = rand() % 100;
+				Edge edge;
+				edge.u = Vector2(x, y);
+				edge.v = Vector2(x + 2, y);
+				edge.cost = randValue;
+				edges.push_back(edge);
+			}
 
-			Edge edge2;
-			edge2.u = Vector2(x, y);
-			edge2.v = Vector2(x , y + 2);
-			edge2.cost = rand() % 100;
-			edges.push_back(edge2);
+			if (y < _poolCountY - 2)
+			{
+				const int randValue = rand() % 100;
+				Edge edge;
+				edge.u = Vector2(x, y);
+				edge.v = Vector2(x, y + 2);
+				edge.cost = randValue;
+				edges.push_back(edge);
+			}
 		}
 	}
 

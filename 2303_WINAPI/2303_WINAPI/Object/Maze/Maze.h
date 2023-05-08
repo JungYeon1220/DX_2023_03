@@ -16,7 +16,7 @@ public:
 	void Render(HDC hdc);
 
 	void CreateMaze();
-	void CreateMaze_Kruska();
+	void CreateMaze_Kruskal();
 
 	Vector2 StartPos() { return { 1,1 }; }
 	Vector2 EndPos() { return Vector2((int)_poolCountX - 2, (int)_poolCountY - 2 ); }
