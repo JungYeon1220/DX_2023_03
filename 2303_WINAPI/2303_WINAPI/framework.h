@@ -30,6 +30,7 @@ using namespace std;
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
 #include "Math/Line.h"
+#include "Math/DisJointSet.h"
 
 #include "Type.h"
 

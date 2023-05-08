@@ -19,7 +19,7 @@ Maze::Maze()
 		}
 	}
 
-	CreateMaze();
+	CreateMaze_Kruska();
 }
 
 Maze::~Maze()
@@ -95,4 +95,62 @@ void Maze::CreateMaze()
 
 
 	_blocks[_poolCountX - 2][_poolCountY - 2]->SetType(MazeBlock::BlockType::END);
+}
+
+void Maze::CreateMaze_Kruska()
+{
+	// ³ëµå ¶Õ±â
+	for (int y = 0; y < _poolCountY; y++)
+	{
+		for (int x = 0; x < _poolCountX; x++)
+		{
+			if (x % 2 == 0 || y % 2 == 0)
+				continue;
+
+			_blocks[y][x]->SetType(MazeBlock::BlockType::ABLE);
+		}
+	}
+
+	srand(static_cast<unsigned int>(time(nullptr)));
+
+	for (int y = 0; y < _poolCountY; y++)
+	{
+		for (int x = 0; x < _poolCountX; x++)
+		{
+			if (_blocks[y][x]->GetType() == MazeBlock::BlockType::DISABLE)
+				continue;
+
+			Edge edge1;
+			edge1.u = Vector2(x, y);
+			edge1.v = Vector2(x + 2, y);
+			edge1.cost = rand() % 100;
+			edges.push_back(edge1);
+
+			Edge edge2;
+			edge2.u = Vector2(x, y);
+			edge2.v = Vector2(x , y + 2);
+			edge2.cost = rand() % 100;
+			edges.push_back(edge2);
+		}
+	}
+
+	std::sort(edges.begin(), edges.end(), [](const Edge& a, const Edge& b)->bool
+	{
+		return a.cost < b.cost;
+	});
+
+	DisJointSet sets(_poolCountX * _poolCountY);
+
+	for (const auto& edge : edges)
+	{
+		int u = edge.u.y * _poolCountX + edge.u.x;
+		int v = edge.v.y * _poolCountX + edge.v.x;
+		if (sets.FindLeader(u) == sets.FindLeader(v))
+			continue;
+
+		sets.Merge(u, v);
+		int yIndex = (edge.u.y + edge.v.y) / 2;
+		int xIndex = (edge.u.x + edge.v.x) / 2;
+		_blocks[yIndex][xIndex]->SetType(MazeBlock::BlockType::ABLE);
+	}
 }
