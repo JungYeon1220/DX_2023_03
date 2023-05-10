@@ -5,11 +5,27 @@ public:
 	Maze();
 	~Maze();
 
-	struct Edge
+	struct Edge_Kruskal
 	{
 		Vector2 u;
 		Vector2 v;
 		int cost;
+	};
+
+	struct Edge
+	{
+		int cost = 0;
+		Vector2 v;
+
+		bool operator<(const Edge& other) const
+		{
+			return cost < other.cost;
+		}
+
+		bool operator>(const Edge& other) const
+		{
+			return cost > other.cost;
+		}
 	};
 
 	void Update();
@@ -17,6 +33,7 @@ public:
 
 	void CreateMaze();
 	void CreateMaze_Kruskal();
+	void CreateMaze_Prim();
 
 	Vector2 StartPos() { return { 1,1 }; }
 	Vector2 EndPos() { return Vector2((int)_poolCountX - 2, (int)_poolCountY - 2 ); }
@@ -31,6 +48,6 @@ private:
 
 	vector<vector<shared_ptr<MazeBlock>>> _blocks;
 
-	vector<Edge> edges;
+	vector<Edge_Kruskal> edges;
 };
 

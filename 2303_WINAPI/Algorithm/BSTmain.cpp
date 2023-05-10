@@ -34,6 +34,7 @@ int main()
 	Node* node2 = bst.Max(bst._root);
 	Node* node3 = bst.Previous(bst._root);
 	Node* node4 = bst.Next(bst._root);
+	Node* node5 = bst.Search(bst._root, 8);
 
 	return 0;
 }

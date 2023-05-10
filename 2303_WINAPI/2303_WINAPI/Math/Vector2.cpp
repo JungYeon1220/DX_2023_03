@@ -1,6 +1,14 @@
 #include "framework.h"
 #include "Vector2.h"
 
+bool Vector2::operator<(const Vector2& other) const
+{
+    if (y != other.y)
+        return y < other.y;
+
+    return x < other.x;
+}
+
 bool Vector2::IsBetween(Vector2 a, Vector2 b)
 {
     float crossA = this->Cross(a);
