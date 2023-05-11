@@ -237,7 +237,7 @@ void Maze::CreateMaze_Prim()
 	// 어떤 정점이 누구에 의해 연결 되어있는지
 	map<Vector2, Vector2> parent;
 
-	// 만들고 있는 접합에 인접한 간성 중 해당 정점에 닿는 최소 간선의 정점
+	// 만들고 있는 접합에 인접한 간성 중 해당 정점에 닿는 최소 간선의 정보
 	map<Vector2, int> best;
 
 	// added, best 초기화
