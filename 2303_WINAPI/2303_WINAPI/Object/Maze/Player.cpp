@@ -400,7 +400,7 @@ void Player::Astar()
 	pq.push(startV);
 	_discovered[_startPos.y][_startPos.x] = true;
 	_parent[_startPos.y][_startPos.x] = _startPos;
-	_best[_startPos.y][_startPos.y] = startV.f;
+	_best[_startPos.y][_startPos.x] = startV.f;
 
 	while (true)
 	{

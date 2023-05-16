@@ -13,9 +13,6 @@ using namespace std;
 
 // n강을 할 때 강화하는 모든 경우의 수
 
-// 예 : 3강을 하고 싶다.
-// 1 + 1 + 1
-
 vector<int> cache = vector<int>(100, -1);
 
 int Enchant(int n)
@@ -32,14 +29,13 @@ int Enchant(int n)
 	if (cache[n] != -1)
 		return cache[n];
 
-	cache[n] = Enchant(n - 1) + Enchant(n - 2) + Enchant(n - 3);
-
-	return cache[n];
-	
+	return cache[n] = Enchant(n - 3) + Enchant(n - 2) + Enchant(n - 1);
 }
 
 int main()
 {
+	cout << Enchant(6) << endl;
+	cout << Enchant(10) << endl;
 
 	return 0;
 }
