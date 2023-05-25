@@ -32,3 +32,29 @@
 using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
+
+// Framework
+#include "Framework/Device/Device.h"
+
+// Render
+#include "Framework/Render/VertexLayout.h"
+#include "Framework/Render/VertexBuffer.h"
+#include "Framework/Render/VertexShader.h"
+#include "Framework/Render/PixelShader.h"
+
+//TextureMapping
+#include "Framework/TextureMapping/SRV.h"
+#include "Framework/TextureMapping/SamplerState.h"
+
+// Obj
+#include "Object/BasicObject/Quad.h"
+
+// Scene
+#include "Scene/Scene.h"
+
+// Program
+#include "Program/Program.h"
+
+#include "Types.h"
+
+extern HWND hWnd;

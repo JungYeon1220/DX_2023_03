@@ -25,46 +25,15 @@
 // 렌더링 파이프라인
 // => 3D 공간의 어떤 좌표를 모니터에 표시하기까지 걸리는 일련의 과정
 
-// 인력사무소장
-// 외주를 맡기고 실질적인 노가다 대표 뽑기
-// 컴퓨터의 하드웨어 기능 점검, 리소스 할당 하는 얘들을 뽑아주는 얘
-ComPtr<ID3D11Device> device;
 
-// 연출감독
-// 세트장을 실질적으로 꾸며주는 연출가
-// 렌더링 대상 결정(어따 그릴지 결정)
-// => 리소스를 그래픽 파이프라인에 바인딩, 리소스 할당
-ComPtr<ID3D11DeviceContext> deviceContext; // DC
-
-// DX의 인터페이스로써 1개이상의 포면을 포함할 수 있다.
-// 각각의 표면(버퍼, 텍스쳐)을 출력하기전에 데이터를 보관한다.
-ComPtr<IDXGISwapChain> swapChain;
-
-// 후면 버퍼를 가리키는 포인터
-// 후면 버퍼(지금 당장 그릴 곳)
-// view ... 포인터
-ComPtr<ID3D11RenderTargetView> renderTargetView;
 
 // 렌더링 파이프 라인 단계
-ComPtr<ID3D11Buffer> vertexBuffer;
-ComPtr<ID3D11InputLayout> inputLayOut;
-ComPtr<ID3D11VertexShader> vertexShader;
-ComPtr<ID3D11PixelShader> pixelShader;
 
-ComPtr<ID3D11ShaderResourceView> _shaderResourceView; // 판박이
-ComPtr<ID3D11SamplerState> _samplerState; // 판박이 붙여주는 아저씨
 
 HWND hWnd;
 
-struct Vertex
-{
-    XMFLOAT3 pos;
-    XMFLOAT4 color;
-    XMFLOAT2 uv;
-};
 
-void InitDevice();
-void Render();
+
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -101,7 +70,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DX1800JJY));
 
     // 생성
-    InitDevice();
+    Device::Create();
+
+    shared_ptr<Program> program = make_shared<Program>();
 
     MSG msg = {};
 
@@ -119,9 +90,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 메인루프
-            Render();
+            program->Update();
+            program->Render();
         }
     }
+
+    //삭제
+    Device::Delete();
 
     return (int) msg.wParam;
 }
@@ -167,7 +142,9 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      0, 0,
+      WIN_WIDTH, WIN_HEIGHT,
+      nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -246,199 +223,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-void InitDevice()
-{
-    RECT rc;
-    GetClientRect(hWnd, &rc);
-    UINT width = rc.right - rc.left;
-    UINT height = rc.bottom - rc.top;
-
-    D3D_FEATURE_LEVEL featureLevels[] =
-    {
-        D3D_FEATURE_LEVEL_11_0,
-        D3D_FEATURE_LEVEL_10_1,
-        D3D_FEATURE_LEVEL_10_0
-    };
-
-    UINT featureSize = ARRAYSIZE(featureLevels);
-
-    DXGI_SWAP_CHAIN_DESC sd = {};
-    sd.BufferCount = 1;
-    sd.BufferDesc.Width = width;
-    sd.BufferDesc.Height = height;
-    sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-    sd.BufferDesc.RefreshRate.Numerator = 60;
-    sd.BufferDesc.RefreshRate.Denominator = 1;
-    // Numerator / Denominator => 화면 프레임 갱신 속도
-    sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
-    sd.OutputWindow = hWnd;
-    sd.SampleDesc.Count = 1;
-    sd.SampleDesc.Quality = 0;
-    sd.Windowed = true; // 창모드
-
-    D3D11CreateDeviceAndSwapChain(
-        nullptr,
-        D3D_DRIVER_TYPE_HARDWARE,
-        0,
-        D3D11_CREATE_DEVICE_DEBUG,
-        featureLevels,
-        featureSize,
-        D3D11_SDK_VERSION,
-        &sd,
-        IN swapChain.GetAddressOf(),
-        IN device.GetAddressOf(),
-        nullptr,
-        IN deviceContext.GetAddressOf()
-    );
-
-    ComPtr<ID3D11Texture2D> backBuffer;
-
-    swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)backBuffer.GetAddressOf());
-    device->CreateRenderTargetView(backBuffer.Get(), nullptr, renderTargetView.GetAddressOf());
-
-    deviceContext->OMSetRenderTargets(1, renderTargetView.GetAddressOf(), nullptr);
-
-    D3D11_VIEWPORT vp;
-    vp.Width = width;
-    vp.Height = height;
-    vp.MinDepth = 0.0f;
-    vp.MaxDepth = 1.0f;
-    vp.TopLeftX = 0;
-    vp.TopLeftY = 0;
-    deviceContext->RSSetViewports(1, &vp);
-
-    D3D11_INPUT_ELEMENT_DESC layOut[] =
-    {
-        {
-            "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,0,
-            D3D11_INPUT_PER_VERTEX_DATA,0
-        },
-        {
-            "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,0,12,
-            D3D11_INPUT_PER_VERTEX_DATA,0
-        },
-        {
-            "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28,
-            D3D11_INPUT_PER_VERTEX_DATA, 0
-        }
-    };
-
-    UINT layOutSize = ARRAYSIZE(layOut);
-
-    DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
-
-    // VertexShader
-    ComPtr<ID3DBlob> vertexBlob; // VertexShader 만들 때 필요한 얘
-
-    D3DCompileFromFile(L"Shader/TextureVS.hlsl",
-        nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
-
-    device->CreateInputLayout(layOut, layOutSize,
-        vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), IN inputLayOut.GetAddressOf());
-
-    device->CreateVertexShader(vertexBlob->GetBufferPointer(),
-        vertexBlob->GetBufferSize(), nullptr, IN vertexShader.GetAddressOf());
-
-
-    // PixelShader 
-    ComPtr<ID3DBlob> pixelBlob;
-
-    D3DCompileFromFile(L"Shader/TexturePS.hlsl",
-        nullptr, nullptr, "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
-
-    device->CreatePixelShader(pixelBlob->GetBufferPointer(),
-        pixelBlob->GetBufferSize(), nullptr, IN pixelShader.GetAddressOf());
-
-    vector<Vertex> vertices;
-
-    Vertex v;
-    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
-    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
-    vertices.push_back(v);
-
-    v.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
-    v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
-    v.uv = { 0.0f, 0.0f };
-    vertices.push_back(v);
-
-    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
-    vertices.push_back(v);
-
-    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
-    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
-    vertices.push_back(v);
-
-    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
-    vertices.push_back(v);
-
-    v.pos = {-0.5f, -0.5f, 0.0f }; // 왼쪽 아래
-    v.color = { 0.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 1.0f };
-    vertices.push_back(v);
-
-    D3D11_BUFFER_DESC bd = {};
-    bd.Usage = D3D11_USAGE_DEFAULT;
-    bd.ByteWidth = sizeof(Vertex) * vertices.size();
-    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA initData = {};
-    initData.pSysMem = &vertices[0];
-
-    device->CreateBuffer(&bd, &initData, IN vertexBuffer.GetAddressOf());
-
-    ScratchImage image;
-    wstring path = L"Resource/Texture/winter.png";
-    LoadFromWICFile(path.c_str(), WIC_FLAGS_NONE, nullptr, image);
-
-    // 판박이 만드는 작업
-    CreateShaderResourceView(device.Get(), image.GetImages(),
-        image.GetImageCount(), image.GetMetadata(), _shaderResourceView.GetAddressOf());
-
-    // 판박이 붙히는 아저씨 만들기
-    D3D11_SAMPLER_DESC sampDesc = {};
-    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    sampDesc.MinLOD = 0;
-    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    device->CreateSamplerState(&sampDesc, _samplerState.GetAddressOf());
-}
-
-void Render()
-{
-    FLOAT myColorR = 0.0f;
-    FLOAT myColorG = 0.0f;
-    FLOAT myColorB = 0.0f;
-
-    FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f };
-
-    deviceContext->ClearRenderTargetView(renderTargetView.Get(), clearColor);
-
-    deviceContext->IASetInputLayout(inputLayOut.Get());
-    UINT stride = sizeof(Vertex);
-    UINT offset = 0;
-    deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
-
-    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    deviceContext->PSSetShaderResources(0, 1, _shaderResourceView.GetAddressOf());
-    deviceContext->PSSetSamplers(0, 1, _samplerState.GetAddressOf());
-
-    deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
-    deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
-
-    deviceContext->Draw(6, 0);
-
-    swapChain->Present(0, 0);
 }
