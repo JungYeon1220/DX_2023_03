@@ -15,8 +15,6 @@ void PixelShader::CreateBlob(wstring path)
 {
     DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 
-    ComPtr<ID3DBlob> pixelBlob;
-
     D3DCompileFromFile(L"Shader/TexturePS.hlsl",
         nullptr, nullptr, "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
 }

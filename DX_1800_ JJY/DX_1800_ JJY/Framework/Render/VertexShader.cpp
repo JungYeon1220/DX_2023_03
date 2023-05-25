@@ -16,9 +16,6 @@ void VertexShader::CreateBlob(wstring path)
 {
 	DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 
-	// VertexShader
-	ComPtr<ID3DBlob> vertexBlob; // VertexShader 만들 때 필요한 얘
-
 	D3DCompileFromFile(path.c_str(),
 		nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 }

@@ -19,12 +19,12 @@ void VertexBuffer::CreateVertexBuffer()
     bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA initData = {};
-    initData.pSysMem = &vertices[0];
+    initData.pSysMem = _data;
 
     DEVICE->CreateBuffer(&bd, &initData, IN vertexBuffer.GetAddressOf());
 }
 
 void VertexBuffer::SetIA_VertexBuffer(UINT slot)
 {
-    DC->IASetVertexBuffers(slot, 1, vertexBuffer.GetAddressOf(), &_stride, &_stride);
+    DC->IASetVertexBuffers(slot, 1, vertexBuffer.GetAddressOf(), &_stride, &_offset);
 }

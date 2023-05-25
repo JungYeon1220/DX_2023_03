@@ -1,12 +1,6 @@
 #include "framework.h"
 #include "Quad.h"
 
-Quad::Quad()
-{
-	CreateVertices();
-	CreateData();
-}
-
 Quad::Quad(wstring path)
 {
 	CreateVertices();
@@ -37,32 +31,32 @@ void Quad::CreateVertices()
     Vertex v;
     v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
     v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
+    v.uv = { 0.0f, 0.0f };
     _vertices.push_back(v);
 
     v.pos = { 0.5f, 0.5f, 0.0f }; // 오른쪽 위
     v.color = { 0.0f, 1.0f, 0.0f, 1.0f };
+    v.uv = { 1.0f, 0.0f };
+    _vertices.push_back(v);
+
+    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
+    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
+    v.uv = { 1.0f, 1.0f };
+    _vertices.push_back(v);
+
+    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
+    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
     v.uv = { 0.0f, 0.0f };
     _vertices.push_back(v);
 
     v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
     v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
-    _vertices.push_back(v);
-
-    v.pos = { -0.5f, 0.5f, 0.0f }; // 왼쪽 위
-    v.color = { 1.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 0.0f };
-    _vertices.push_back(v);
-
-    v.pos = { 0.5f, -0.5f, 0.0f }; // 오른쪽 아래
-    v.color = { 0.0f, 0.0f, 1.0f, 1.0f };
-    v.uv = { 0.0f, 1.0f };
+    v.uv = { 1.0f, 1.0f };
     _vertices.push_back(v);
 
     v.pos = { -0.5f, -0.5f, 0.0f }; // 왼쪽 아래
     v.color = { 0.0f, 0.0f, 0.0f, 1.0f };
-    v.uv = { 1.0f, 1.0f };
+    v.uv = { 0.0f, 1.0f };
     _vertices.push_back(v);
 }
 
