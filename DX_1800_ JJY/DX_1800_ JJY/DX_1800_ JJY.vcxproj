@@ -151,10 +151,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Render\ConstantBuffer.h" />
     <ClInclude Include="Framework\Device\Device.h" />
     <ClInclude Include="DX_1800_ JJY.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Framework\Render\GlobalBuffer.h" />
     <ClInclude Include="Framework\Render\PixelShader.h" />
+    <ClInclude Include="Framework\Render\IndexBuffer.h" />
     <ClInclude Include="Program\Program.h" />
     <ClInclude Include="Object\BasicObject\Quad.h" />
     <ClInclude Include="Resource.h" />
@@ -169,6 +172,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Render\ConstantBuffer.cpp" />
     <ClCompile Include="Framework\Device\Device.cpp" />
     <ClCompile Include="DX_1800_ JJY.cpp" />
     <ClCompile Include="framework.cpp">
@@ -182,6 +186,7 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">framework.h</PrecompiledHeaderFile>
     </ClCompile>
     <ClCompile Include="Framework\Render\PixelShader.cpp" />
+    <ClCompile Include="Framework\Render\IndexBuffer.cpp" />
     <ClCompile Include="Program\Program.cpp" />
     <ClCompile Include="Framework\Render\VertexBuffer.cpp" />
     <ClCompile Include="Framework\Render\VertexShader.cpp" />

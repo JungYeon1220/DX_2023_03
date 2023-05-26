@@ -49,7 +49,7 @@ private:
 	// => 리소스를 그래픽 파이프라인에 바인딩, 리소스 할당
 	ComPtr<ID3D11DeviceContext> deviceContext; // DC
 
-	// DX의 인터페이스로써 1개이상의 포면을 포함할 수 있다.
+	// DX의 인터페이스로써 1개이상의 표면을 포함할 수 있다.
 	// 각각의 표면(버퍼, 텍스쳐)을 출력하기전에 데이터를 보관한다.
 	ComPtr<IDXGISwapChain> swapChain;
 

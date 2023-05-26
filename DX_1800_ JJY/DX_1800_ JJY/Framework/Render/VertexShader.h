@@ -5,7 +5,6 @@ public:
 	VertexShader(wstring path);
 	~VertexShader();
 
-
 	void CreateBlob(wstring path);
 	void CreateInputLayout();
 	void CreateVertexShader();
