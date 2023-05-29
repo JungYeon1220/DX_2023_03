@@ -11,5 +11,9 @@ struct PixelInput
 
 float4 PS(PixelInput input) : SV_TARGET
 {
+	float2 resultUV;
+	resultUV.x = input.uv.x;
+	resultUV.y = input.uv.y;
+
 	return resource.Sample(samp, input.uv);
 }

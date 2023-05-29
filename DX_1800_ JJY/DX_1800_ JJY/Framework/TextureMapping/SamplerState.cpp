@@ -21,5 +21,5 @@ SamplerState::~SamplerState()
 
 void SamplerState::SetSampler(UINT slot)
 {
-    DC->PSSetSamplers(slot, 1, samplerState.GetAddressOf());
+    DC->PSSetSamplers(0, 1, samplerState.GetAddressOf());
 }

@@ -9,7 +9,7 @@ public:
 	void CreateInputLayout();
 	void CreateVertexShader();
 
-	void SetIA_InputLayout();
+	void SetIA_InputLayOut();
 	void Set_VS();
 
 private:

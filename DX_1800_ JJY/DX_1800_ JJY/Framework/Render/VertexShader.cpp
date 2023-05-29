@@ -3,9 +3,9 @@
 
 VertexShader::VertexShader(wstring path)
 {
-	CreateBlob(path);
-	CreateInputLayout();
-	CreateVertexShader();
+    CreateBlob(path);
+    CreateInputLayout();
+    CreateVertexShader();
 }
 
 VertexShader::~VertexShader()
@@ -14,10 +14,10 @@ VertexShader::~VertexShader()
 
 void VertexShader::CreateBlob(wstring path)
 {
-	DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
+    DWORD flags = D3DCOMPILE_ENABLE_STRICTNESS | D3DCOMPILE_DEBUG;
 
-	D3DCompileFromFile(path.c_str(),
-		nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
+    D3DCompileFromFile(path.c_str(),
+        nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 }
 
 void VertexShader::CreateInputLayout()
@@ -33,8 +33,8 @@ void VertexShader::CreateInputLayout()
             D3D11_INPUT_PER_VERTEX_DATA,0
         },
         {
-            "UV", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 28,
-            D3D11_INPUT_PER_VERTEX_DATA, 0
+            "UV",0, DXGI_FORMAT_R32G32_FLOAT,0,28,
+            D3D11_INPUT_PER_VERTEX_DATA,0
         }
     };
 
@@ -50,7 +50,7 @@ void VertexShader::CreateVertexShader()
         vertexBlob->GetBufferSize(), nullptr, IN vertexShader.GetAddressOf());
 }
 
-void VertexShader::SetIA_InputLayout()
+void VertexShader::SetIA_InputLayOut()
 {
     DC->IASetInputLayout(inputLayOut.Get());
 }

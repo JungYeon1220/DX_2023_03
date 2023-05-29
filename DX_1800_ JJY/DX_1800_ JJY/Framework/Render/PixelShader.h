@@ -9,6 +9,7 @@ public:
 	void CreatePixelShader();
 
 	void Set_PS();
+
 private:
 	ComPtr<ID3DBlob> pixelBlob;
 	ComPtr<ID3D11PixelShader> ps;

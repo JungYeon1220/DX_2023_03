@@ -10,6 +10,5 @@ public:
 
 private:
 	shared_ptr<Scene> _curScene;
-
 };
 

@@ -5,8 +5,8 @@ Device* Device::_instance = nullptr;
 
 Device::Device()
 {
-	CreateDeviceAndSwapChain();
-	CreateDoubleBuffer();
+    CreateDeviceAndSwapChain();
+    CreateDoubleBuffer();
 }
 
 Device::~Device()

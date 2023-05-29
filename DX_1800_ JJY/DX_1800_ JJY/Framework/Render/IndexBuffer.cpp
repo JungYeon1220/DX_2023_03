@@ -2,7 +2,7 @@
 #include "IndexBuffer.h"
 
 IndexBuffer::IndexBuffer(void* data, UINT count)
-	:_count(count)
+    : _count(count)
 {
     CreateIndexBuffer(data);
 }

@@ -2,9 +2,12 @@
 #include "VertexBuffer.h"
 
 VertexBuffer::VertexBuffer(void* data, UINT stride, UINT count, UINT offset)
-    : _data(data), _stride(stride), _count(count), _offset(offset)
+    : _stride(stride)
+    , _count(count)
+    , _offset(offset)
+    , _data(data)
 {
-	CreateVertexBuffer();
+    CreateVertexBuffer();
 }
 
 VertexBuffer::~VertexBuffer()
@@ -26,5 +29,5 @@ void VertexBuffer::CreateVertexBuffer()
 
 void VertexBuffer::SetIA_VertexBuffer(UINT slot)
 {
-    DC->IASetVertexBuffers(slot, 1, vertexBuffer.GetAddressOf(), &_stride, &_offset);
+    DC->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &_stride, &_offset);
 }

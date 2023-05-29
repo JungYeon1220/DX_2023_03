@@ -37,9 +37,9 @@ using namespace Microsoft::WRL;
 #include "Framework/Device/Device.h"
 
 // Render
-#include "Framework/Render/VertexLayout.h"
 #include "Framework/Render/ConstantBuffer.h"
 #include "Framework/Render/GlobalBuffer.h"
+#include "Framework/Render/VertexLayout.h"
 #include "Framework/Render/VertexBuffer.h"
 #include "Framework/Render/IndexBuffer.h"
 #include "Framework/Render/VertexShader.h"

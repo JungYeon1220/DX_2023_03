@@ -5,7 +5,6 @@ public:
 	VertexBuffer(void* data, UINT stride, UINT count, UINT offset = 0);
 	~VertexBuffer();
 
-
 	void SetIA_VertexBuffer(UINT slot = 0);
 
 private:

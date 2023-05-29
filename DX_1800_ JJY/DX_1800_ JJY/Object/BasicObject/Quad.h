@@ -9,6 +9,7 @@ public:
 
 	void CreateVertices();
 	void CreateData(wstring path);
+
 private:
 	vector<Vertex> _vertices;
 	vector<UINT> _indices;

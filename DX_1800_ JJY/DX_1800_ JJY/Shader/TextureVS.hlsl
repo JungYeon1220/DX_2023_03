@@ -1,5 +1,5 @@
 
-// Symentic Name
+// Symentic Name 
 // SV : SystemValue
 
 cbuffer World : register(b0)
@@ -35,8 +35,8 @@ VertexOutput VS(VertexInput input)
 {
 	VertexOutput result;
 	result.pos = mul(input.pos, world);
-	result.pos = mul(input.pos, view);
-	result.pos = mul(input.pos, proj);
+	result.pos = mul(result.pos, view);
+	result.pos = mul(result.pos, proj);
 	result.color = input.color;
 	result.uv = input.uv;
 

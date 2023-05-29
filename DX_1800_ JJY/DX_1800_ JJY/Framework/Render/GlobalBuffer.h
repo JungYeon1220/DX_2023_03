@@ -22,6 +22,5 @@ public:
 		_data.matrix = matrix;
 	}
 
-private:
 	Data _data;
 };
