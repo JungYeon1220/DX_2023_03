@@ -22,8 +22,6 @@ public:
 
 	const XMMATRIX& GetSRT() { return _srtMatrix; }
 
-	Vector2 GetScale() { return _scale; }
-
 private:
 	Vector2 _pos;
 	Vector2 _scale = { 1.0f, 1.0f };
