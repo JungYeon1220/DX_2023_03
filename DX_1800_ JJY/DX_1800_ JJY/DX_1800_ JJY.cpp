@@ -149,6 +149,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
 
    ShowWindow(hWnd, nCmdShow);
+   SetMenu(hWnd, nullptr);
    UpdateWindow(hWnd);
 
    return TRUE;
@@ -164,6 +165,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - 종료 메시지를 게시하고 반환합니다.
 //
 //
+
+Vector2 mousePos;
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
@@ -185,6 +188,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+
+    case WM_MOUSEMOVE:
+        {
+            mousePos.x = static_cast<float>(LOWORD(lParam));
+            mousePos.y = WIN_HEIGHT - static_cast<float>(HIWORD(lParam));
+
+            break;
+        }
+
     case WM_PAINT:
         {
             PAINTSTRUCT ps;

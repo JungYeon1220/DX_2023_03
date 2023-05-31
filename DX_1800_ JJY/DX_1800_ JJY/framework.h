@@ -55,6 +55,10 @@ using namespace Microsoft::WRL;
 
 // Obj
 #include "Object/BasicObject/Quad.h"
+#include "Object/Obj/Planet.h"
+#include "Object/Obj/DunGreed/DunPlayer.h"
+#include "Object/Obj/DunGreed/DunBullet.h"
+#include "Object/Obj/DunGreed/DunBow.h"
 
 // Scene
 #include "Scene/Scene.h"
@@ -65,3 +69,4 @@ using namespace Microsoft::WRL;
 #include "Types.h"
 
 extern HWND hWnd;
+extern Vector2 mousePos;
