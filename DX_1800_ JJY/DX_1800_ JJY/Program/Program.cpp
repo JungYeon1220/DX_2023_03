@@ -7,11 +7,10 @@
 
 Program::Program()
 {
-	_curScene = make_shared<DunGreed>();
+	_curScene = make_shared<SolarSystem>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
-
 
 	_view->Update_Resource();
 
@@ -27,6 +26,7 @@ Program::~Program()
 
 void Program::Update()
 {
+	InputManager::GetInstance()->Update();
 	_curScene->Update();
 }
 
@@ -36,6 +36,8 @@ void Program::Render()
 
 	_view->SetVS_Buffer(1);
 	_proj->SetVS_Buffer(2);
+
+	ALPHA->SetState();
 	_curScene->Render();
 
 	Device::GetInstance()->Present();

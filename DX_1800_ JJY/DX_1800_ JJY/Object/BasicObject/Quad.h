@@ -22,7 +22,6 @@ private:
 	shared_ptr<PixelShader> _ps;
 
 	shared_ptr<SRV> _srv;
-	shared_ptr<SamplerState> _sampler;
 
 	// 컴포넌트 패턴
 	shared_ptr<Transform> _transform;

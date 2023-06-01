@@ -12,6 +12,8 @@ public:
 	void SetPosition(Vector2 pos);
 	void SetScale(Vector2 scale);
 	void SetParent(shared_ptr<Transform> parent);
+
+	shared_ptr<Transform> GetTransform() { return _planet->GetTransform(); }
 	shared_ptr<Quad> GetQuad() { return _planet; }
 	shared_ptr<Transform> GetOrbit() { return _orbit; }
 

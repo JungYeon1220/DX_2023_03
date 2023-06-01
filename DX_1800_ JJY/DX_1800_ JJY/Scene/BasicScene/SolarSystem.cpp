@@ -19,7 +19,7 @@ SolarSystem::SolarSystem()
 	_earth->SetParent(_sun->GetOrbit());
 	_earth->SetPosition(Vector2(800.0f, 0.0f));
 	_moon->SetParent(_earth->GetOrbit());
-	_moon->SetPosition(Vector2(600.0f, 0.0f));
+	_moon->SetPosition(Vector2(800.0f, 0.0f));
 }
 
 SolarSystem::~SolarSystem()
@@ -28,7 +28,10 @@ SolarSystem::~SolarSystem()
 
 void SolarSystem::Update()
 {
-	_sun->SetPosition(mousePos);
+	if(KEY_PRESS('A'))
+		_sun->SetPosition(MOUSE_POS);
+	if (KEY_PRESS('D'))
+		_sun->SetPosition(LERP(_sun->GetTransform()->GetWorldPos(), MOUSE_POS, 0.001f));
 
 	_sun->Update();
 	_earth->Update();
