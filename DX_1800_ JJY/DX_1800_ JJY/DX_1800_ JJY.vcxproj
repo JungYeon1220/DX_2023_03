@@ -151,7 +151,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Object\Obj\DunGreed\DunBow.h" />
     <ClInclude Include="Scene\BasicScene\DunGreed.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunBullet.h" />
     <ClInclude Include="Object\Obj\DunGreed\DunPlayer.h" />
@@ -180,7 +179,6 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Object\Obj\DunGreed\DunBow.cpp" />
     <ClCompile Include="Scene\BasicScene\DunGreed.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunBullet.cpp" />
     <ClCompile Include="Object\Obj\DunGreed\DunPlayer.cpp" />
