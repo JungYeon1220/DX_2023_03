@@ -11,9 +11,12 @@ struct PixelInput
 
 float4 PS(PixelInput input) : SV_TARGET
 {
-	float2 resultUV;
-	resultUV.x = input.uv.x;
-	resultUV.y = input.uv.y;
+    float4 color = resource.Sample(samp, input.uv);
 
-	return resource.Sample(samp, input.uv);
+    if (color.x > 0.9f && color.y > 0.9f && color.z > 0.9f)
+    {
+        color.w = 0;
+    }
+
+    return color;
 }

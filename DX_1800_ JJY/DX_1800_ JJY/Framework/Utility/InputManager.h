@@ -7,7 +7,7 @@ private:
 	enum State
 	{
 		NONE,
-		DOWM,
+		DOWN,
 		UP,
 		PRESS
 	};
@@ -37,7 +37,7 @@ public:
 
 	void Update();
 
-	bool Dowm(UINT key) { return _stateMap[key] == DOWM; }
+	bool Down(UINT key) { return _stateMap[key] == DOWN; }
 	bool Up(UINT key) { return _stateMap[key] == UP; }
 	bool Press(UINT key) { return _stateMap[key] == PRESS; }
 

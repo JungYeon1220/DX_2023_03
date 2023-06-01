@@ -54,17 +54,7 @@ void DunPlayer::Render()
 
 void DunPlayer::Fire()
 {
-	if ((GetAsyncKeyState(VK_LBUTTON) & 0x8000))
-	{
-		_mousePress = true;
-		_mouseUp = false;
-	}
-	else
-	{
-		_mouseUp = true;
-	}
-
-	if (_mousePress == true && _mouseUp == true)
+	if (KEY_DOWN(VK_LBUTTON))
 	{
 		shared_ptr<DunBullet> bullet = SetBullet();
 
@@ -74,9 +64,6 @@ void DunPlayer::Fire()
 		bullet->SetPos(_bulletTrans->GetWorldPos());
 		bullet->SetDir((MOUSE_POS - _bowTrans->GetWorldPos() + Vector2(0.0f, -36.0f)));
 		bullet->SetActive(true);
-
-		_mousePress = false;
-		_mouseUp = false;
 	}
 }
 

@@ -7,7 +7,7 @@
 
 Program::Program()
 {
-	_curScene = make_shared<SolarSystem>();
+	_curScene = make_shared<DunGreed>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();

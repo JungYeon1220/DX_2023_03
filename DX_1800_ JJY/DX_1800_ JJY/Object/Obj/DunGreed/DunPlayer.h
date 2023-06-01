@@ -17,8 +17,5 @@ private:
 	shared_ptr<Quad> _bow;
 	shared_ptr<Transform> _bulletTrans;
 	vector<shared_ptr<DunBullet>> _bullets;
-
-	bool _mousePress = false;
-	bool _mouseUp = true;
 };
 
