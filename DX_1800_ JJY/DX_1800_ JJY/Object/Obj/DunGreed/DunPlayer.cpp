@@ -14,7 +14,7 @@ DunPlayer::DunPlayer()
 		_bullets.push_back(bullet);
 	}
 
-	_player->GetTransform()->SetPosition(Vector2(80.0f, 80.0f));
+	_player->GetTransform()->SetPosition(CENTER);
 	_bowTrans->SetParent(_player->GetTransform());
 
 	_bow->GetTransform()->SetAngle(-3.14159f * 0.75f);
@@ -33,6 +33,7 @@ void DunPlayer::Update()
 {
 	_bowTrans->SetAngle((MOUSE_POS - _bowTrans->GetWorldPos()).Angle());
 
+	Move();
 	Fire();
 
 	_player->Update();
@@ -50,6 +51,28 @@ void DunPlayer::Render()
 		bullet->Render();
 	_bow->Render();
 	_player->Render();
+}
+
+void DunPlayer::Move()
+{
+	if (KEY_PRESS('A'))
+	{
+		_pos.x -= _speed;
+	}
+	if (KEY_PRESS('D'))
+	{
+		_pos.x += _speed;
+	}
+	if (KEY_PRESS('W'))
+	{
+		_pos.y += _speed;
+	}
+	if (KEY_PRESS('S'))
+	{
+		_pos.y -= _speed;
+	}
+
+	_player->GetTransform()->SetPosition(_pos);
 }
 
 void DunPlayer::Fire()

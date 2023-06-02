@@ -8,6 +8,8 @@ public:
 	void Update();
 	void Render();
 
+	void Move();
+
 	void Fire();
 	shared_ptr<DunBullet> SetBullet();
 
@@ -17,5 +19,9 @@ private:
 	shared_ptr<Quad> _bow;
 	shared_ptr<Transform> _bulletTrans;
 	vector<shared_ptr<DunBullet>> _bullets;
+
+	Vector2 _pos = CENTER;
+	float _speed = 0.5f;
+	
 };
 

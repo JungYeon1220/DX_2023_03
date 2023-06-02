@@ -33,6 +33,8 @@ using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
 
+#include "Types.h"
+
 // Framework
 #include "Framework/Device/Device.h"
 
@@ -70,6 +72,5 @@ using namespace Microsoft::WRL;
 // Program
 #include "Program/Program.h"
 
-#include "Types.h"
 
 extern HWND hWnd;
