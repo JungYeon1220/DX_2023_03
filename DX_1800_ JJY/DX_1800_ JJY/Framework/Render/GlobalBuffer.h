@@ -24,3 +24,27 @@ public:
 
 	Data _data;
 };
+
+class ColorBuffer : public ConstantBuffer
+{
+public:
+	struct  Data
+	{
+		XMMATRIX color;
+	};
+
+	ColorBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+		_data.color = XMFLOAT4();
+	}
+
+	virtual ~ColorBuffer() {}
+
+	void SetColor()
+	{
+
+	}
+
+	Data _data;
+};
