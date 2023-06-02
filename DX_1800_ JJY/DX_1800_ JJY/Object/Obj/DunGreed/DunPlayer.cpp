@@ -21,8 +21,8 @@ DunPlayer::DunPlayer()
 	_bow->GetTransform()->SetPosition(Vector2(80.0f, 0.0f));
 	_bow->GetTransform()->SetParent(_bowTrans);
 
-	_bulletTrans->SetParent(_bowTrans);
-	_bulletTrans->SetPosition(Vector2(120.0f, 0.0f));
+	_bulletTrans->SetParent(_bow->GetTransform());
+	_bulletTrans->SetPosition(Vector2(-20.0f, 20.0f));
 }
 
 DunPlayer::~DunPlayer()
@@ -55,21 +55,40 @@ void DunPlayer::Render()
 
 void DunPlayer::Move()
 {
-	if (KEY_PRESS('A'))
+	if (_pos.x > WIN_WIDTH)
 	{
-		_pos.x -= _speed;
+		_pos.x = WIN_WIDTH;
 	}
-	if (KEY_PRESS('D'))
+	else if (_pos.x < 0.0f)
 	{
-		_pos.x += _speed;
+		_pos.x = 0.0f;
 	}
-	if (KEY_PRESS('W'))
+	else if (_pos.y > WIN_HEIGHT)
 	{
-		_pos.y += _speed;
+		_pos.y = WIN_HEIGHT;
 	}
-	if (KEY_PRESS('S'))
+	else if (_pos.y < 0.0f)
 	{
-		_pos.y -= _speed;
+		_pos.y = 0.0f;
+	}
+	else
+	{
+		if (KEY_PRESS('A'))
+		{
+			_pos.x -= _speed;
+		}
+		if (KEY_PRESS('D'))
+		{
+			_pos.x += _speed;
+		}
+		if (KEY_PRESS('W'))
+		{
+			_pos.y += _speed;
+		}
+		if (KEY_PRESS('S'))
+		{
+			_pos.y -= _speed;
+		}
 	}
 
 	_player->GetTransform()->SetPosition(_pos);
@@ -85,7 +104,7 @@ void DunPlayer::Fire()
 			return;
 
 		bullet->SetPos(_bulletTrans->GetWorldPos());
-		bullet->SetDir((MOUSE_POS - _bowTrans->GetWorldPos() + Vector2(0.0f, -36.0f)));
+		bullet->SetDir((MOUSE_POS - _bowTrans->GetWorldPos()));
 		bullet->SetActive(true);
 	}
 }
