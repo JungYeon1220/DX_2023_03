@@ -33,8 +33,6 @@ using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
 
-#include "Types.h"
-
 // Framework
 #include "Framework/Device/Device.h"
 
@@ -60,6 +58,9 @@ using namespace Microsoft::WRL;
 #include "Framework/TextureMapping/BlendState.h"
 #include "Framework/TextureMapping/StateManager.h"
 
+// Collider
+#include "Framework/Collider/RectCollider.h"
+
 // Obj
 #include "Object/BasicObject/Quad.h"
 #include "Object/Obj/Planet.h"
@@ -72,5 +73,6 @@ using namespace Microsoft::WRL;
 // Program
 #include "Program/Program.h"
 
+#include "Types.h"
 
 extern HWND hWnd;

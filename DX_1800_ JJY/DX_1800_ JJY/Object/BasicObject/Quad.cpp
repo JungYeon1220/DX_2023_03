@@ -36,7 +36,7 @@ void Quad::Render()
 void Quad::CreateVertices()
 {
 
-    Vertex v;
+    Vertex_Texture v;
 
     Vector2 halfSize = _srv->GetImageSize() * 0.5f;
 
@@ -71,7 +71,7 @@ void Quad::CreateVertices()
 
 void Quad::CreateData(wstring path)
 {
-    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size());
+    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size());
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
     _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
     _ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
