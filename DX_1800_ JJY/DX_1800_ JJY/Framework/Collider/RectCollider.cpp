@@ -7,7 +7,7 @@ RectCollider::RectCollider(Vector2 size)
 	CreateVertices();
 	CreateData();
 
-    _transform = make_shared<Transform>();
+    _type = Type::RECT;
 }
 
 RectCollider::~RectCollider()
@@ -17,11 +17,15 @@ RectCollider::~RectCollider()
 void RectCollider::Update()
 {
     _transform->Update();
+
+    _colorBuffer->SetColor(_color);
+    _colorBuffer->Update_Resource();
 }
 
 void RectCollider::Render()
 {
     _transform->SetWorldBuffer(0);
+    _colorBuffer->SetPS_Buffer(0);
 
     _vertexBuffer->SetIA_VertexBuffer();
     _vs->SetIA_InputLayOut();
@@ -59,7 +63,63 @@ void RectCollider::CreateVertices()
 void RectCollider::CreateData()
 {
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size());
+    _colorBuffer = make_shared<ColorBuffer>();
 
     _vs = make_shared<VertexShader>(L"Shader/ColliderVS.hlsl");
     _ps = make_shared<PixelShader>(L"Shader/ColliderPS.hlsl");
+}
+
+bool RectCollider::IsCollision(shared_ptr<CircleCollider> col)
+{
+    if (col->GetWorldPos().x < Right() && col->GetWorldPos().x > Left())
+    {
+        if (col->Bottom() < Top() && col->Top() > Bottom())
+        {
+            return true;
+        }
+    }
+
+    if (col->GetWorldPos().y > Bottom() && col->GetWorldPos().y < Top())
+    {
+        if (col->Left() < Right() && col->Right() > Left())
+        {
+            return true;
+        }
+    }
+
+    if (col->IsCollision(Vector2(Left(), Top()))
+        || col->IsCollision(Vector2(Right(), Top()))
+        || col->IsCollision(Vector2(Left(), Bottom()))
+        || col->IsCollision(Vector2(Right(), Bottom())))
+    {
+        return true;
+    }
+
+    return false;
+}
+
+bool RectCollider::IsCollision(shared_ptr<RectCollider> col)
+{
+    if (Left() > col->Right() || Right() < col->Left()
+        || Top() < col->Bottom() || Bottom() > col->Top())
+        return false;
+
+    return true;
+}
+
+void RectCollider::SetScale(Vector2 scale)
+{
+    _transform->SetScale(scale);
+    _size.x *= scale.x;
+    _size.y *= scale.y;
+}
+
+bool RectCollider::IsCollision(const Vector2& pos)
+{
+    if (pos.x > Left() && pos.x < Right())
+    {
+        if (pos.y > Bottom() && pos.y < Top())
+            return true;
+    }
+    return false;
 }

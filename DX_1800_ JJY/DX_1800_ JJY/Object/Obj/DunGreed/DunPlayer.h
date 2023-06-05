@@ -20,7 +20,7 @@ private:
 	shared_ptr<Transform> _bulletTrans;
 	vector<shared_ptr<DunBullet>> _bullets;
 
-	Vector2 _pos = CENTER;
+	Vector2 _pos = Vector2();
 	float _speed = 0.5f;
 	
 };

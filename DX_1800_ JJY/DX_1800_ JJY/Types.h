@@ -7,6 +7,8 @@
 
 #define CENTER	Vector2(WIN_WIDTH * 0.5F, WIN_HEIGHT * 0.5F)
 
+#define PI	3.141592f
+
 #define RED		{1.0f, 0.0f, 0.0f, 1.0f}
 #define GREEN	{0.0f, 1.0f, 0.0f, 1.0f}
 #define BLUE	{0.0f, 0.0f, 1.0f, 1.0f}

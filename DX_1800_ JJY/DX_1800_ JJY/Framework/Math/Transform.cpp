@@ -38,7 +38,7 @@ void Transform::Update_WorldBuffer()
 
 void Transform::SetWorldBuffer(UINT slot)
 {
-	_world->SetVS_Buffer(0);
+	_world->SetVS_Buffer(slot);
 }
 
 Vector2 Transform::GetWorldPos() const

@@ -30,7 +30,7 @@ class ColorBuffer : public ConstantBuffer
 public:
 	struct  Data
 	{
-		XMMATRIX color;
+		XMFLOAT4 color;
 	};
 
 	ColorBuffer()
@@ -41,9 +41,9 @@ public:
 
 	virtual ~ColorBuffer() {}
 
-	void SetColor()
+	void SetColor(XMFLOAT4 color)
 	{
-
+		_data.color = color;
 	}
 
 	Data _data;
