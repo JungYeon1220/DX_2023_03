@@ -71,26 +71,35 @@ void RectCollider::CreateData()
 
 bool RectCollider::IsCollision(shared_ptr<CircleCollider> col)
 {
-    if (col->GetWorldPos().x < Right() && col->GetWorldPos().x > Left())
+    AABB_Info info = GetAABB_Info();
+
+    Vector2 circleWorldPos = col->GetWorldPos();
+
+    float left = col->GetWorldPos().x - col->GetWorldRadius();
+    float right = col->GetWorldPos().x + col->GetWorldRadius();
+    float top = col->GetWorldPos().y + col->GetWorldRadius();
+    float bottom = col->GetWorldPos().y - col->GetWorldRadius();
+
+    if (circleWorldPos.x < info.right && circleWorldPos.x > info.left)
     {
-        if (col->Bottom() < Top() && col->Top() > Bottom())
+        if (bottom < info.top && top > info.bottom)
         {
             return true;
         }
     }
 
-    if (col->GetWorldPos().y > Bottom() && col->GetWorldPos().y < Top())
+    if (circleWorldPos.y > info.bottom && circleWorldPos.y < info.top)
     {
-        if (col->Left() < Right() && col->Right() > Left())
+        if (left < info.right && right > info.left)
         {
             return true;
         }
     }
 
-    if (col->IsCollision(Vector2(Left(), Top()))
-        || col->IsCollision(Vector2(Right(), Top()))
-        || col->IsCollision(Vector2(Left(), Bottom()))
-        || col->IsCollision(Vector2(Right(), Bottom())))
+    if (col->IsCollision(Vector2(info.left, info.top))
+        || col->IsCollision(Vector2(info.right, info.top))
+        || col->IsCollision(Vector2(info.left, info.bottom))
+        || col->IsCollision(Vector2(info.right, info.bottom)))
     {
         return true;
     }
@@ -100,25 +109,34 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> col)
 
 bool RectCollider::IsCollision(shared_ptr<RectCollider> col)
 {
-    if (Left() > col->Right() || Right() < col->Left()
-        || Top() < col->Bottom() || Bottom() > col->Top())
+    AABB_Info aInfo = GetAABB_Info();
+    AABB_Info bInfo = col->GetAABB_Info();
+
+    if (aInfo.left > bInfo.right || aInfo.right < bInfo.left
+        || aInfo.top < bInfo.bottom || aInfo.bottom > bInfo.top)
         return false;
 
     return true;
 }
 
-void RectCollider::SetScale(Vector2 scale)
+RectCollider::AABB_Info RectCollider::GetAABB_Info()
 {
-    _transform->SetScale(scale);
-    _size.x *= scale.x;
-    _size.y *= scale.y;
+    AABB_Info info;
+    info.left = _transform->GetWorldPos().x - _size.x * _transform->GetWorldScale().x * 0.5f;
+    info.right = _transform->GetWorldPos().x + _size.x * _transform->GetWorldScale().x * 0.5f;
+    info.top = _transform->GetWorldPos().y + _size.y * _transform->GetWorldScale().y * 0.5f;
+    info.bottom = _transform->GetWorldPos().y - _size.y * _transform->GetWorldScale().y * 0.5f;
+
+    return info;
 }
 
 bool RectCollider::IsCollision(const Vector2& pos)
 {
-    if (pos.x > Left() && pos.x < Right())
+    AABB_Info info = GetAABB_Info();
+
+    if (pos.x > info.left && pos.x < info.right)
     {
-        if (pos.y > Bottom() && pos.y < Top())
+        if (pos.y > info.bottom && pos.y < info.top)
             return true;
     }
     return false;

@@ -61,7 +61,7 @@ void CircleCollider::CreateData()
 bool CircleCollider::IsCollision(const Vector2& pos)
 {
     float distance = GetWorldPos().Distance(pos);
-    if (distance < _radius)
+    if (distance < GetWorldRadius())
         return true;
     return false;
 }
@@ -69,7 +69,7 @@ bool CircleCollider::IsCollision(const Vector2& pos)
 bool CircleCollider::IsCollision(shared_ptr<CircleCollider> col)
 {
     float distance = GetWorldPos().Distance(col->GetWorldPos());
-    if (distance < _radius + col->GetRadius())
+    if (distance < GetWorldRadius() + col->GetWorldRadius())
         return true;
     return false;
 }
@@ -77,4 +77,13 @@ bool CircleCollider::IsCollision(shared_ptr<CircleCollider> col)
 bool CircleCollider::IsCollision(shared_ptr<RectCollider> col)
 {
     return col->IsCollision(shared_from_this());
+}
+
+float CircleCollider::GetWorldRadius()
+{
+    Vector2 worldScale = _transform->GetWorldScale();
+
+    float temp = (worldScale.x + worldScale.y) / 2;
+
+    return _radius * temp;
 }

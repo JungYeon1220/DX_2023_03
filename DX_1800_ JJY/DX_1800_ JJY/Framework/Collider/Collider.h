@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../../Types.h"
 
 class RectCollider;
@@ -25,8 +24,8 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> col) abstract;
 	virtual bool IsCollision(shared_ptr<RectCollider> col) abstract;
 
-	void SetColorRed() { _color = RED; }
-	void SetColorGreen() { _color = GREEN; }
+	void SetRed() { _color = RED; }
+	void SetGreen() { _color = GREEN; }
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 	Vector2 GetWorldPos() { return _transform->GetWorldPos(); }
