@@ -130,6 +130,17 @@ RectCollider::AABB_Info RectCollider::GetAABB_Info()
     return info;
 }
 
+RectCollider::OBB_Info RectCollider::GetOBB_Info()
+{
+    OBB_Info info;
+    info.pos = _transform->GetWorldPos();
+
+    XMFLOAT4X4 matrix;
+    XMStoreFloat4x4(&matrix, _transform->GetSRT());
+
+    return OBB_Info();
+}
+
 bool RectCollider::IsCollision(const Vector2& pos)
 {
     AABB_Info info = GetAABB_Info();

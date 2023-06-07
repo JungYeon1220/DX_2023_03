@@ -12,6 +12,13 @@ public:
 		float bottom = 0;
 	};
 
+	struct OBB_Info
+	{
+		Vector2 pos;
+		Vector2 direction;
+		float length;
+	};
+
 	RectCollider(Vector2 size);
 	virtual ~RectCollider();
 
@@ -23,9 +30,12 @@ public:
 
 	virtual bool IsCollision(const Vector2& pos) override;
 	virtual bool IsCollision(shared_ptr<class CircleCollider> col) override;
-	virtual bool IsCollision(shared_ptr<RectCollider> col)override;
+	virtual bool IsCollision(shared_ptr<RectCollider> col) override;
+
+	bool IsOBB(shared_ptr<RectCollider> col);
 
 	AABB_Info GetAABB_Info();
+	OBB_Info GetOBB_Info();
 private:
 	Vector2 _size;
 };

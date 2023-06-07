@@ -197,8 +197,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEMOVE:
         {
         Vector2 mousePos;
-            mousePos.x = static_cast<float>(LOWORD(lParam)) * 1.01f;
-            mousePos.y = WIN_HEIGHT - static_cast<float>(HIWORD(lParam)) * 1.05f;
+            mousePos.x = static_cast<float>(LOWORD(lParam));
+            mousePos.y = WIN_HEIGHT - static_cast<float>(HIWORD(lParam));
             
             InputManager::GetInstance()->SetMousePos(mousePos);
             break;

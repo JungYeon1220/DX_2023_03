@@ -10,10 +10,7 @@ public:
 
 private:
 	shared_ptr<Collider> _rectCollider;
-	shared_ptr<Collider> _rectCollider2;
+	shared_ptr<Collider> _rectColliderMouse;
 	shared_ptr<Collider> _circleCollider;
-	shared_ptr<Collider> _circleCollider2;
-
-	vector<shared_ptr<Collider>> _colliders;
 };
 
