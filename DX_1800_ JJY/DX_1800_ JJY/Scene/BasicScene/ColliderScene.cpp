@@ -16,9 +16,11 @@ ColliderScene::~ColliderScene()
 
 void ColliderScene::Update()
 {
-	_rectColliderMouse->GetTransform()->SetPosition(MOUSE_POS);
+	_circleCollider->Update();
+	_rectCollider->Update();
+	_rectColliderMouse->Update();
 
-	if (_rectCollider->IsCollision(_rectColliderMouse))
+	if (_rectCollider->IsOBB(_rectColliderMouse))
 	{
 		_rectCollider->SetRed();
 	}
@@ -26,10 +28,9 @@ void ColliderScene::Update()
 	{
 		_rectCollider->SetGreen();
 	}
-
-	_circleCollider->Update();
-	_rectCollider->Update();
-	_rectColliderMouse->Update();
+	_rectColliderMouse->GetTransform()->SetPosition(MOUSE_POS);
+	_rectColliderMouse->GetTransform()->SetScale(_scale);
+	_rectColliderMouse->GetTransform()->SetAngle(_angle);
 }
 
 void ColliderScene::Render()
@@ -37,4 +38,12 @@ void ColliderScene::Render()
 	_circleCollider->Render();
 	_rectCollider->Render();
 	_rectColliderMouse->Render();
+}
+
+void ColliderScene::PostRender()
+{
+	ImGui::SliderFloat2("Pos", (float*)&_pos, 0, WIN_WIDTH, "%.0f");
+	ImGui::SliderFloat2("Scale", (float*)&_scale, 0, 3, "%.1f");
+	ImGui::SliderFloat2("Scale", (float*)&MOUSE_POS, 0, 3, "%.1f");
+	ImGui::SliderFloat("Angle", &_angle, 0, 2 * PI, "%.1f");
 }

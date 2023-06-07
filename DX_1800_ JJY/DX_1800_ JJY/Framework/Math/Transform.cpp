@@ -63,5 +63,5 @@ Vector2 Transform::GetWorldScale() const
 		return Vector2(temp._11 * parentScale.x, temp._22 * parentScale.y);
 	}
 
-	return Vector2();
+	return Vector2(temp._11, temp._22);
 }

@@ -119,13 +119,73 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> col)
     return true;
 }
 
+bool RectCollider::IsOBB(shared_ptr<RectCollider> col)
+{
+    OBB_Info aInfo = GetOBB_Info();
+    OBB_Info bInfo = col->GetOBB_Info();
+
+    Vector2 aToB = aInfo.pos - bInfo.pos;
+
+    Vector2 nea1 = aInfo.direction[0];
+    Vector2 nea2 = aInfo.direction[1];
+    Vector2 ea1 = nea1 * aInfo.length[0];
+    Vector2 ea2 = nea2 * aInfo.length[1];
+
+    Vector2 neb1 = bInfo.direction[0];
+    Vector2 neb2 = bInfo.direction[1];
+    Vector2 eb1 = neb1 * bInfo.length[0];
+    Vector2 eb2 = neb2 * bInfo.length[1];
+
+    // nea1 기준으로 투영
+    float length = abs(nea1.Dot(aToB));
+    float lengthA = ea1.Length();
+    float lengthB = SeparateAxis(nea1, eb1, eb2);
+
+    if (length > lengthA + lengthB)
+        return false;
+
+    // nea2 기준으로 투영
+    length = abs(nea2.Dot(aToB));
+    lengthA = ea2.Length();
+    lengthB = SeparateAxis(nea2, eb1, eb2);
+
+    if (length > lengthA + lengthB)
+        return false;
+
+    // neb1 기준으로 투영
+    length = abs(neb1.Dot(aToB));
+    lengthA = eb1.Length();
+    lengthB = SeparateAxis(neb1, ea1, ea2);
+
+    if (length > lengthA + lengthB)
+        return false;
+
+    // neb2 기준으로 투영
+    length = abs(neb2.Dot(aToB));
+    lengthA = eb2.Length();
+    lengthB = SeparateAxis(neb2, ea1, ea2);
+
+    if (length > lengthA + lengthB)
+        return false;
+
+    return true;
+}
+
+float RectCollider::SeparateAxis(Vector2 separate, Vector2 e1, Vector2 e2)
+{
+    float r1 = abs(separate.Dot(e1));
+    float r2 = abs(separate.Dot(e2));
+    
+    return r1 + r2;
+}
+
 RectCollider::AABB_Info RectCollider::GetAABB_Info()
 {
     AABB_Info info;
-    info.left = _transform->GetWorldPos().x - _size.x * _transform->GetWorldScale().x * 0.5f;
-    info.right = _transform->GetWorldPos().x + _size.x * _transform->GetWorldScale().x * 0.5f;
-    info.top = _transform->GetWorldPos().y + _size.y * _transform->GetWorldScale().y * 0.5f;
-    info.bottom = _transform->GetWorldPos().y - _size.y * _transform->GetWorldScale().y * 0.5f;
+    info.left =     _transform->GetWorldPos().x - _size.x * _transform->GetWorldScale().x * 0.5f;
+    info.right =    _transform->GetWorldPos().x + _size.x * _transform->GetWorldScale().x * 0.5f;
+    info.top =      _transform->GetWorldPos().y + _size.y * _transform->GetWorldScale().y * 0.5f;
+    info.bottom =   _transform->GetWorldPos().y - _size.y * _transform->GetWorldScale().y * 0.5f;
 
     return info;
 }
@@ -137,8 +197,18 @@ RectCollider::OBB_Info RectCollider::GetOBB_Info()
 
     XMFLOAT4X4 matrix;
     XMStoreFloat4x4(&matrix, _transform->GetSRT());
+    info.direction[0] = { matrix._11, matrix._12 };
+    info.direction[1] = { matrix._21, matrix._22 };
 
-    return OBB_Info();
+    info.direction[0].Normalize();
+    info.direction[1].Normalize();
+
+    Vector2 halfSize = _size * 0.5f;
+
+    info.length[0] = halfSize.x * _transform->GetWorldScale().x;
+    info.length[1] = halfSize.y * _transform->GetWorldScale().y;
+
+    return info;
 }
 
 bool RectCollider::IsCollision(const Vector2& pos)
