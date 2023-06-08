@@ -171,6 +171,40 @@ bool RectCollider::IsOBB(shared_ptr<RectCollider> col)
     return true;
 }
 
+bool RectCollider::IsOBB(shared_ptr<CircleCollider> col)
+{
+    OBB_Info info = GetOBB_Info();
+
+    Vector2 circlePos = col->GetTransform()->GetWorldPos();
+    float radius = col->GetWorldRadius();
+
+    Vector2 aToB = info.pos - circlePos;
+
+    Vector2 nea1 = info.direction[0];
+    Vector2 nea2 = info.direction[1];
+    Vector2 ea1 = nea1 * info.length[0];
+    Vector2 ea2 = nea2 * info.length[1];
+
+    float vertexLength = (ea1 + ea2).Length();
+
+    if (aToB.Length() > radius + vertexLength)
+        return false;
+
+    float length = abs(nea1.Dot(aToB));
+    float lengthA = ea1.Length();
+
+    if (length > lengthA + radius)
+        return false;
+
+    length = abs(nea2.Dot(aToB));
+    lengthA = ea2.Length();
+
+    if (length > lengthA + radius)
+        return false;
+
+    return true;
+}
+
 float RectCollider::SeparateAxis(Vector2 separate, Vector2 e1, Vector2 e2)
 {
     float r1 = abs(separate.Dot(e1));

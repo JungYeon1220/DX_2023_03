@@ -25,3 +25,7 @@
 #define KEY_DOWN(k)		InputManager::GetInstance()->Down(k)
 #define KEY_PRESS(k)	InputManager::GetInstance()->Press(k)
 #define MOUSE_POS		InputManager::GetInstance()->GetMousePos()
+
+#define DELTA_TIME Timer::GetInstance()->GetDeltaTime()
+#define RUN_TIME Timer::GetInstance()->GetRunTime()
+#define FPS Timer::GetInstance()->GetFPS()

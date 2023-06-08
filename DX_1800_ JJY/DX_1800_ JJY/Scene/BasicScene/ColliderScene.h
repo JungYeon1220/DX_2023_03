@@ -12,7 +12,7 @@ public:
 private:
 	shared_ptr<RectCollider> _rectCollider;
 	shared_ptr<RectCollider> _rectColliderMouse;
-	shared_ptr<Collider> _circleCollider;
+	shared_ptr<CircleCollider> _circleCollider;
 
 	Vector2 _pos = CENTER;
 	Vector2 _scale = { 1.0f, 1.0f };
