@@ -10,9 +10,9 @@ public:
 	void Update_WorldBuffer();
 
 	void SetWorldBuffer(UINT slot);
-	void SetPosition(Vector2 pos) { _pos = pos; }
-	void SetScale(Vector2 scale) { _scale = scale; }
-	void SetAngle(float angle) { _angle = angle; }
+	void SetPosition(Vector2 pos) { _pos = pos; Update_SRT(); }
+	void SetScale(Vector2 scale) { _scale = scale; Update_SRT(); }
+	void SetAngle(float angle) { _angle = angle; Update_SRT(); }
 
 	void AddVector2(Vector2 pos) { _pos += pos; }
 	void AddScale(Vector2 scale) { _scale += scale; }

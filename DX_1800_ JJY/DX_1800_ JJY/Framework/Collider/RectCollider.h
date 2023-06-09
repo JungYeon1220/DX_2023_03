@@ -37,6 +37,8 @@ public:
 
 	float SeparateAxis(Vector2 separate, Vector2 e1, Vector2 e2);
 
+	bool Block(shared_ptr<RectCollider> col);
+
 	AABB_Info GetAABB_Info();
 	OBB_Info GetOBB_Info();
 private:

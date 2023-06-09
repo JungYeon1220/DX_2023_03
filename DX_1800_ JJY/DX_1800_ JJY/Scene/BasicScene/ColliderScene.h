@@ -10,8 +10,9 @@ public:
 	virtual void PostRender() override;
 
 private:
+	shared_ptr<CircleCollider> _circleColliderMouse;
 	shared_ptr<RectCollider> _rectCollider;
-	shared_ptr<RectCollider> _rectColliderMouse;
+	shared_ptr<RectCollider> _rectColliderKeyboard;
 	shared_ptr<CircleCollider> _circleCollider;
 
 	Vector2 _pos = CENTER;

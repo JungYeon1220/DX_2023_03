@@ -15,6 +15,9 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> col) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> col) override;
 
+	bool Block(shared_ptr<CircleCollider> col);
+	bool Block(shared_ptr<RectCollider> col) { return false; }
+
 	float GetRadius() { return _radius; }
 	float GetWorldRadius();
 

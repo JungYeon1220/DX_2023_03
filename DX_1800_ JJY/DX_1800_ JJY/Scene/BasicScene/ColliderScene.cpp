@@ -3,8 +3,9 @@
 
 ColliderScene::ColliderScene()
 {
+	_circleColliderMouse = make_shared<CircleCollider>(100);
 	_rectCollider = make_shared<RectCollider>(Vector2(100, 50));
-	_rectColliderMouse = make_shared<RectCollider>(Vector2(100, 200));
+	_rectColliderKeyboard = make_shared<RectCollider>(Vector2(100, 200));
 	_circleCollider = make_shared<CircleCollider>(80);
 	_rectCollider->GetTransform()->SetPosition(CENTER);
 	_circleCollider->GetTransform()->SetPosition(CENTER);
@@ -16,47 +17,54 @@ ColliderScene::~ColliderScene()
 
 void ColliderScene::Update()
 {
+	_circleColliderMouse->GetTransform()->SetPosition(MOUSE_POS);
+
 	if (KEY_PRESS('W'))
 	{
-		_rectColliderMouse->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * DELTA_TIME * 100.0f);
+		_rectColliderKeyboard->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * DELTA_TIME * 500.0f);
 	}
 	if (KEY_PRESS('S'))
 	{
-		_rectColliderMouse->GetTransform()->AddVector2(Vector2( 0.0f, -1.0f ) * DELTA_TIME * 100.0f);
+		_rectColliderKeyboard->GetTransform()->AddVector2(Vector2( 0.0f, -1.0f ) * DELTA_TIME * 500.0f);
 	}
 	if (KEY_PRESS('D'))
 	{
-		_rectColliderMouse->GetTransform()->AddVector2(Vector2( 1.0f, 0.0f ) * DELTA_TIME * 100.0f);
+		_rectColliderKeyboard->GetTransform()->AddVector2(Vector2( 1.0f, 0.0f ) * DELTA_TIME * 500.0f);
 	}
 	if (KEY_PRESS('A'))
 	{
-		_rectColliderMouse->GetTransform()->AddVector2(Vector2( -1.0f, 0.0f ) * DELTA_TIME * 100.0f);
+		_rectColliderKeyboard->GetTransform()->AddVector2(Vector2( -1.0f, 0.0f ) * DELTA_TIME * 500.0f);
 	}
 
+	_circleColliderMouse->Update();
 	_circleCollider->Update();
 	_rectCollider->Update();
-	_rectColliderMouse->Update();
+	_rectColliderKeyboard->Update();
 
-	if (_rectColliderMouse->IsOBB(_circleCollider))
+	_circleColliderMouse->Block(_circleCollider);
+	_rectColliderKeyboard->Block(_rectCollider);
+
+	if (_rectColliderKeyboard->IsOBB(_circleCollider))
 	{
-		_rectColliderMouse->SetRed();
+		_rectColliderKeyboard->SetRed();
 		_circleCollider->SetRed();
 	}
 	else
 	{
-		_rectColliderMouse->SetGreen();
+		_rectColliderKeyboard->SetGreen();
 		_circleCollider->SetGreen();
 	}
 	//_rectColliderMouse->GetTransform()->SetPosition(_pos);
-	_rectColliderMouse->GetTransform()->SetScale(_scale);
-	_rectColliderMouse->GetTransform()->SetAngle(_angle);
+	_rectColliderKeyboard->GetTransform()->SetScale(_scale);
+	_rectColliderKeyboard->GetTransform()->SetAngle(_angle);
 }
 
 void ColliderScene::Render()
 {
+	_circleColliderMouse->Render();
 	_circleCollider->Render();
 	_rectCollider->Render();
-	_rectColliderMouse->Render();
+	_rectColliderKeyboard->Render();
 }
 
 void ColliderScene::PostRender()
