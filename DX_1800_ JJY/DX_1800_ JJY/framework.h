@@ -61,6 +61,7 @@ using namespace Microsoft::WRL;
 
 //TextureMapping
 #include "Framework/TextureMapping/SRV.h"
+#include "Framework/TextureMapping/SRVManager.h"
 #include "Framework/TextureMapping/SamplerState.h"
 #include "Framework/TextureMapping/BlendState.h"
 #include "Framework/TextureMapping/StateManager.h"
@@ -73,8 +74,6 @@ using namespace Microsoft::WRL;
 // Obj
 #include "Object/BasicObject/Quad.h"
 #include "Object/Obj/Planet.h"
-#include "Object/Obj/DunGreed/DunMonster.h"
-#include "Object/Obj/DunGreed/DunBullet.h"
 #include "Object/Obj/DunGreed/DunPlayer.h"
 
 // Scene

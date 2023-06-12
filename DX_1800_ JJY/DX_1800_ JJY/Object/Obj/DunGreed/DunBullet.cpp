@@ -3,10 +3,9 @@
 
 DunBullet::DunBullet()
 {
-	_quad = make_shared<Quad>(L"Resource/Texture/Bullet.png");
-	_collider = make_shared<CircleCollider>(10.0f);
+	_quad = make_shared<Quad>(Vector2(30,30),L"Resource/Texture/Bullet.png");
+	_collider = make_shared<CircleCollider>(15.0f);
 
-	_quad->GetTransform()->SetScale(Vector2(0.05f, 0.05f));
 	_quad->GetTransform()->SetParent(_collider->GetTransform());
 }
 
@@ -26,7 +25,7 @@ void DunBullet::Update()
 
 	_pos += _dir * _speed * DELTA_TIME;
 	_collider->GetTransform()->SetPosition(_pos);
-	_quad->GetTransform()->SetAngle(_dir.Angle());
+	_collider->GetTransform()->SetAngle(_dir.Angle());
 	_quad->Update();
 	_collider->Update();
 }
@@ -44,7 +43,7 @@ void DunBullet::Attack(shared_ptr<DunMonster> victim)
 {
 	if (_isActive == false)
 		return;
-	if (_collider->Block(victim->GetCollider()) == false || victim->IsDead() == true)
+	if (_collider->IsCollision(victim->GetCollider()) == false || victim->IsDead() == true)
 		return;
 
 	victim->TakeDamage(_damage);

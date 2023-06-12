@@ -29,5 +29,6 @@ private:
 	int _damage = 1;
 
 	bool _isActive = false;
+
 };
 

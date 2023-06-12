@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "DunPlayer.h"
+#include "DunBullet.h"
 
 DunPlayer::DunPlayer()
 {
