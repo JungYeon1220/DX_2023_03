@@ -104,6 +104,44 @@ bool CircleCollider::Block(shared_ptr<CircleCollider> col)
     return true;
 }
 
+bool CircleCollider::Block(shared_ptr<RectCollider> col)
+{
+    if (!IsCollision(col))
+        return false;
+
+    RectCollider::AABB_Info info = col->GetAABB_Info();
+    float radius = GetWorldRadius();
+
+    Vector2 halfSize = Vector2(info.right - info.left, info.top - info.bottom) * 0.5f;
+
+    Vector2 dir = col->GetWorldPos() - GetWorldPos();
+
+    Vector2 overlap;
+    overlap.x = (halfSize.x + radius) - abs(dir.x);
+    overlap.y = (halfSize.y + radius) - abs(dir.y);
+
+    if (overlap.y > overlap.x)
+    {
+        Vector2 temp = col->GetWorldPos();
+        dir.y = 0;
+        dir.Normalize();
+        temp.x += dir.x * overlap.x;
+
+        col->GetTransform()->SetPosition(temp);
+    }
+    else
+    {
+        Vector2 temp = col->GetWorldPos();
+        dir.x = 0;
+        dir.Normalize();
+        temp.y += dir.y * overlap.y;
+
+        col->GetTransform()->SetPosition(temp);
+    }
+
+    return true;
+}
+
 float CircleCollider::GetWorldRadius()
 {
     Vector2 worldScale = _transform->GetWorldScale();

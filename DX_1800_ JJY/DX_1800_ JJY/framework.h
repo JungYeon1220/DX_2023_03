@@ -73,6 +73,7 @@ using namespace Microsoft::WRL;
 // Obj
 #include "Object/BasicObject/Quad.h"
 #include "Object/Obj/Planet.h"
+#include "Object/Obj/DunGreed/DunMonster.h"
 #include "Object/Obj/DunGreed/DunBullet.h"
 #include "Object/Obj/DunGreed/DunPlayer.h"
 

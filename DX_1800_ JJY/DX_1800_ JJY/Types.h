@@ -3,9 +3,9 @@
 #define WIN_WIDTH 1280
 #define WIN_HEIGHT 720
 
-#define LERP(s,e,t) s + (e - s)* t
+#define LERP(s,e,t) s + (e - s) * t
 
-#define CENTER	Vector2(WIN_WIDTH * 0.5F, WIN_HEIGHT * 0.5F)
+#define CENTER	Vector2(WIN_WIDTH * 0.5f, WIN_HEIGHT * 0.5f)
 
 #define PI	3.141592f
 
@@ -26,6 +26,6 @@
 #define KEY_PRESS(k)	InputManager::GetInstance()->Press(k)
 #define MOUSE_POS		InputManager::GetInstance()->GetMousePos()
 
-#define DELTA_TIME Timer::GetInstance()->GetDeltaTime()
-#define RUN_TIME Timer::GetInstance()->GetRunTime()
-#define FPS Timer::GetInstance()->GetFPS()
+#define DELTA_TIME	Timer::GetInstance()->GetDeltaTime()
+#define RUN_TIME	Timer::GetInstance()->GetRunTime()
+#define FPS			Timer::GetInstance()->GetFPS()

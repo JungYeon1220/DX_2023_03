@@ -42,9 +42,12 @@ void ColliderScene::Update()
 	_rectColliderKeyboard->Update();
 
 	_circleColliderMouse->Block(_circleCollider);
+	_circleColliderMouse->Block(_rectCollider);
+	_rectColliderKeyboard->Block(_circleCollider);
 	_rectColliderKeyboard->Block(_rectCollider);
 
-	if (_rectColliderKeyboard->IsOBB(_circleCollider))
+
+	if (_rectColliderKeyboard->IsCollision(_circleCollider))
 	{
 		_rectColliderKeyboard->SetRed();
 		_circleCollider->SetRed();

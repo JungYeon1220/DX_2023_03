@@ -10,5 +10,7 @@ public:
 
 private:
 	shared_ptr<DunPlayer> _player;
+
+	shared_ptr<DunMonster> _monster;
 };
 

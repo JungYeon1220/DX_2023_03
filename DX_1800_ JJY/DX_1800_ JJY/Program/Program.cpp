@@ -46,7 +46,7 @@ void Program::Render()
 	ALPHA->SetState();
 	_curScene->Render();
 
-	ImGui::Text("FPS : %1f", Timer::GetInstance()->GetFPS());
+	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
 	ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
 	_curScene->PostRender();
