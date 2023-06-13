@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
+#include <time.h>
 #include <tchar.h>
 #include <memory>
 #include <vector>
@@ -74,7 +75,6 @@ using namespace Microsoft::WRL;
 // Obj
 #include "Object/BasicObject/Quad.h"
 #include "Object/Obj/Planet.h"
-#include "Object/Obj/DunGreed/DunPlayer.h"
 
 // Scene
 #include "Scene/Scene.h"

@@ -4,16 +4,21 @@
 
 DunPlayer::DunPlayer()
 {
+	_col = make_shared<CircleCollider>(50.0f);
 	_player = make_shared<Quad>(L"Resource/Texture/Player.png");
 	_bowTrans = make_shared<Transform>();
 	_bow = make_shared<Quad>(L"Resource/Texture/Item_11x5.jpg");
 	_bulletTrans = make_shared<Transform>();
+
+	_bibleTrans = make_shared<Transform>();
 
 	for (int i = 0; i < 10; i++)
 	{
 		shared_ptr<DunBullet> bullet = make_shared<DunBullet>();
 		_bullets.push_back(bullet);
 	}
+
+	_player->GetTransform()->SetParent(_col->GetTransform());
 
 	_bowTrans->SetParent(_player->GetTransform());
 
@@ -23,6 +28,22 @@ DunPlayer::DunPlayer()
 
 	_bulletTrans->SetParent(_bow->GetTransform());
 	_bulletTrans->SetPosition(Vector2(-20.0f, 20.0f));
+
+	_bibleTrans->SetPosition(_col->GetWorldPos());
+
+	for (int i = 0; i < 3; i++)
+	{
+		shared_ptr<CircleCollider> bible = make_shared<CircleCollider>(15.0f);
+		float xPos = cos(2 * PI / 3 * i) * 120.0f;
+		float yPos = sin(2 * PI / 3 * i) * 120.0f;
+		bible->GetTransform()->SetPosition(Vector2(xPos, yPos));
+		bible->GetTransform()->SetParent(_bibleTrans);
+		_bibles.push_back(bible);
+
+		shared_ptr<Quad> quad = make_shared<Quad>(Vector2(35.0f, 35.0f), L"Resource/Texture/sun.png");
+		quad->GetTransform()->SetParent(bible->GetTransform());
+		_bibleQuads.push_back(quad);
+	}
 }
 
 DunPlayer::~DunPlayer()
@@ -36,27 +57,47 @@ void DunPlayer::Update()
 	for (auto bullet : _bullets)
 	{
 		if (bullet->IsActive() == false)
-			bullet->GetColliderTransform()->SetPosition(_bulletTrans->GetWorldPos());
+			bullet->GetTransform()->SetPosition(_bulletTrans->GetWorldPos());
 	}
+
+	_bibleTrans->SetPosition(_col->GetWorldPos());
+	_bibleTrans->AddAngle(3.0f * DELTA_TIME);
 
 	Move();
 	Fire();
 
+	_col->Update();
 	_player->Update();
 	_bowTrans->Update();
 	_bow->Update();
 	_bulletTrans->Update();
 
+	_bibleTrans->Update();
+
 	for (auto bullet : _bullets)
 		bullet->Update();
+
+	for (auto bible : _bibles)
+		bible->Update();
+
+	for (auto bibleQuad : _bibleQuads)
+		bibleQuad->Update();
 }
 
 void DunPlayer::Render()
 {
 	for (auto bullet : _bullets)
 		bullet->Render();
+
+	for (auto bibleQuad : _bibleQuads)
+		bibleQuad->Render();
+
+	for (auto bible : _bibles)
+		bible->Render();
+
 	_bow->Render();
 	_player->Render();
+	_col->Render();
 }
 
 void DunPlayer::Move()
@@ -78,7 +119,7 @@ void DunPlayer::Move()
 		_pos.y -= _speed * DELTA_TIME;
 	}
 
-	_player->GetTransform()->SetPosition(_pos);
+	_col->GetTransform()->SetPosition(_pos);
 }
 
 void DunPlayer::Fire()

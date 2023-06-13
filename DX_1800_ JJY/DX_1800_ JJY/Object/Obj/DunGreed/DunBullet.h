@@ -8,7 +8,7 @@ public:
 	void Update();
 	void Render();
 
-	void Attack(shared_ptr<DunMonster> victim);
+	void Attack(shared_ptr<class DunMonster> victim);
 
 	void SetPos(Vector2 pos) { _pos = pos; }
 	void SetDir(Vector2 dir) { _dir = dir.NorMalVector2(); }
@@ -17,10 +17,10 @@ public:
 	bool IsActive() { return _isActive; }
 
 	shared_ptr<Transform> GetQuadTransform() { return _quad->GetTransform(); }
-	shared_ptr<Transform> GetColliderTransform() { return _collider->GetTransform(); }
+	shared_ptr<Transform> GetTransform() { return _col->GetTransform(); }
 
 private:
-	shared_ptr<CircleCollider> _collider;
+	shared_ptr<CircleCollider> _col;
 	shared_ptr<Quad> _quad;
 
 	Vector2 _pos = Vector2();

@@ -7,10 +7,10 @@ public:
 
 	virtual void Update() override;
 	virtual void Render() override;
+	virtual void PostRender() override;
 
 private:
-	shared_ptr<DunPlayer> _player;
-
-	shared_ptr<DunMonster> _monster;
+	shared_ptr<class DunPlayer> _player;
+	vector<shared_ptr<class DunMonster>> _monsters;
 };
 

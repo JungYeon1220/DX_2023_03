@@ -8,7 +8,9 @@
 
 Program::Program()
 {
-	_curScene = make_shared<ColliderScene>();
+	srand(static_cast<unsigned int>(time(nullptr)));
+
+	_curScene = make_shared<DunGreed>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -46,9 +48,9 @@ void Program::Render()
 	ALPHA->SetState();
 	_curScene->Render();
 
-	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
-	ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
-	ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
+	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
+	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
+	//ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
 	_curScene->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
