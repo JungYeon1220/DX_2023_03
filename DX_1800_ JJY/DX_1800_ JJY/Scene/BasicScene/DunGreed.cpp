@@ -35,6 +35,7 @@ void DunGreed::Update()
 		monster->Update();
 		monster->SetDir(_player->GetTransform()->GetWorldPos());
 		_player->GetCollider()->Block(monster->GetCollider());
+
 		for (auto bullet : _player->GetBullets())
 		{
 			bullet->Attack(monster);
@@ -42,15 +43,12 @@ void DunGreed::Update()
 
 		for (auto bible : _player->GetBibles())
 		{
-			if (bible->IsCollision(monster->GetCollider()))
+			if (bible->IsCollision(monster->GetCollider()) && monster->IsDamaged() == false)
 			{
-				if (monster->IsDamaged() == false)
-				{
-					Vector2 temp = monster->GetTransform()->GetWorldPos() - _player->GetTransform()->GetWorldPos();
-					temp.Normalize();
-					monster->GetTransform()->AddVector2(temp * 20.0f);
-					monster->TakeDamage(1);
-				}
+				Vector2 temp = monster->GetTransform()->GetWorldPos() - _player->GetTransform()->GetWorldPos();
+				temp.Normalize();
+				monster->GetTransform()->AddVector2(temp * 20.0f);
+				monster->TakeDamage(1);
 			}
 		}
 	}

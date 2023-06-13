@@ -13,13 +13,14 @@ public:
 	void SetScale(Vector2 scale);
 	void SetParent(shared_ptr<Transform> parent);
 
-	shared_ptr<Transform> GetTransform() { return _planet->GetTransform(); }
+	shared_ptr<Transform> GetTransform() { return _trans; }
 	shared_ptr<Quad> GetQuad() { return _planet; }
 	shared_ptr<Transform> GetOrbit() { return _orbit; }
 
 private:
 	float _rotationSpeed = 0.0003f;
 
+	shared_ptr<Transform> _trans;
 	shared_ptr<Quad> _planet;
 	shared_ptr<Transform> _orbit;
 };

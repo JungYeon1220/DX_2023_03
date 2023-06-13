@@ -20,6 +20,7 @@ public:
 
 private:
 	shared_ptr<CircleCollider> _col;
+	shared_ptr<Transform> _quadTrans;
 	shared_ptr<Quad> _quad;
 
 	int _hp = 10;

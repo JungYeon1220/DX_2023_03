@@ -5,12 +5,13 @@
 #include "../Scene/BasicScene/SolarSystem.h"
 #include "../Scene/BasicScene/DunGreed.h"
 #include "../Scene/BasicScene/ColliderScene.h"
+#include "../Scene/BasicScene/SpriteScene.h"
 
 Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<DunGreed>();
+	_curScene = make_shared<SpriteScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();

@@ -32,8 +32,8 @@ void CircleCollider::Render()
 
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
-    _vs->Set_VS();
-    _ps->Set_PS();
+    _vs->Set();
+    _ps->Set();
 
     DC->Draw(_vertices.size(), 0);
 }
@@ -146,7 +146,7 @@ float CircleCollider::GetWorldRadius()
 {
     Vector2 worldScale = _transform->GetWorldScale();
 
-    float temp = (worldScale.x + worldScale.y) / 2;
+    float temp = (worldScale.x + worldScale.y) * 0.5f;
 
     return _radius * temp;
 }

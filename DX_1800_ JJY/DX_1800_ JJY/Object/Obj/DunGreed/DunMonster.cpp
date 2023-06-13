@@ -5,8 +5,9 @@ DunMonster::DunMonster()
 {
 	_col = make_shared<CircleCollider>(40.0f);
 	_quad = make_shared<Quad>(Vector2(80.0f, 80.0f), L"Resource/Texture/earth.png");
+	_quadTrans = make_shared<Transform>();
 	_col->GetTransform()->SetPosition(CENTER);
-	_quad->GetTransform()->SetParent(_col->GetTransform());
+	_quadTrans->SetParent(_col->GetTransform());
 }
 
 DunMonster::~DunMonster()
@@ -33,6 +34,7 @@ void DunMonster::Update()
 
 	_col->Update();
 	_quad->Update();
+	_quadTrans->Update();
 }
 
 void DunMonster::Render()
@@ -41,6 +43,7 @@ void DunMonster::Render()
 		return;
 
 	_col->Render();
+	_quadTrans->SetWorldBuffer(0);
 	_quad->Render();
 }
 

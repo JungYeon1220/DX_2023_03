@@ -4,9 +4,10 @@
 TutorialScene::TutorialScene()
 {
     _quad = make_shared<Quad>(L"Resource/Texture/winter.png");
+	_quadTrans = make_shared<Transform>();
 
-	_quad->GetTransform()->SetPosition(CENTER);
-	_quad->GetTransform()->SetScale(Vector2(0.5f, 0.5f));
+	_quadTrans->SetPosition(CENTER);
+	_quadTrans->SetScale(Vector2(0.5f, 0.5f));
 }
 
 TutorialScene::~TutorialScene()
@@ -16,9 +17,11 @@ TutorialScene::~TutorialScene()
 void TutorialScene::Update()
 {
 	_quad->Update();
+	_quadTrans->Update();
 }
 
 void TutorialScene::Render()
 {
+	_quadTrans->SetWorldBuffer(0);
 	_quad->Render();
 }
