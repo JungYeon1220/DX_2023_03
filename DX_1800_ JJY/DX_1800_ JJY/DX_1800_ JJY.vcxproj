@@ -190,6 +190,7 @@
     <ClInclude Include="Framework\Render\VertexBuffer.h" />
     <ClInclude Include="Framework\Render\VertexLayout.h" />
     <ClInclude Include="Framework\Render\VertexShader.h" />
+    <ClInclude Include="Object\Obj\Zelda\Zelda.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object\Obj\DunGreed\DunMonster.cpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Scene\BasicScene\SpriteScene.cpp" />
     <ClCompile Include="Object\BasicObject\Sprite.cpp" />
     <ClCompile Include="Framework\Render\Shader.cpp" />
+    <ClCompile Include="Object\Obj\Zelda\Zelda.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800_ JJY.rc" />

@@ -6,13 +6,10 @@ public:
 	virtual ~SpriteScene();
 
 	virtual void Update() override;
-
 	virtual void Render() override;
-
+	virtual void PostRender() override;
 
 private:
-	shared_ptr<Transform> _transform;
-	shared_ptr<Sprite> _sprite;
-
+	shared_ptr<class Zelda> _zelda;
 };
 

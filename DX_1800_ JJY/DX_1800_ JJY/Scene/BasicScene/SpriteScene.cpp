@@ -1,13 +1,11 @@
 #include "framework.h"
 #include "SpriteScene.h"
 
+#include "../../Object/Obj/Zelda/Zelda.h"
+
 SpriteScene::SpriteScene()
 {
-	_sprite = make_shared<Sprite>(L"Resource/Testure/zelda.png", Vector2(10, 8));
-	_transform = make_shared<Transform>();
-	_transform->SetPosition(CENTER);
-
-	_sprite->SetCurFrame(Vector2(0, 1));
+	_zelda = make_shared<Zelda>();
 }
 
 SpriteScene::~SpriteScene()
@@ -16,12 +14,14 @@ SpriteScene::~SpriteScene()
 
 void SpriteScene::Update()
 {
-	_transform->Update();
-	_sprite->Update();
+	_zelda->Update();
 }
 
 void SpriteScene::Render()
 {
-	_transform->SetWorldBuffer(0);
-	_sprite->Render();
+	_zelda->Render();
+}
+
+void SpriteScene::PostRender()
+{
 }

@@ -8,10 +8,10 @@ Sprite::Sprite(wstring path, Vector2 maxFrame)
     _srv = ADD_SRV(path);
     _size = _srv->GetImageSize();
     _size.x /= _maxFrame.x;
-    _size.y / -_maxFrame.y;
+    _size.y /= _maxFrame.y;
 
-    CreateData(path);
     CreateVertices();
+    CreateData(path);
 
 	_frameBuffer = make_shared<FrameBuffer>();
 	_frameBuffer->_data.maxFrame = maxFrame;
@@ -25,8 +25,8 @@ Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
     _srv = ADD_SRV(path);
     _size = size;
 
-    CreateData(path);
     CreateVertices();
+    CreateData(path);
 
     _frameBuffer = make_shared<FrameBuffer>();
     _frameBuffer->_data.maxFrame = maxFrame;
