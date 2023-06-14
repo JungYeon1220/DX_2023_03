@@ -12,11 +12,10 @@ public:
 	virtual void CreateVertices() override;
 	virtual void CreateData(wstring path) override;
 
-	void SetCurClip(Vector2 frame);
-	void SetCurClip(Action::Clip clip);
+	void SetCurFrame(Vector2 frame) { _frameBuffer->_data.curFrame = frame; }
 
 private:
-	shared_ptr<ActionBuffer> _actionBuffer;
+	shared_ptr<FrameBuffer> _frameBuffer;
 
 	Vector2 _maxFrame;
 };
