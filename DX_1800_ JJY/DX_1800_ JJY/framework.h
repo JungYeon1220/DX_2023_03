@@ -73,6 +73,9 @@ using namespace Microsoft::WRL;
 #include "Framework/Collider/RectCollider.h"
 #include "Framework/Collider/CircleCollider.h"
 
+// Action
+#include "Framework/Animation/Action.h"
+
 // Obj
 #include "Object/BasicObject/Quad.h"
 #include "Object/BasicObject/Sprite.h"

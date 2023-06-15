@@ -2,8 +2,8 @@
 #include "Sprite.h"
 
 Sprite::Sprite(wstring path, Vector2 maxFrame)
-	: Quad()
-	, _maxFrame(maxFrame)
+    : Quad()
+    , _maxFrame(maxFrame)
 {
     _srv = ADD_SRV(path);
     _size = _srv->GetImageSize();
@@ -13,9 +13,9 @@ Sprite::Sprite(wstring path, Vector2 maxFrame)
     CreateVertices();
     CreateData(path);
 
-	_frameBuffer = make_shared<FrameBuffer>();
-	_frameBuffer->_data.maxFrame = maxFrame;
-	_frameBuffer->_data.curFrame = { 0,0 };
+    _actionBuffer = make_shared<ActionBuffer>();
+    _actionBuffer->_data.imageSize = _srv->GetImageSize();
+    _actionBuffer->_data.size = _size;
 }
 
 Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
@@ -28,9 +28,8 @@ Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
     CreateVertices();
     CreateData(path);
 
-    _frameBuffer = make_shared<FrameBuffer>();
-    _frameBuffer->_data.maxFrame = maxFrame;
-    _frameBuffer->_data.curFrame = { 0,0 };
+    _actionBuffer = make_shared<ActionBuffer>();
+    _actionBuffer->_data.imageSize = _srv->GetImageSize();
 }
 
 Sprite::~Sprite()
@@ -39,14 +38,14 @@ Sprite::~Sprite()
 
 void Sprite::Update()
 {
-	_frameBuffer->Update_Resource();
-	Quad::Update();
+    _actionBuffer->Update_Resource();
+    Quad::Update();
 }
 
 void Sprite::Render()
 {
-	_frameBuffer->SetPS_Buffer(0);
-	Quad::Render();
+    _actionBuffer->SetPS_Buffer(0);
+    Quad::Render();
 }
 
 void Sprite::CreateVertices()
@@ -89,5 +88,18 @@ void Sprite::CreateData(wstring path)
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size());
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
     _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
-    _ps = make_shared<PixelShader>(L"Shader/SpritePS.hlsl");
+    _ps = make_shared<PixelShader>(L"Shader/ActionPS.hlsl");
+}
+
+void Sprite::SetCurClip(Vector2 frame)
+{
+    Vector2 tempSize = _actionBuffer->_data.size;
+    _actionBuffer->_data.startPos.x = (frame.x * tempSize.x);
+    _actionBuffer->_data.startPos.y = (frame.y * tempSize.y);
+}
+
+void Sprite::SetCurClip(Action::Clip clip)
+{
+    _actionBuffer->_data.size = clip.size;
+    _actionBuffer->_data.startPos = clip.startPos;
 }

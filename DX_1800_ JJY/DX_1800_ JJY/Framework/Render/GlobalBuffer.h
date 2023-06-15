@@ -3,13 +3,14 @@
 class MatrixBuffer : public ConstantBuffer
 {
 public:
-	struct  Data
+
+	struct Data
 	{
 		XMMATRIX matrix;
 	};
 
 	MatrixBuffer()
-	: ConstantBuffer(&_data, sizeof(_data))
+		: ConstantBuffer(&_data, sizeof(_data))
 	{
 		_data.matrix = XMMatrixIdentity();
 	}
@@ -28,7 +29,7 @@ public:
 class ColorBuffer : public ConstantBuffer
 {
 public:
-	struct  Data
+	struct Data
 	{
 		XMFLOAT4 color;
 	};
@@ -52,7 +53,7 @@ public:
 class FrameBuffer : public ConstantBuffer
 {
 public:
-	struct  Data
+	struct Data
 	{
 		XMFLOAT2 maxFrame = XMFLOAT2();
 		XMFLOAT2 curFrame = XMFLOAT2();
@@ -64,6 +65,28 @@ public:
 	}
 
 	virtual ~FrameBuffer() {}
+
+	Data _data;
+};
+
+class ActionBuffer : public ConstantBuffer
+{
+public:
+	struct Data
+	{
+		Vector2 startPos;
+		Vector2 size;
+		Vector2 imageSize;
+		int padding[2];
+	};
+
+	ActionBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+		this;
+	}
+
+	virtual ~ActionBuffer() {}
 
 	Data _data;
 };

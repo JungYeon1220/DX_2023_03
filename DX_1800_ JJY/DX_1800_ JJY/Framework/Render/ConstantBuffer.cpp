@@ -2,8 +2,8 @@
 #include "ConstantBuffer.h"
 
 ConstantBuffer::ConstantBuffer(void* data, UINT dataSize)
-: _data(data)
-, _dataSize(dataSize)
+    : _data(data)
+    , _dataSize(dataSize)
 {
     D3D11_BUFFER_DESC bd = {};
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -22,7 +22,7 @@ ConstantBuffer::~ConstantBuffer()
 
 void ConstantBuffer::Update_Resource()
 {
-    DC->UpdateSubresource(_constantBuffer.Get(), 0, nullptr, _data,0,0);
+    DC->UpdateSubresource(_constantBuffer.Get(), 0, nullptr, _data, 0, 0);
 }
 
 void ConstantBuffer::SetVS_Buffer(UINT slot)
