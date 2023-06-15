@@ -4,11 +4,9 @@
 SpriteScene::SpriteScene()
 {
 	CreateAction();
-	_sprite = make_shared<Sprite>(L"Resource/Texture/zelda.png", Vector2(10, 8), Vector2(200, 200));
+	_sprite = make_shared<Sprite_Clip>(L"Resource/Texture/zelda.png", Vector2(200, 200));
 	_transform = make_shared<Transform>();
 	_transform->SetPosition(CENTER);
-
-	_sprite->SetCurClip(Vector2(0, 1));
 }
 
 SpriteScene::~SpriteScene()
@@ -58,5 +56,5 @@ void SpriteScene::CreateAction()
 
 	_action = make_shared<Action>(clips, "F_RUN", Action::END);
 	_action->Play();
-	_action->SetEndEvent(std::bind([this](int a)->void { this->_eventNumber = a; }, 5));
+	_action->SetEndEvent(std::bind(&SpriteScene::EndEventNumber, this, std::placeholders::_1));
 }

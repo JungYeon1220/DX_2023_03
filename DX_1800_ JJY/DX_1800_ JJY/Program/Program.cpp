@@ -6,12 +6,13 @@
 #include "../Scene/BasicScene/DunGreed.h"
 #include "../Scene/BasicScene/ColliderScene.h"
 #include "../Scene/BasicScene/SpriteScene.h"
+#include "../Scene/BasicScene/ZeldaScene.h"
 
 Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<SpriteScene>();
+	_curScene = make_shared<ZeldaScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
