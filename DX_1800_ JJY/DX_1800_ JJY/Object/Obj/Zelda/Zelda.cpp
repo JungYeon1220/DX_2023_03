@@ -35,67 +35,48 @@ void Zelda::Render()
 
 void Zelda::Input()
 {
+	Zelda::State _cur = _state;
+
 	if (KEY_PRESS('S'))
 	{
-		if (_state != State::RUN_F)
-		{
-			_state = State::RUN_F;
-			_actions[_state]->Play();
-		}
-
+		_state = State::RUN_F;
 		_transform->AddVector2(Vector2(0.0f, -1.0f) * 100.0f * DELTA_TIME);
 	}
 	if (KEY_PRESS('W'))
 	{
-		if (_state != State::RUN_B)
-		{
-			_state = State::RUN_B;
-			_actions[_state]->Play();
-		}
-
+		_state = State::RUN_B;
 		_transform->AddVector2(Vector2(0.0f, 1.0f) * 100.0f * DELTA_TIME);
 	}
 	if (KEY_PRESS('A'))
 	{
-		if (_state != State::RUN_L)
-		{
-			_state = State::RUN_L;
-			_actions[_state]->Play();
-		}
-
+		_state = State::RUN_L;
 		_transform->AddVector2(Vector2(-1.0f, 0.0f) * 100.0f * DELTA_TIME);
 	}
 	if (KEY_PRESS('D'))
 	{
-		if (_state != State::RUN_R)
-		{
-			_state = State::RUN_R;
-			_actions[_state]->Play();
-		}
-
+		_state = State::RUN_R;
 		_transform->AddVector2(Vector2(1.0f, 0.0f) * 100.0f * DELTA_TIME);
 	}
 
 	if (KEY_UP('S'))
 	{
 		_state = State::IDLE_F;
-		_actions[_state]->Play();
 	}
 	if (KEY_UP('W'))
 	{
 		_state = State::IDLE_B;
-		_actions[_state]->Play();
 	}
 	if (KEY_UP('A'))
 	{
 		_state = State::IDLE_L;
-		_actions[_state]->Play();
 	}
 	if (KEY_UP('D'))
 	{
 		_state = State::IDLE_R;
-		_actions[_state]->Play();
 	}
+
+	if (_cur != _state)
+		_actions[_state]->Play();
 }
 
 void Zelda::CreateActions()

@@ -2,9 +2,8 @@
 class Sprite_Clip : public Sprite
 {
 public:
-	// TODO: 분리하기
-	Sprite_Clip(wstring path); // -> Frame 별로 잘 나뉘어져있을 때
-	Sprite_Clip(wstring path, Vector2 size); // -> Action을 이용하여 클립으로 세팅할 때
+	Sprite_Clip(wstring path);
+	Sprite_Clip(wstring path, Vector2 size);
 	virtual ~Sprite_Clip();
 
 	virtual void Update() override;

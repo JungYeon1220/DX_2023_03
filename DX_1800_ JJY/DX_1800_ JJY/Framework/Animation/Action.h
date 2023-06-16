@@ -13,7 +13,6 @@ public:
 			, size(w, h)
 			, srv(srv)
 		{
-
 		}
 	};
 

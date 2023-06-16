@@ -64,6 +64,14 @@ public:
 		return *this;
 	}
 
+	Vector2& operator-()
+	{
+		this->x *= -1.0f;
+		this->y *= -1.0f;
+
+		return *this;
+	}
+
 	bool operator==(const Vector2& other) const;
 	bool operator!=(const Vector2& other) const;
 

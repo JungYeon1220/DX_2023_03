@@ -7,12 +7,13 @@
 #include "../Scene/BasicScene/ColliderScene.h"
 #include "../Scene/BasicScene/SpriteScene.h"
 #include "../Scene/BasicScene/ZeldaScene.h"
+#include "../Scene/BasicScene/CupHeadScene.h"
 
 Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<ZeldaScene>();
+	_curScene = make_shared<CupHeadScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
