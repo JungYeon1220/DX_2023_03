@@ -24,6 +24,8 @@ Program::Program()
 
 	_proj->SetData(temp);
 	_proj->Update_Resource();
+
+	Timer::GetInstance()->LockFPS(60.0f);
 }
 
 Program::~Program()

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Obj\CupHead\CupBG.h" />
     <ClInclude Include="Object\Obj\CupHead\CupHead.h" />
     <ClInclude Include="Scene\BasicScene\CupHeadScene.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
@@ -201,6 +202,7 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Obj\CupHead\CupBG.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupHead.cpp" />
     <ClCompile Include="Scene\BasicScene\CupHeadScene.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />
@@ -259,8 +261,11 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1800_ JJY.ico" />
+    <Image Include="Resource\Cuphead\AimStraightShot.png" />
     <Image Include="Resource\Cuphead\Idle.png" />
+    <Image Include="Resource\Cuphead\Jump.png" />
     <Image Include="Resource\Cuphead\Run.png" />
+    <Image Include="Resource\Cuphead\track.png" />
     <Image Include="Resource\Texture\Bullet.png" />
     <Image Include="Resource\Texture\earth.png" />
     <Image Include="Resource\Texture\Item_11x5.jpg" />
@@ -373,7 +378,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Resource\Cuphead\AimStraightShot.xml" />
     <Xml Include="Resource\Cuphead\Idle.xml" />
+    <Xml Include="Resource\Cuphead\Jump.xml" />
     <Xml Include="Resource\Cuphead\Run.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

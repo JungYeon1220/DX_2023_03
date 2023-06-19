@@ -8,6 +8,7 @@ CupHead::CupHead()
 
 	CreateAction("Idle",0.1f, Action::Type::PINGPONG);
 	CreateAction("Run");
+	CreateAction("Jump");
 
 	_col->GetTransform()->SetPosition(CENTER);
 
@@ -16,8 +17,6 @@ CupHead::CupHead()
 
 	_actions[State::IDLE]->Play();
 	_actions[State::RUN]->Play();
-
-
 }
 
 CupHead::~CupHead()
@@ -27,27 +26,27 @@ CupHead::~CupHead()
 void CupHead::Update()
 {
 	Input();
+	Jump();
 
 	_col->Update();
 	_transform->Update();
 
-	_actions[_state]->Update();
+	_actions[_curState]->Update();
 
-	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
-	_sprites[_state]->Update();
+	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
+	_sprites[_curState]->Update();
 }
 
 void CupHead::Render()
 {
 	_transform->SetWorldBuffer(0);
-	_sprites[_state]->Render();
+	_sprites[_curState]->Render();
 
 	_col->Render();
 }
 
 void CupHead::PostRender()
 {
-	ImGui::SliderInt("State", (int*)&_state, 0, 1);
 }
 
 void CupHead::Input()
@@ -56,22 +55,41 @@ void CupHead::Input()
 	{
 		_col->GetTransform()->AddVector2(Vector2(-1.0f, 0.0f) * _speed * DELTA_TIME);
 		SetLeft();
-		SetAction(State::RUN);
-	}
-	else if (KEY_UP('A'))
-	{
-		SetAction(State::IDLE);
 	}
 
 	if (KEY_PRESS('D'))
 	{
 		_col->GetTransform()->AddVector2(Vector2(1.0f, 0.0f) * _speed * DELTA_TIME);
 		SetRight();
-		SetAction(State::RUN);
 	}
-	else if (KEY_UP('D'))
+
+	if (_curState != State::JUMP)
 	{
+		if (KEY_PRESS('A') || KEY_PRESS('D'))
+			SetAction(State::RUN);
+		else if (_curState == State::RUN)
+			SetAction(State::IDLE);
+	}
+}
+
+void CupHead::Jump()
+{
+	if (_isFalling == true)
+		SetAction(State::JUMP);
+	else if (_curState == State::JUMP && _isFalling == false)
 		SetAction(State::IDLE);
+
+	_jumpPower -= GRAVITY * 9;
+
+	if (_jumpPower < -_maxFalling)
+		_jumpPower = -_maxFalling;
+
+	_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
+
+	if (KEY_DOWN(VK_SPACE))
+	{
+		_jumpPower = 1500.0f;
+		_isFalling = true;
 	}
 }
 
@@ -124,12 +142,14 @@ void CupHead::CreateAction(string name, float speed, Action::Type type, CallBack
 
 void CupHead::SetAction(State state)
 {
-	if (_state == state)
+	if (_curState == state)
 		return;
 
-	_actions[_state]->Reset();
-	_actions[_state]->Pause();
+	_oldState = _curState;
+	_actions[_oldState]->Reset();
+	_actions[_oldState]->Pause();
 
-	_state = state;
-	_actions[_state]->Play();
+	_curState = state;
+	_actions[_curState]->Play();
+
 }
