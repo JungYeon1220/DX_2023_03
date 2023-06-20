@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Obj\CupHead\CupBullet.h" />
     <ClInclude Include="Object\Obj\CupHead\CupBG.h" />
     <ClInclude Include="Object\Obj\CupHead\CupHead.h" />
     <ClInclude Include="Scene\BasicScene\CupHeadScene.h" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Obj\CupHead\CupBullet.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupBG.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupHead.cpp" />
     <ClCompile Include="Scene\BasicScene\CupHeadScene.cpp" />
@@ -262,6 +264,7 @@
   <ItemGroup>
     <Image Include="DX_1800_ JJY.ico" />
     <Image Include="Resource\Cuphead\AimStraightShot.png" />
+    <Image Include="Resource\Cuphead\Bullet_Loop.png" />
     <Image Include="Resource\Cuphead\Idle.png" />
     <Image Include="Resource\Cuphead\Jump.png" />
     <Image Include="Resource\Cuphead\Run.png" />
@@ -310,6 +313,20 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">VS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">VS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shader\FilterPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shader\SpritePS.hlsl">
@@ -379,6 +396,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\Cuphead\AimStraightShot.xml" />
+    <Xml Include="Resource\Cuphead\Bullet_Loop.xml" />
     <Xml Include="Resource\Cuphead\Idle.xml" />
     <Xml Include="Resource\Cuphead\Jump.xml" />
     <Xml Include="Resource\Cuphead\Run.xml" />

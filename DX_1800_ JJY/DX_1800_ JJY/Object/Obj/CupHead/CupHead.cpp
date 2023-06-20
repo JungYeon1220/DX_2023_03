@@ -1,14 +1,18 @@
 #include "framework.h"
 #include "CupHead.h"
+#include "CupBullet.h"
 
 CupHead::CupHead()
 {
 	_col = make_shared<CircleCollider>(50);
 	_transform = make_shared<Transform>();
+	_bullet = make_shared<CupBullet>();
 
 	CreateAction("Idle",0.1f, Action::Type::PINGPONG);
 	CreateAction("Run");
 	CreateAction("Jump");
+	CreateAction("AimStraightShot", 0.1f,Action::Type::END);
+	_actions[State::ATTACK]->SetEndEvent(std::bind(&CupHead::AttackEnd, this));
 
 	_col->GetTransform()->SetPosition(CENTER);
 
@@ -30,6 +34,7 @@ void CupHead::Update()
 
 	_col->Update();
 	_transform->Update();
+	_bullet->Update();
 
 	_actions[_curState]->Update();
 
@@ -41,16 +46,26 @@ void CupHead::Render()
 {
 	_transform->SetWorldBuffer(0);
 	_sprites[_curState]->Render();
+	_bullet->Render();
 
 	_col->Render();
 }
 
 void CupHead::PostRender()
 {
+	ImGui::Text("%d", _curState);
 }
 
 void CupHead::Input()
 {
+	if (KEY_DOWN(VK_LBUTTON) && _isAttack == false)
+	{
+		Attack();
+	}
+
+	if (_isAttack == true)
+		return;
+
 	if (KEY_PRESS('A'))
 	{
 		_col->GetTransform()->AddVector2(Vector2(-1.0f, 0.0f) * _speed * DELTA_TIME);
@@ -74,9 +89,9 @@ void CupHead::Input()
 
 void CupHead::Jump()
 {
-	if (_isFalling == true)
+	if (_isFalling == true && _isAttack == false)
 		SetAction(State::JUMP);
-	else if (_curState == State::JUMP && _isFalling == false)
+	else if (_curState == State::JUMP && _isFalling == false && _isAttack == false)
 		SetAction(State::IDLE);
 
 	_jumpPower -= GRAVITY * 9;
@@ -86,11 +101,26 @@ void CupHead::Jump()
 
 	_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
 
-	if (KEY_DOWN(VK_SPACE))
+	if (KEY_DOWN(VK_SPACE) && _isAttack == false)
 	{
 		_jumpPower = 1500.0f;
 		_isFalling = true;
 	}
+}
+
+void CupHead::Attack()
+{
+	_bullet->SetPosition(_col->GetWorldPos());
+	_bullet->SetDerection(RIGHT_VECTOR);
+	_bullet->_isActive = true;
+	SetAction(State::ATTACK);
+	_isAttack = true;
+}
+
+void CupHead::AttackEnd()
+{
+	_isAttack = false;
+	SetAction(State::IDLE);
 }
 
 void CupHead::CreateAction(string name, float speed, Action::Type type, CallBack callBack)
@@ -151,5 +181,4 @@ void CupHead::SetAction(State state)
 
 	_curState = state;
 	_actions[_curState]->Play();
-
 }

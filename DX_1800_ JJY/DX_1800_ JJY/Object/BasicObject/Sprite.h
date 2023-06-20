@@ -16,6 +16,8 @@ public:
 	void SetRight() { _reverseBuffer->_data.value1 = 0; }
 	void SetLeft() { _reverseBuffer->_data.value1 = 1; }
 
+	Vector2 GetClipSize() { return _actionBuffer->_data.size; }
+
 protected:
 	shared_ptr<ActionBuffer> _actionBuffer;
 	shared_ptr<IntBuffer> _reverseBuffer;

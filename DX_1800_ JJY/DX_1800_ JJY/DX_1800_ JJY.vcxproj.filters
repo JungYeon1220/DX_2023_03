@@ -162,6 +162,9 @@
     <ClInclude Include="Object\Obj\CupHead\CupBG.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\Obj\CupHead\CupBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1800_ JJY.cpp">
@@ -296,6 +299,9 @@
     <ClCompile Include="Object\Obj\CupHead\CupBG.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\Obj\CupHead\CupBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800_ JJY.rc">
@@ -345,6 +351,9 @@
     <Image Include="Resource\Cuphead\track.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Cuphead\Bullet_Loop.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -354,11 +363,13 @@
     <FxCompile Include="Shader\ColliderPS.hlsl" />
     <FxCompile Include="Shader\SpritePS.hlsl" />
     <FxCompile Include="Shader\ActionPS.hlsl" />
+    <FxCompile Include="Shader\FilterPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\Cuphead\Idle.xml" />
     <Xml Include="Resource\Cuphead\Run.xml" />
     <Xml Include="Resource\Cuphead\AimStraightShot.xml" />
     <Xml Include="Resource\Cuphead\Jump.xml" />
+    <Xml Include="Resource\Cuphead\Bullet_Loop.xml" />
   </ItemGroup>
 </Project>
