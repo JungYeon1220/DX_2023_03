@@ -21,6 +21,10 @@ CupHead::CupHead()
 
 	_actions[State::IDLE]->Play();
 	_actions[State::RUN]->Play();
+
+	_filterBuffer = make_shared<FilterBuffer>();
+	_filterBuffer->_data.imageSize = _sprites[State::IDLE]->GetImageSize();
+	_filterBuffer->_data.selected = 1;
 }
 
 CupHead::~CupHead()
@@ -34,17 +38,22 @@ void CupHead::Update()
 
 	_col->Update();
 	_transform->Update();
-	_bullet->Update();
 
 	_actions[_curState]->Update();
 
 	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
 	_sprites[_curState]->Update();
+
+	_bullet->Update();
+
+	_filterBuffer->Update_Resource();
+	_filterBuffer->_data.value2 += 1;
 }
 
 void CupHead::Render()
 {
 	_transform->SetWorldBuffer(0);
+	_filterBuffer->SetPS_Buffer(2);
 	_sprites[_curState]->Render();
 	_bullet->Render();
 
@@ -91,7 +100,7 @@ void CupHead::Jump()
 {
 	if (_isFalling == true && _isAttack == false)
 		SetAction(State::JUMP);
-	else if (_curState == State::JUMP && _isFalling == false && _isAttack == false)
+	else if (_curState == JUMP && _isFalling == false && _isAttack == false)
 		SetAction(State::IDLE);
 
 	_jumpPower -= GRAVITY * 9;
@@ -167,6 +176,7 @@ void CupHead::CreateAction(string name, float speed, Action::Type type, CallBack
 	_actions.push_back(action);
 
 	shared_ptr<Sprite_Clip> sprite = make_shared<Sprite_Clip>(srvPath, Vector2(averageW/count, averageH/count));
+	sprite->SetPS(ADD_PS(L"Shader/CupHeadPS.hlsl"));
 	_sprites.push_back(sprite);
 }
 

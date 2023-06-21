@@ -60,5 +60,7 @@ private:
 	float _maxFalling = 800.0f;
 
 	float _speed = 300.0f;
+
+	shared_ptr<FilterBuffer> _filterBuffer;
 };
 

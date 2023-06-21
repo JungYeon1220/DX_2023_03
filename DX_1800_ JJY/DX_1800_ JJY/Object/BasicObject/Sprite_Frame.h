@@ -9,8 +9,8 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	void SetCurClip(Vector2 frame);
-
+	virtual void SetCurClip(Vector2 frame) override;
+	virtual void SetCurClip(Action::Clip clip);
 private:
 	Vector2 _maxFrame;
 };

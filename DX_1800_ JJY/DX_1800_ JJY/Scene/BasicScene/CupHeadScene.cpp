@@ -19,8 +19,10 @@ void CupHeadScene::Update()
 	_player->Update();
 	_bg->Update();
 
-	if (_bg->GetCollider()->Block(_player->GetCollider()) && _player->IsFalling())
+	if (_bg->GetCollider()->Block(_player->GetCollider()))
 		_player->Grounded();
+	else
+		_player->SetIsFalling(true);
 
 }
 

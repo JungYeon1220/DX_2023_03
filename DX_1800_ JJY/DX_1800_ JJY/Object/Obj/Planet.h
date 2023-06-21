@@ -13,6 +13,9 @@ public:
 	void SetScale(Vector2 scale);
 	void SetParent(shared_ptr<Transform> parent);
 
+	void SetPS(shared_ptr<PixelShader> ps) { _planet->SetPS(ps); }
+	Vector2 GetImageSize() { return _planet->GetImageSize(); }
+
 	shared_ptr<Transform> GetTransform() { return _trans; }
 	shared_ptr<Quad> GetQuad() { return _planet; }
 	shared_ptr<Transform> GetOrbit() { return _orbit; }

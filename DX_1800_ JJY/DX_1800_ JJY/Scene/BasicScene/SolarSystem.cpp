@@ -20,6 +20,11 @@ SolarSystem::SolarSystem()
 	_earth->SetPosition(Vector2(800.0f, 0.0f));
 	_moon->SetParent(_earth->GetOrbit());
 	_moon->SetPosition(Vector2(800.0f, 0.0f));
+
+	_filterBuffer = make_shared<FilterBuffer>();
+	_sun->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
+	_filterBuffer->_data.selected = 6;
+	_filterBuffer->_data.imageSize = _sun->GetImageSize();
 }
 
 SolarSystem::~SolarSystem()
@@ -33,6 +38,7 @@ void SolarSystem::Update()
 	if (KEY_PRESS('D'))
 		_sun->SetPosition(LERP(_sun->GetTransform()->GetWorldPos(), MOUSE_POS, 0.001f));
 
+	_filterBuffer->Update_Resource();
 	_sun->Update();
 	_earth->Update();
 	_moon->Update();
@@ -40,6 +46,7 @@ void SolarSystem::Update()
 
 void SolarSystem::Render()
 {
+	_filterBuffer->SetPS_Buffer(0);
 	_sun->Render();
 	_earth->Render();
 	_moon->Render();

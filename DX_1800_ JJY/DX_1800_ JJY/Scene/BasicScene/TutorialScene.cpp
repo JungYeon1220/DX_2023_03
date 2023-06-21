@@ -12,6 +12,9 @@ TutorialScene::TutorialScene()
 
 	_filterBuffer = make_shared<FilterBuffer>();
 	_filterBuffer->_data.imageSize = _quad->GetImageSize();
+	_filterBuffer->_data.radialCenter = { 0.5f, 0.5f };
+
+	_effect = make_shared<Effect>("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
 }
 
 TutorialScene::~TutorialScene()
@@ -23,6 +26,8 @@ void TutorialScene::Update()
 	_quad->Update();
 	_quadTrans->Update();
 	_filterBuffer->Update_Resource();
+
+	_effect->Update();
 }
 
 void TutorialScene::Render()
@@ -30,6 +35,13 @@ void TutorialScene::Render()
 	_quadTrans->SetWorldBuffer(0);
 	_filterBuffer->SetPS_Buffer(0);
 	_quad->Render();
+
+	if (KEY_DOWN(VK_LBUTTON))
+	{
+		_effect->Play(MOUSE_POS);
+	}
+
+	_effect->Render();
 }
 
 void TutorialScene::PostRender()

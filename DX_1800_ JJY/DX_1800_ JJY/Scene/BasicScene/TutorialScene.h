@@ -12,6 +12,7 @@ public:
 private:
 	shared_ptr<Transform> _quadTrans;
 	shared_ptr<Quad> _quad;
+	shared_ptr<Effect> _effect;
 
 	shared_ptr<FilterBuffer> _filterBuffer;
 };

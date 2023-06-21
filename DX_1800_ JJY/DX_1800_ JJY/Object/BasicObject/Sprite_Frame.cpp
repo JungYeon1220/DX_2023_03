@@ -9,7 +9,7 @@ Sprite_Frame::Sprite_Frame(wstring path, Vector2 maxFrame)
 }
 
 Sprite_Frame::Sprite_Frame(wstring path, Vector2 maxFrame, Vector2 size)
-	: Sprite(path, Vector2(size.x / maxFrame.x, size.y / maxFrame.y))
+	: Sprite(path, Vector2(size.x, size.y))
 {
 	Sprite::CreateVertices();
 	Sprite::CreateData(path);
@@ -34,4 +34,8 @@ void Sprite_Frame::SetCurClip(Vector2 frame)
 	Vector2 tempSize = _actionBuffer->_data.size;
 	_actionBuffer->_data.startPos.x = (frame.x * tempSize.x);
 	_actionBuffer->_data.startPos.y = (frame.y * tempSize.y);
+}
+
+void Sprite_Frame::SetCurClip(Action::Clip clip)
+{
 }
