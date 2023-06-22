@@ -13,7 +13,7 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<TutorialScene>();
+	_curScene = make_shared<CupHeadScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -37,6 +37,8 @@ void Program::Update()
 	Timer::GetInstance()->Update();
 	InputManager::GetInstance()->Update();
 	_curScene->Update();
+
+	EFFECT->Update();
 }
 
 void Program::Render()
@@ -52,6 +54,7 @@ void Program::Render()
 
 	ALPHA->SetState();
 	_curScene->Render();
+	EFFECT->Render();
 
 	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());

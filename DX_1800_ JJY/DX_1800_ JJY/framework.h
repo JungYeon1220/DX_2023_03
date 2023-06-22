@@ -84,6 +84,7 @@ using namespace Microsoft::WRL;
 #include "Object/BasicObject/Sprite_Clip.h"
 #include "Object/BasicObject/Sprite_Frame.h"
 #include "Object/BasicObject/Effect.h"
+#include "Object/BasicObject/EffectManager.h"
 
 #include "Object/Obj/Planet.h"
 

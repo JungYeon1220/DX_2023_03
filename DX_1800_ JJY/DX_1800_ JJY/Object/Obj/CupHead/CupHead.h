@@ -34,6 +34,7 @@ public:
 	void SetAction(State state);
 
 	shared_ptr<CircleCollider> GetCollider() { return _col; }
+	shared_ptr<class CupBullet> GetBullet() { return _bullet; }
 
 	bool IsFalling() { return _isFalling; }
 	void SetIsFalling(bool value) { _isFalling = value; }

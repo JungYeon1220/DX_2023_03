@@ -2,7 +2,7 @@
 #include "Effect.h"
 
 Effect::Effect(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed, Action::Type type)
-: _name(name)
+	: _name(name)
 {
 	_transform = make_shared<Transform>();
 	CreateAction_ByFrame(name, file, maxFrame, size, speed, type);
@@ -10,11 +10,15 @@ Effect::Effect(string name, wstring file, Vector2 maxFrame, Vector2 size, float 
 }
 
 Effect::Effect(string name, wstring file, wstring xmlPath, Vector2 size, float speed, Action::Type type)
-: _name(name)
+	: _name(name)
 {
 	_transform = make_shared<Transform>();
-	CreateAction_ByXml(name, file, xmlPath, size, speed, type);
+	CreateAction_ByXML(name, file, xmlPath, size, speed, type);
 	End();
+}
+
+Effect::~Effect()
+{
 }
 
 void Effect::Update()
@@ -52,10 +56,10 @@ void Effect::End()
 
 void Effect::CreateAction_ByFrame(string name, wstring file, Vector2 maxFrame, Vector2 size, float speed, Action::Type type)
 {
-	_sprite = make_shared <Sprite_Frame>(file, maxFrame, size);
+	_sprite = make_shared<Sprite_Frame>(file, maxFrame, size);
 	shared_ptr<SRV> srv = ADD_SRV(file);
 
-	Vector2 clipSize = _sprite->GetClipSize();
+	Vector2 clipSize = _sprite->GetImageSize();
 	clipSize.x /= maxFrame.x;
 	clipSize.y /= maxFrame.y;
 
@@ -63,7 +67,7 @@ void Effect::CreateAction_ByFrame(string name, wstring file, Vector2 maxFrame, V
 
 	for (int y = 0; y < maxFrame.y; y++)
 	{
-		for(int x = 0; x < maxFrame.x; x++)
+		for (int x = 0; x < maxFrame.x; x++)
 		{
 			Action::Clip clip = Action::Clip(x * clipSize.x, y * clipSize.y, clipSize.x, clipSize.y, srv);
 			clips.push_back(clip);
@@ -74,6 +78,6 @@ void Effect::CreateAction_ByFrame(string name, wstring file, Vector2 maxFrame, V
 	_action->SetEndEvent(std::bind(&Effect::End, this));
 }
 
-void Effect::CreateAction_ByXml(string name, wstring file, wstring xmlPath, Vector2 size, float speed, Action::Type type)
+void Effect::CreateAction_ByXML(string name, wstring file, wstring xmlPath, Vector2 size, float speed, Action::Type type)
 {
 }

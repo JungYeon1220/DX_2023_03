@@ -2,12 +2,18 @@
 #include "CupHeadScene.h"
 #include "../../Object/Obj/CupHead/CupHead.h"
 #include "../../Object/Obj/CupHead/CupBG.h"
+#include "../../Object/Obj/CupHead/CupMonster.h"
+#include "../../Object/Obj/CupHead/CupBullet.h"
 
 CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<CupHead>();
 	_bg = make_shared<CupBG>();
 	_bg->SetPosition(Vector2(CENTER.x, 100.0f));
+	_monster = make_shared<CupMonster>();
+
+	EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
+	
 }
 
 CupHeadScene::~CupHeadScene()
@@ -17,6 +23,7 @@ CupHeadScene::~CupHeadScene()
 void CupHeadScene::Update()
 {
 	_player->Update();
+	_monster->Update();
 	_bg->Update();
 
 	if (_bg->GetCollider()->Block(_player->GetCollider()))
@@ -24,11 +31,18 @@ void CupHeadScene::Update()
 	else
 		_player->SetIsFalling(true);
 
+	if (_player->GetBullet()->GetCollider()->IsCollision(_monster->GetCollider()))
+	{
+		_player->GetBullet()->_isActive = false;
+		EFFECT->Play("Hit", _player->GetBullet()->GetCollider()->GetWorldPos());
+	}
+
 }
 
 void CupHeadScene::Render()
 {
 	_bg->Render();
+	_monster->Render();
 	_player->Render();
 }
 

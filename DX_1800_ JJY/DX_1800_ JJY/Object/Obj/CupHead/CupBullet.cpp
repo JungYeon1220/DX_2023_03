@@ -27,7 +27,10 @@ CupBullet::~CupBullet()
 void CupBullet::Update()
 {
 	if (_isActive == false)
+	{
+		_col->GetTransform()->SetPosition(Vector2(-WIN_WIDTH * 5, -WIN_HEIGHT * 5));
 		return;
+	}
 
 	_col->Update();
 	_transform->Update();
@@ -41,6 +44,9 @@ void CupBullet::Update()
 
 void CupBullet::Render()
 {
+	if (_isActive == false)
+		return;
+
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
 	_col->Render();

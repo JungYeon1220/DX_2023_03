@@ -10,9 +10,8 @@ public:
 	virtual void PostRender() override;
 
 private:
-	shared_ptr<Transform> _quadTrans;
+	shared_ptr<Transform> _trans;
 	shared_ptr<Quad> _quad;
-	shared_ptr<Effect> _effect;
 
 	shared_ptr<FilterBuffer> _filterBuffer;
 };

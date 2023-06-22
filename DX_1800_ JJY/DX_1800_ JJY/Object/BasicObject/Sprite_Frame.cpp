@@ -38,4 +38,6 @@ void Sprite_Frame::SetCurClip(Vector2 frame)
 
 void Sprite_Frame::SetCurClip(Action::Clip clip)
 {
+	_actionBuffer->_data.startPos = clip.startPos;
+	_actionBuffer->_data.size = clip.size;
 }

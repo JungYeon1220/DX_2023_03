@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Obj\CupHead\CupMonster.h" />
+    <ClInclude Include="Object\BasicObject\EffectManager.h" />
     <ClInclude Include="Object\BasicObject\Effect.h" />
     <ClInclude Include="Object\Obj\CupHead\CupBullet.h" />
     <ClInclude Include="Object\Obj\CupHead\CupBG.h" />
@@ -204,6 +206,8 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Obj\CupHead\CupMonster.cpp" />
+    <ClCompile Include="Object\BasicObject\EffectManager.cpp" />
     <ClCompile Include="Object\BasicObject\Effect.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupBullet.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupBG.cpp" />

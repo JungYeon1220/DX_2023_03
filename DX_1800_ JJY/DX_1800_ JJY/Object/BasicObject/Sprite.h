@@ -18,8 +18,8 @@ public:
 
 	Vector2 GetClipSize() { return _actionBuffer->_data.size; }
 
-	virtual void SetCurClip(Action::Clip clip) {}
-	virtual void SetCurClip(Vector2 frame) {}
+	virtual void SetCurClip(Action::Clip clip) {};
+	virtual void SetCurClip(Vector2 frame) {};
 
 protected:
 	shared_ptr<ActionBuffer> _actionBuffer;

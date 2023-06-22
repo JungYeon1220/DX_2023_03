@@ -11,8 +11,9 @@ public:
 	void SetPosition(Vector2 pos) { _col->GetTransform()->SetPosition(pos); }
 	void SetDerection(Vector2 dir) { _direction = dir.NorMalVector2(); _col->GetTransform()->SetAngle(_direction.Angle()); }
 
-	bool _isActive;
+	shared_ptr<CircleCollider> GetCollider() { return _col; }
 
+	bool _isActive;
 private:
 	void CreateAction(string name, float speed = 0.1f, Action::Type type = Action::LOOP, CallBack callBack = nullptr);
 
