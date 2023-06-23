@@ -15,6 +15,10 @@ TutorialScene::TutorialScene()
 	_filterBuffer->_data.radialCenter = { 0.5f, 0.5f };
 
 	EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
+	SOUND->Add("bgm1", "Resource/Sound/BGM.mp3", true);
+	SOUND->Add("attack", "Resource/Sound/attack.wav");
+
+	SOUND->Play("bgm1");
 }
 
 TutorialScene::~TutorialScene()
@@ -30,6 +34,7 @@ void TutorialScene::Update()
 	if (KEY_DOWN(VK_LBUTTON))
 	{
 		EFFECT->Play("Hit", MOUSE_POS);
+		SOUND->Play("attack");
 	}
 }
 

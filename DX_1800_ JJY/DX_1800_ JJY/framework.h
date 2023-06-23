@@ -36,6 +36,10 @@
 #include "../imGUI/imgui_impl_dx11.h"
 #include "../imGUI/imgui_impl_win32.h"
 
+// FMOD
+#include "Library/FMOD/inc/fmod.hpp"
+#pragma comment(lib,"Library/FMOD/fmod_vc.lib")
+
 using namespace std;
 using namespace DirectX;
 using namespace Microsoft::WRL;
@@ -51,6 +55,7 @@ using namespace Microsoft::WRL;
 #include "Framework/Utility/Timer.h"
 #include "Framework/Utility/InputManager.h"
 #include "Framework/Utility/tinyxml2.h"
+#include "Framework/Utility/SoundManager.h"
 
 // Render
 #include "Framework/Render/ConstantBuffer.h"

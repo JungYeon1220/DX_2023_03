@@ -9,6 +9,7 @@ public:
 	void Render();
 
 	shared_ptr<CircleCollider> GetCollider() { return _col; }
+	void CreateAction(string name, float speed = 0.1f, Action::Type type = Action::LOOP, CallBack callBack = nullptr);
 
 private:
 	shared_ptr<CircleCollider> _col;

@@ -39,5 +39,6 @@
 #define ADD_PS(k)		ShaderManager::GetInstance()->Add_Ps(k)
 
 #define EFFECT		EffectManager::GetInstance()
+#define SOUND		SoundManager::GetInstance()
 
 using CallBack = function<void(int)>;

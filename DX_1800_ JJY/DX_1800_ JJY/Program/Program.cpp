@@ -13,7 +13,7 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<CupHeadScene>();
+	_curScene = make_shared<TutorialScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -39,6 +39,7 @@ void Program::Update()
 	_curScene->Update();
 
 	EFFECT->Update();
+	SOUND->Update();
 }
 
 void Program::Render()
