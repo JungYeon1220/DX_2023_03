@@ -49,6 +49,7 @@ using namespace Microsoft::WRL;
 
 // Math
 #include "Framework/Math/Vector2.h"
+#include "Framework/Math/MathUtility.h"
 #include "Framework/Math/Transform.h"
 
 // Utility
@@ -67,6 +68,9 @@ using namespace Microsoft::WRL;
 #include "Framework/Render/VertexShader.h"
 #include "Framework/Render/PixelShader.h"
 #include "Framework/Render/ShaderManager.h"
+
+//Camera
+#include "Framework/Camara/Camera.h"
 
 //TextureMapping
 #include "Framework/TextureMapping/SRV.h"

@@ -88,7 +88,7 @@ void Zelda::CreateActions()
 	size.x = imageSize.x / maxFrame.x;
 	size.y = imageSize.y / maxFrame.y;
 
-	// IDLE_F 1
+	// IDLE_F
 	{
 		vector<Action::Clip> clips;
 		for (int i = 0; i < 3; i++)

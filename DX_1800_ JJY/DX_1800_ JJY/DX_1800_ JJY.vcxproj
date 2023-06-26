@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Camara\Camera.h" />
+    <ClInclude Include="Framework\Math\MathUtility.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.hpp" />
     <ClInclude Include="Library\FMOD\inc\fmod_codec.h" />
@@ -215,6 +217,8 @@
     <ClInclude Include="Scene\BasicScene\ZeldaScene.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Camara\Camera.cpp" />
+    <ClCompile Include="Framework\Math\MathUtility.cpp" />
     <ClCompile Include="Object\Obj\CupHead\CupMonster.cpp" />
     <ClCompile Include="Object\BasicObject\EffectManager.cpp" />
     <ClCompile Include="Object\BasicObject\Effect.cpp" />

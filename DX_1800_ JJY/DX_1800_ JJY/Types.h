@@ -40,5 +40,6 @@
 
 #define EFFECT		EffectManager::GetInstance()
 #define SOUND		SoundManager::GetInstance()
+#define CAMERA		Camera::GetInstance()
 
 using CallBack = function<void(int)>;

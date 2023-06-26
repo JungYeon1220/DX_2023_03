@@ -130,4 +130,5 @@ public:
 
 	int ManhattenDistance(const Vector2& other) const;
 
+	Vector2 TransformCoord(XMMATRIX matrix);
 };

@@ -15,16 +15,6 @@ Program::Program()
 
 	_curScene = make_shared<TutorialScene>();
 
-	_view = make_shared<MatrixBuffer>();
-	_proj = make_shared<MatrixBuffer>();
-
-	_view->Update_Resource();
-
-	XMMATRIX temp = XMMatrixOrthographicOffCenterLH(0, WIN_WIDTH, 0, WIN_HEIGHT, 0.0f, 1.0f);
-
-	_proj->SetData(temp);
-	_proj->Update_Resource();
-
 	Timer::GetInstance()->LockFPS(60.0f);
 }
 
@@ -36,6 +26,7 @@ void Program::Update()
 {
 	Timer::GetInstance()->Update();
 	InputManager::GetInstance()->Update();
+	CAMERA->Update();
 	_curScene->Update();
 
 	EFFECT->Update();
@@ -46,8 +37,8 @@ void Program::Render()
 {
 	Device::GetInstance()->Clear();
 
-	_view->SetVS_Buffer(1);
-	_proj->SetVS_Buffer(2);
+	CAMERA->SetViewBuffer();
+	CAMERA->SetProjectionBuffer();
 
 	ImGui_ImplDX11_NewFrame();
 	ImGui_ImplWin32_NewFrame();
@@ -60,6 +51,7 @@ void Program::Render()
 	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
 	//ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
+	CAMERA->PostRender();
 	_curScene->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
