@@ -63,6 +63,9 @@ using namespace Microsoft::WRL;
 #include "Framework/Render/PixelShader.h"
 #include "Framework/Render/ShaderManager.h"
 
+// Camera
+#include "Framework/Camera/Camera.h"
+
 //TextureMapping
 #include "Framework/TextureMapping/SRV.h"
 #include "Framework/TextureMapping/SRVManager.h"
