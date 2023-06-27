@@ -8,6 +8,9 @@ public:
 	void Update();
 	void Render();
 
+	Vector2 LeftBottom();
+	Vector2 RightTop();
+
 	void SetPosition(Vector2 pos) { _col->GetTransform()->SetPosition(pos); }
 	shared_ptr<RectCollider> GetCollider() { return _col; }
 

@@ -9,8 +9,12 @@ CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<CupHead>();
 	_bg = make_shared<CupBG>();
-	_bg->SetPosition(Vector2(CENTER.x, 100.0f));
+	_bg->SetPosition(Vector2(0.0f, -300.0f));
 	_monster = make_shared<CupMonster>();
+
+	CAMERA->SetTarget(_player->GetCollider()->GetTransform());
+	CAMERA->SetLeftBottom(_bg->LeftBottom());
+	CAMERA->SetRightTop(_bg->RightTop());
 
 	EFFECT->AddEffect("Hit", L"Resource/Texture/hit_4x2.png", Vector2(4, 2), Vector2(100, 100));
 	

@@ -8,14 +8,14 @@
 DunGreed::DunGreed()
 {
 	_player = make_shared<DunPlayer>();
-	_player->SetPosition(CENTER + Vector2(-200.0f, 0.0f));
+	_player->SetPosition(Vector2(0,0));
 
 	for (int i = 0; i < 10; i++)
 	{
 		shared_ptr<DunMonster> monster = make_shared<DunMonster>();
 
-		float xPos = rand() % WIN_WIDTH;
-		float yPos = rand() % WIN_HEIGHT;
+		float xPos = rand() % WIN_WIDTH - CENTER.x;
+		float yPos = rand() % WIN_HEIGHT - CENTER.y;
 
 		monster->GetTransform()->SetPosition(Vector2(xPos, yPos));
 		_monsters.push_back(monster);
