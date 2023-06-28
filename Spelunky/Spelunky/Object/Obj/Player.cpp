@@ -9,10 +9,44 @@ Player::Player()
 
 	_transform->SetParent(_col->GetTransform());
 
+	_col->GetTransform()->SetPosition(CENTER);
+	CreateAction();
+
+	SetAction(State::CROUCH_DOWN);
 }
 
 Player::~Player()
 {
+}
+
+void Player::Update()
+{
+	_col->Update();
+	_transform->Update();
+	_actions[_curState]->Update();
+
+	_sprite->SetCurClip(_actions[_curState]->GetCurClip());
+	_sprite->Update();
+}
+
+void Player::Render()
+{
+	_transform->SetWorldBuffer(0);
+	_sprite->Render();
+	_col->Render();
+}
+
+void Player::SetAction(State state)
+{
+	if (_curState == state)
+		return;
+
+	_oldState = _curState;
+	_actions[_oldState]->Reset();
+	_actions[_oldState]->Pause();
+
+	_curState = state;
+	_actions[_curState]->Play();
 }
 
 void Player::CreateAction()
@@ -85,7 +119,7 @@ void Player::CreateAction()
 			clips.push_back(clip);
 		}
 
-		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_DOWN", Action::LOOP);
+		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_DOWN", Action::END);
 		_actions.push_back(action);
 	}
 
@@ -98,7 +132,7 @@ void Player::CreateAction()
 			clips.push_back(clip);
 		}
 
-		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_UP", Action::LOOP);
+		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_UP", Action::END);
 		_actions.push_back(action);
 	}
 
@@ -112,6 +146,19 @@ void Player::CreateAction()
 		}
 
 		shared_ptr<Action> action = make_shared<Action>(clips, "CRAWL", Action::LOOP);
+		_actions.push_back(action);
+	}
+
+	{
+		vector<Action::Clip> clips;
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 2.0f / maxFrame.y);
+			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
+			clips.push_back(clip);
+		}
+
+		shared_ptr<Action> action = make_shared<Action>(clips, "FLIP", Action::END);
 		_actions.push_back(action);
 	}
 

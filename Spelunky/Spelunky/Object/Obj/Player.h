@@ -8,14 +8,24 @@ public:
 		RUN,
 		STUN,
 		SWIM,
+		CROUCH_DOWN,
+		CROUCH_UP,
+		CRAWL,
+		FLIP
 	};
 
 	Player();
 	~Player();
 
+	void Update();
+	void Render();
+
+	void SetAction(State state);
+
 private:
 	void CreateAction();
-	State _state = State::IDLE;
+	State _curState = State::IDLE;
+	State _oldState = State::IDLE;
 
 	shared_ptr<CircleCollider> _col;
 	shared_ptr<Transform> _transform;

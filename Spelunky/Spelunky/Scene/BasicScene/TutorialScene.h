@@ -9,7 +9,6 @@ public:
 	virtual void Render() override;
 
 private:
-	shared_ptr<Transform> _quadTrans;
-	shared_ptr<Quad> _quad;
+	shared_ptr<class Player> _player;
 };
 

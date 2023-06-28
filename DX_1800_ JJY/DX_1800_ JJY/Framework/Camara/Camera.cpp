@@ -12,6 +12,8 @@ Camera::Camera()
 	XMMATRIX projMatrix = XMMatrixOrthographicLH(WIN_WIDTH, WIN_HEIGHT, 0.0f, 1.0f);
 	_projection->SetData(projMatrix);
 	_projection->Update_Resource();
+
+	SetViewPort(WIN_WIDTH, WIN_HEIGHT);
 }
 
 Camera::~Camera()
@@ -50,10 +52,19 @@ void Camera::ShakeStart(float magnitude, float duration, float reduceDamping)
 
 void Camera::SetViewPort(UINT width, UINT height)
 {
+	D3D11_VIEWPORT vp;
+	vp.Width = WIN_WIDTH;
+	vp.Height = WIN_HEIGHT;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0;
+	vp.TopLeftY = 0;
+	deviceContext->RSSetViewports(1, &vp);
 }
 
 void Camera::SetViewBuffer()
 {
+
 	_view->SetWorldBuffer(1);
 }
 
