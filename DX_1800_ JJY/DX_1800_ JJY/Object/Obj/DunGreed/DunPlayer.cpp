@@ -58,7 +58,7 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::Update()
 {
-	_bowSlot->SetAngle((MOUSE_POS - _bowSlot->GetWorldPos()).Angle());
+	_bowSlot->SetAngle((W_MOUSE_POS - _bowSlot->GetWorldPos()).Angle());
 
 	for (auto bullet : _bullets)
 	{
@@ -148,7 +148,7 @@ void DunPlayer::Fire()
 			return;
 
 		bullet->SetPos(_bulletTrans->GetWorldPos());
-		bullet->SetDir((MOUSE_POS - _bowSlot->GetWorldPos()));
+		bullet->SetDir((W_MOUSE_POS - _bowSlot->GetWorldPos()));
 		bullet->SetActive(true);
 	}
 }

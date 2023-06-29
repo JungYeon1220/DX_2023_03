@@ -37,6 +37,7 @@ public:
 	void SetViewPort(UINT width = WIN_WIDTH, UINT height = WIN_HEIGHT);
 
 	void SetViewBuffer();
+	void SetUIViewBuffer();
 	void SetProjectionBuffer();
 
 	void SetTarget(shared_ptr<Transform> target) { _target = target; }
@@ -53,6 +54,7 @@ public:
 	void AddAngle(float angle);
 
 	Vector2 GetWorldMousePos();
+	Vector2 GetScreenMousePos();
 
 private:
 	void Shake();
@@ -62,6 +64,7 @@ private:
 	static Camera* _instance;
 
 	shared_ptr<Transform> _view;
+	shared_ptr<Transform> _uiView;
 
 	shared_ptr<MatrixBuffer> _projection;
 

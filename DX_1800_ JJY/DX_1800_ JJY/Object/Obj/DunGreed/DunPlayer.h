@@ -38,5 +38,7 @@ private:
 
 	Vector2 _pos = CENTER;
 	float _speed = 400.0f;
+
+	int _hp = 10;
 };
 

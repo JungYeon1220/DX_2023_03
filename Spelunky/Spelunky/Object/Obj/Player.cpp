@@ -5,14 +5,14 @@ Player::Player()
 {
 	_col = make_shared<CircleCollider>(50.0f);
 	_transform = make_shared<Transform>();
-	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 15));
+	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
 
 	_transform->SetParent(_col->GetTransform());
 
 	_col->GetTransform()->SetPosition(CENTER);
 	CreateAction();
 
-	SetAction(State::CROUCH_DOWN);
+	SetAction(State::CRAWL);
 }
 
 Player::~Player()
@@ -53,7 +53,7 @@ void Player::CreateAction()
 {
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/Texture/char_yellow.png");
 	Vector2 imageSize = srv->GetImageSize();
-	Vector2 maxFrame = Vector2(16, 15);
+	Vector2 maxFrame = Vector2(16, 16);
 	Vector2 size;
 	size.x = imageSize.x / maxFrame.x;
 	size.y = imageSize.y / maxFrame.y;

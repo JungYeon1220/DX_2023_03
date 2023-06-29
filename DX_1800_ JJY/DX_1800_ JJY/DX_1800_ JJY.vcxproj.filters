@@ -207,6 +207,9 @@
     <ClInclude Include="Framework\Math\MathUtility.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Object\UI\Button.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1800_ JJY.cpp">
@@ -362,6 +365,9 @@
     <ClCompile Include="Framework\Math\MathUtility.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Object\UI\Button.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1800_ JJY.rc">
@@ -417,6 +423,9 @@
     <Image Include="Resource\Texture\hit_4x2.png">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="Resource\Texture\Button.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\TutorialShader.hlsl" />
@@ -428,6 +437,8 @@
     <FxCompile Include="Shader\ActionPS.hlsl" />
     <FxCompile Include="Shader\FilterPS.hlsl" />
     <FxCompile Include="Shader\CupHeadPS.hlsl" />
+    <FxCompile Include="Shader\ButtonPS.hlsl" />
+    <FxCompile Include="Shader\HpBarPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="Resource\Cuphead\Idle.xml" />

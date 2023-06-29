@@ -20,6 +20,8 @@ DunGreed::DunGreed()
 		monster->GetTransform()->SetPosition(Vector2(xPos, yPos));
 		_monsters.push_back(monster);
 	}
+
+	_button = make_shared<Button>(L"Resource/Texture/Button.png", Vector2(500.0f, 30.0f));
 }
 
 DunGreed::~DunGreed()

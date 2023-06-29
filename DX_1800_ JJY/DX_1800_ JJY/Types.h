@@ -29,7 +29,9 @@
 #define KEY_UP(k)		InputManager::GetInstance()->Up(k)
 #define KEY_DOWN(k)		InputManager::GetInstance()->Down(k)
 #define KEY_PRESS(k)	InputManager::GetInstance()->Press(k)
-#define MOUSE_POS		InputManager::GetInstance()->GetMousePos()
+#define WIN_MOUSE_POS	InputManager::GetInstance()->GetMousePos()
+#define W_MOUSE_POS		Camera::GetInstance()->GetWorldMousePos()
+#define S_MOUSE_POS		Camera::GetInstance()->GetScreenMousePos()
 
 #define DELTA_TIME	Timer::GetInstance()->GetDeltaTime()
 #define RUN_TIME	Timer::GetInstance()->GetRunTime()
@@ -43,3 +45,4 @@
 #define CAMERA		Camera::GetInstance()
 
 using CallBack = function<void(int)>;
+using CallBack2 = function<void()>;
