@@ -97,10 +97,6 @@ using namespace Microsoft::WRL;
 
 #include "Object/Obj/Planet.h"
 
-// UI
-#include "Object/UI/Button.h"
-
-
 // Scene
 #include "Scene/Scene.h"
 

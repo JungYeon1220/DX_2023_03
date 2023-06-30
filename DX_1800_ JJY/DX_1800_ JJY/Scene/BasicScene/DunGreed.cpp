@@ -20,12 +20,15 @@ DunGreed::DunGreed()
 		monster->GetTransform()->SetPosition(Vector2(xPos, yPos));
 		_monsters.push_back(monster);
 	}
+<<<<<<< HEAD
 
 	_button = make_shared<Button>(L"Resource/Texture/Button.png", Vector2(500.0f, 30.0f));
 	_button->SetPS(L"Shader/HpBarPS.hlsl");
 	_button->SetPosition(Vector2(0.0f, -300.0f));
 	_hpBuffer = make_shared<HpBuffer>();
 	_hpBuffer->_data.maxHp = 10;
+=======
+>>>>>>> parent of 3c50655 (Button)
 }
 
 DunGreed::~DunGreed()

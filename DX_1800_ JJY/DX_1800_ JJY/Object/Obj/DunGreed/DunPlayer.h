@@ -47,11 +47,14 @@ private:
 
 	Vector2 _pos = CENTER;
 	float _speed = 400.0f;
+<<<<<<< HEAD
 
 	int _hp = 10;
 	bool _isDamaged = false;
 
 	float _curTime = 0.0f;
 	float _damageTime = 0.2f;
+=======
+>>>>>>> parent of 3c50655 (Button)
 };
 

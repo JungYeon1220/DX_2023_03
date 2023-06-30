@@ -5,7 +5,7 @@ Zelda::Zelda()
 {
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Clip>(L"Resource/Texture/zelda.png", Vector2(50, 50));
-	_transform->SetPosition(Vector2(0.0f, 0.0f));
+	_transform->SetPosition(CENTER);
 
 	CreateActions();
 	_actions[State::IDLE_F]->Play();
@@ -35,9 +35,6 @@ void Zelda::Render()
 
 void Zelda::Input()
 {
-	if (KEY_PRESS(VK_RBUTTON))
-		return;
-
 	Zelda::State _cur = _state;
 
 	if (KEY_PRESS('S'))

@@ -33,7 +33,7 @@ void TutorialScene::Update()
 
 	if (KEY_DOWN(VK_LBUTTON))
 	{
-		EFFECT->Play("Hit", WIN_MOUSE_POS);
+		EFFECT->Play("Hit", MOUSE_POS);
 		SOUND->Play("attack");
 	}
 }

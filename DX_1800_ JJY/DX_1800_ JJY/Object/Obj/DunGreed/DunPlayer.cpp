@@ -58,6 +58,7 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::Update()
 {
+<<<<<<< HEAD
 	if (_hp <= 0)
 		return;
 
@@ -73,6 +74,9 @@ void DunPlayer::Update()
 	}
 
 	_bowSlot->SetAngle((W_MOUSE_POS - _bowSlot->GetWorldPos()).Angle());
+=======
+	_bowSlot->SetAngle((MOUSE_POS - _bowSlot->GetWorldPos()).Angle());
+>>>>>>> parent of 3c50655 (Button)
 
 	for (auto bullet : _bullets)
 	{
@@ -165,7 +169,7 @@ void DunPlayer::Fire()
 			return;
 
 		bullet->SetPos(_bulletTrans->GetWorldPos());
-		bullet->SetDir((W_MOUSE_POS - _bowSlot->GetWorldPos()));
+		bullet->SetDir((MOUSE_POS - _bowSlot->GetWorldPos()));
 		bullet->SetActive(true);
 	}
 }

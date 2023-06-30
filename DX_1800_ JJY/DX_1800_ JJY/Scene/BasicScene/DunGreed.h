@@ -12,8 +12,11 @@ public:
 private:
 	shared_ptr<class DunPlayer> _player;
 	vector<shared_ptr<class DunMonster>> _monsters;
+<<<<<<< HEAD
 
 	shared_ptr<Button> _button;
 	shared_ptr<HpBuffer> _hpBuffer;
+=======
+>>>>>>> parent of 3c50655 (Button)
 };
 

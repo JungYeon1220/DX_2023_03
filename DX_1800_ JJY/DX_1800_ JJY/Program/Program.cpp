@@ -13,7 +13,7 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<DunGreed>();
+	_curScene = make_shared<CupHeadScene>();
 
 	Timer::GetInstance()->LockFPS(60.0f);
 }
@@ -52,8 +52,6 @@ void Program::Render()
 	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
 	//ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
 	CAMERA->PostRender();
-
-	CAMERA->SetUIViewBuffer();
 	_curScene->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

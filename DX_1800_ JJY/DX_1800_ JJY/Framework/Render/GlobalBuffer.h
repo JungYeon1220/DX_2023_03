@@ -134,6 +134,7 @@ public:
 	virtual ~FilterBuffer() {}
 
 	Data _data;
+<<<<<<< HEAD
 };
 
 class ButtonBuffer : public ConstantBuffer
@@ -175,4 +176,6 @@ public:
 	virtual ~HpBuffer() {}
 
 	Data _data;
+=======
+>>>>>>> parent of 3c50655 (Button)
 };

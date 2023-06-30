@@ -17,7 +17,7 @@ ColliderScene::~ColliderScene()
 
 void ColliderScene::Update()
 {
-	_circleColliderMouse->GetTransform()->SetPosition(WIN_MOUSE_POS);
+	_circleColliderMouse->GetTransform()->SetPosition(MOUSE_POS);
 
 	if (KEY_PRESS('W'))
 	{

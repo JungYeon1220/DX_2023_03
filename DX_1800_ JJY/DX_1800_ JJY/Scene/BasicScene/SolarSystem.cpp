@@ -34,9 +34,9 @@ SolarSystem::~SolarSystem()
 void SolarSystem::Update()
 {
 	if(KEY_PRESS('A'))
-		_sun->SetPosition(WIN_MOUSE_POS);
+		_sun->SetPosition(MOUSE_POS);
 	if (KEY_PRESS('D'))
-		_sun->SetPosition(LERP(_sun->GetTransform()->GetWorldPos(), WIN_MOUSE_POS, 0.001f));
+		_sun->SetPosition(LERP(_sun->GetTransform()->GetWorldPos(), MOUSE_POS, 0.001f));
 
 	_filterBuffer->Update_Resource();
 	_sun->Update();
