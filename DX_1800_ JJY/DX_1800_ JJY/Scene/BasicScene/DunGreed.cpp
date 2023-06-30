@@ -22,6 +22,10 @@ DunGreed::DunGreed()
 	}
 
 	_button = make_shared<Button>(L"Resource/Texture/Button.png", Vector2(500.0f, 30.0f));
+	_button->SetPS(L"Shader/HpBarPS.hlsl");
+	_button->SetPosition(Vector2(0.0f, -300.0f));
+	_hpBuffer = make_shared<HpBuffer>();
+	_hpBuffer->_data.maxHp = 10;
 }
 
 DunGreed::~DunGreed()
@@ -36,7 +40,12 @@ void DunGreed::Update()
 	{
 		monster->Update();
 		monster->SetDir(_player->GetTransform()->GetWorldPos());
-		_player->GetCollider()->Block(monster->GetCollider());
+
+		if (_player->GetHp() <= 0)
+			continue;
+
+		if (_player->GetCollider()->Block(monster->GetCollider()))
+			_player->TakeDamage(1);
 
 		for (auto bullet : _player->GetBullets())
 		{
@@ -55,6 +64,9 @@ void DunGreed::Update()
 		}
 	}
 
+	_hpBuffer->_data.hp = _player->GetHp();
+	_hpBuffer->Update_Resource();
+	_button->Update();
 }
 
 void DunGreed::Render()
@@ -72,4 +84,7 @@ void DunGreed::PostRender()
 	{
 		ImGui::Text("Monster%d HP : %d", i + 1, _monsters[i]->GetHp());
 	}
+
+	_hpBuffer->SetPS_Buffer(0);
+	_button->PostRender();
 }

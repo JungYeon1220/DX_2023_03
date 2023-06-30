@@ -54,7 +54,12 @@ void Button::Update()
 void Button::PostRender()
 {
 	_quadTransform->SetWorldBuffer(0);
-	_buttonBuffer->SetPS_Buffer(0);
+	//_buttonBuffer->SetPS_Buffer(0);
 	_quad->Render();
 	_col->Render();
+}
+
+void Button::SetPS(wstring path)
+{
+	_quad->SetPS(ADD_PS(path));
 }

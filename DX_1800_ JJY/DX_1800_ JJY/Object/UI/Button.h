@@ -10,6 +10,7 @@ public:
 
 	void SetPosition(Vector2 pos) { _col->GetTransform()->SetPosition(pos); }
 	void SetEvent(CallBack2 fn) { _event = fn; }
+	void SetPS(wstring path);
 
 private:
 	shared_ptr<RectCollider> _col;

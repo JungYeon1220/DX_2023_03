@@ -14,5 +14,6 @@ private:
 	vector<shared_ptr<class DunMonster>> _monsters;
 
 	shared_ptr<Button> _button;
+	shared_ptr<HpBuffer> _hpBuffer;
 };
 

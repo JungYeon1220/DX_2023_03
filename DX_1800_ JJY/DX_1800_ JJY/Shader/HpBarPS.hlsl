@@ -17,11 +17,11 @@ struct PixelInput
 
 float4 PS(PixelInput input) : SV_TARGET
 {
-	float4 color = resource.Sample(samp, input.uv);
+	float ratio = (float)hp / (float)maxHp;
+	if (input.uv.x > ratio)
+		return float4(0,0,0,0);
 
-	float temp = (float)hp / (float)maxHp;
-	if (input.uv.x > temp)
-		color.w = 0;
+	float4 color = resource.Sample(samp, input.uv);
 
 	return color;
 }

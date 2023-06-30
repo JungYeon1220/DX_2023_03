@@ -156,3 +156,23 @@ public:
 
 	Data _data;
 };
+
+class HpBuffer : public ConstantBuffer
+{
+public:
+	struct Data
+	{
+		int hp;
+		int maxHp;
+		int padding[2];
+	};
+
+	HpBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+	}
+
+	virtual ~HpBuffer() {}
+
+	Data _data;
+};

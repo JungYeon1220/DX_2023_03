@@ -14,10 +14,19 @@ public:
 	void Fire();
 	shared_ptr<class DunBullet> SetBullet();
 
+	void TakeDamage(int damage) 
+	{ 
+		if (_isDamaged == true)
+			return;
+		_hp -= damage;
+		_isDamaged = true;
+	}
+
 	vector<shared_ptr<DunBullet>>& GetBullets() { return _bullets; }
 	vector < shared_ptr<CircleCollider>>& GetBibles() { return _bibles; }
 	shared_ptr<Transform> GetTransform() { return _col->GetTransform(); }
 	shared_ptr<CircleCollider> GetCollider() { return _col; }
+	int& GetHp() { return _hp; }
 
 private:
 	shared_ptr<Transform> _quadTrans;
@@ -40,5 +49,9 @@ private:
 	float _speed = 400.0f;
 
 	int _hp = 10;
+	bool _isDamaged = false;
+
+	float _curTime = 0.0f;
+	float _damageTime = 0.2f;
 };
 

@@ -58,6 +58,20 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::Update()
 {
+	if (_hp <= 0)
+		return;
+
+	if (_isDamaged == true)
+	{
+		_curTime += DELTA_TIME;
+	}
+
+	if (_curTime > _damageTime)
+	{
+		_isDamaged = false;
+		_curTime = 0.0f;
+	}
+
 	_bowSlot->SetAngle((W_MOUSE_POS - _bowSlot->GetWorldPos()).Angle());
 
 	for (auto bullet : _bullets)
@@ -97,6 +111,9 @@ void DunPlayer::Update()
 
 void DunPlayer::Render()
 {
+	if (_hp <= 0)
+		return;
+
 	for (auto bullet : _bullets)
 		bullet->Render();
 
