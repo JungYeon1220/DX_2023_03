@@ -4,11 +4,15 @@
 Player::Player()
 {
 	_col = make_shared<RectCollider>(Vector2(60.0f, 80.0f));
+	_crouchCol = make_shared<RectCollider>(Vector2(60.0f, 40.0f));
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
 
 	_transform->SetParent(_col->GetTransform());
 	_transform->SetPosition(Vector2(0.0f, 10.0f));
+	
+	_crouchCol->GetTransform()->SetParent(_col->GetTransform());
+	_crouchCol->GetTransform()->SetPosition(Vector2(0.0f, -20.0f));
 
 	_col->GetTransform()->SetPosition(CENTER);
 	CreateAction();
@@ -22,17 +26,39 @@ Player::~Player()
 
 void Player::Input()
 {
+	if (KEY_DOWN(VK_UP))
+	{
+		SetAction(State::JUMP);
+	}
+
 	if (KEY_PRESS(VK_DOWN))
 	{
-		if (_isCrouching == false)
-			SetAction(State::CROUCH_DOWN);
-		else
+		if (_curState != State::CRAWL)
 			SetAction(State::CROUCH);
+
+		if (KEY_PRESS(VK_LEFT))
+		{
+			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
+			SetAction(State::CRAWL);
+			_sprite->SetLeft();
+		}
+		else if (KEY_UP(VK_LEFT))
+			SetAction(State::CROUCH);
+
+		if (KEY_PRESS(VK_RIGHT))
+		{
+			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
+			SetAction(State::CRAWL);
+			_sprite->SetRight();
+		}
+		else if (KEY_UP(VK_RIGHT))
+			SetAction(State::CROUCH);
+
+		return;
 	}
 	else if (KEY_UP(VK_DOWN))
 	{
-		SetAction(State::CROUCH_UP);
-		_isCrouching = false;
+		SetAction(State::IDLE);
 	}
 
 	if (KEY_PRESS(VK_LEFT))
@@ -55,16 +81,12 @@ void Player::Input()
 
 }
 
-void Player::Crouch()
-{
-	_isCrouching = true;
-}
-
 void Player::Update()
 {
 	Input();
 
 	_col->Update();
+	_crouchCol->Update();
 	_transform->Update();
 	_actions[_curState]->Update();
 
@@ -76,6 +98,7 @@ void Player::Render()
 {
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
+	_crouchCol->Render();
 	_col->Render();
 }
 
@@ -142,33 +165,6 @@ void Player::CreateAction()
 
 	{
 		vector<Action::Clip> clips;
-		for (int i = 10; i < 16; i++)
-		{
-			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 0.0f / maxFrame.y);
-			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
-			clips.push_back(clip);
-		}
-
-		shared_ptr<Action> action = make_shared<Action>(clips, "SWIM", Action::LOOP);
-		_actions.push_back(action);
-	}
-
-	{
-		vector<Action::Clip> clips;
-		for (int i = 0; i < 3; i++)
-		{
-			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 1.0f / maxFrame.y);
-			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
-			clips.push_back(clip);
-		}
-
-		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_DOWN", Action::END);
-		action->SetEndEvent(std::bind(&Player::Crouch, this));
-		_actions.push_back(action);
-	}
-
-	{
-		vector<Action::Clip> clips;
 		for (int i = 2; i < 3; i++)
 		{
 			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 1.0f / maxFrame.y);
@@ -177,20 +173,6 @@ void Player::CreateAction()
 		}
 
 		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH", Action::LOOP);
-		_actions.push_back(action);
-	}
-
-	{
-		vector<Action::Clip> clips;
-		for (int i = 2; i < 5; i++)
-		{
-			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 1.0f / maxFrame.y);
-			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
-			clips.push_back(clip);
-		}
-
-		shared_ptr<Action> action = make_shared<Action>(clips, "CROUCH_UP", Action::END);
-		action->SetEndEvent(std::bind(&Player::SetIdle, this));
 		_actions.push_back(action);
 	}
 
@@ -217,6 +199,19 @@ void Player::CreateAction()
 		}
 
 		shared_ptr<Action> action = make_shared<Action>(clips, "FLIP", Action::END);
+		_actions.push_back(action);
+	}
+
+	{
+		vector<Action::Clip> clips;
+		for (int i = 0; i < 8; i++)
+		{
+			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 9.0f / maxFrame.y);
+			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
+			clips.push_back(clip);
+		}
+
+		shared_ptr<Action> action = make_shared<Action>(clips, "JUMP", Action::END);
 		_actions.push_back(action);
 	}
 

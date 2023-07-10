@@ -7,19 +7,16 @@ public:
 		IDLE,
 		RUN,
 		STUN,
-		SWIM,
-		CROUCH_DOWN,
 		CROUCH,
-		CROUCH_UP,
 		CRAWL,
-		FLIP
+		FLIP,
+		JUMP
 	};
 
 	Player();
 	~Player();
 
 	void Input();
-	void Crouch();
 
 	void Update();
 	void Render();
@@ -33,6 +30,7 @@ private:
 	State _oldState = State::IDLE;
 
 	shared_ptr<RectCollider> _col;
+	shared_ptr<RectCollider> _crouchCol;
 	shared_ptr<Transform> _transform;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Sprite_Frame> _sprite;
@@ -40,6 +38,7 @@ private:
 	float _speed = 300.0f;
 	bool _isCrouching = false;
 
-	float _jumpPower = 500.0f;
+	float _curJumpPower = 0.0f;
+	float _maxJumpPower = 500.0f;
 };
 
