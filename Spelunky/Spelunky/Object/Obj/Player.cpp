@@ -26,10 +26,41 @@ Player::~Player()
 
 void Player::Input()
 {
-	if (KEY_DOWN(VK_UP))
+	if (KEY_DOWN('X'))
 	{
-		SetAction(State::JUMP);
+		Attack();
 	}
+
+	if (KEY_PRESS(VK_LEFT))
+	{
+		if (KEY_PRESS(VK_DOWN) && _curState != State::JUMP)
+		{
+			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
+		}
+		else
+		{
+			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME);
+		}
+		_sprite->SetLeft();
+	}
+	if (KEY_PRESS(VK_RIGHT))
+	{
+		if (KEY_PRESS(VK_DOWN) && _curState != State::JUMP)
+		{
+			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
+		}
+		else
+		{
+			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME);
+		}
+		_sprite->SetRight();
+	}
+
+	if (_curState == State::ATTACK)
+		return;
+
+	if (_curState == State::JUMP)
+		return;
 
 	if (KEY_PRESS(VK_DOWN))
 	{
@@ -38,18 +69,14 @@ void Player::Input()
 
 		if (KEY_PRESS(VK_LEFT))
 		{
-			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
 			SetAction(State::CRAWL);
-			_sprite->SetLeft();
 		}
 		else if (KEY_UP(VK_LEFT))
 			SetAction(State::CROUCH);
 
 		if (KEY_PRESS(VK_RIGHT))
 		{
-			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
 			SetAction(State::CRAWL);
-			_sprite->SetRight();
 		}
 		else if (KEY_UP(VK_RIGHT))
 			SetAction(State::CROUCH);
@@ -63,27 +90,51 @@ void Player::Input()
 
 	if (KEY_PRESS(VK_LEFT))
 	{
-		_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME);
 		SetAction(State::RUN);
-		_sprite->SetLeft();
 	}
 	else if (KEY_UP(VK_LEFT))
 		SetAction(State::IDLE);
 
 	if (KEY_PRESS(VK_RIGHT))
 	{
-		_col->GetTransform()->AddVector2 (RIGHT_VECTOR * _speed * DELTA_TIME);
 		SetAction(State::RUN);
-		_sprite->SetRight();
 	}
 	else if (KEY_UP(VK_RIGHT))
 		SetAction(State::IDLE);
 
 }
 
+void Player::Jump()
+{
+	if (_isFalling == true)
+		SetAction(State::JUMP);
+	else if (_curState == JUMP && _isFalling == false)
+		SetAction(State::IDLE);
+
+	_jumpPower -= GRAVITY * 9;
+
+	if (_jumpPower < -_maxFalling)
+		_jumpPower = -_maxFalling;
+
+	_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
+
+	if (KEY_DOWN('Z') && _isFalling == false)
+	{
+		_jumpPower = 1500.0f;
+		_isFalling = true;
+	}
+}
+
+void Player::Attack()
+{
+	SetAction(State::ATTACK);
+	_isAttack = true;
+}
+
 void Player::Update()
 {
 	Input();
+	Jump();
 
 	_col->Update();
 	_crouchCol->Update();
@@ -215,4 +266,17 @@ void Player::CreateAction()
 		_actions.push_back(action);
 	}
 
+	{
+		vector<Action::Clip> clips;
+		for (int i = 0; i < 6; i++)
+		{
+			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 4.0f / maxFrame.y);
+			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
+			clips.push_back(clip);
+		}
+
+		shared_ptr<Action> action = make_shared<Action>(clips, "ATTACK", Action::END);
+		action->SetEndEvent(std::bind(&Player::EndAttack, this));
+		_actions.push_back(action);
+	}
 }

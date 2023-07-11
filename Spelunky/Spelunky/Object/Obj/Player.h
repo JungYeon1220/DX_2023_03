@@ -10,19 +10,30 @@ public:
 		CROUCH,
 		CRAWL,
 		FLIP,
-		JUMP
+		JUMP,
+		ATTACK
 	};
 
 	Player();
 	~Player();
 
 	void Input();
+	void Jump();
+	void Attack();
 
 	void Update();
 	void Render();
 
 	void SetAction(State state);
 	void SetIdle() { SetAction(State::IDLE); }
+	void EndAttack() 
+	{
+		_isAttack = false;
+		SetAction(State::IDLE);
+	}
+
+	shared_ptr<RectCollider> GetCollider() { return _col; }
+	bool& IsFalling() { return _isFalling; }
 
 private:
 	void CreateAction();
@@ -38,7 +49,10 @@ private:
 	float _speed = 300.0f;
 	bool _isCrouching = false;
 
-	float _curJumpPower = 0.0f;
-	float _maxJumpPower = 500.0f;
+	bool _isFalling = false;
+	float _jumpPower = 0.0f;
+	float _maxFalling = 800.0f;
+
+	bool _isAttack = false;
 };
 
