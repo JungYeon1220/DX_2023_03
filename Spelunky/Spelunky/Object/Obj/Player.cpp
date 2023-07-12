@@ -6,7 +6,6 @@ Player::Player()
 {
 	_col = make_shared<RectCollider>(Vector2(60.0f, 80.0f));
 	_crouchCol = make_shared<RectCollider>(Vector2(60.0f, 40.0f));
-	_attackCol1 = make_shared<RectCollider>(Vector2(50.0f, 20.0f));
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
 	_whip = make_shared<Whip>();
@@ -16,8 +15,6 @@ Player::Player()
 	
 	_crouchCol->GetTransform()->SetParent(_col->GetTransform());
 	_crouchCol->GetTransform()->SetPosition(Vector2(0.0f, -20.0f));
-	_attackCol1->GetTransform()->SetParent(_col->GetTransform());
-	_attackCol1->GetTransform()->SetPosition(Vector2(55.0f, 0.0f));
 	_whip->GetTransform()->SetParent(_col->GetTransform());
 
 	_col->GetTransform()->SetPosition(CENTER);
@@ -39,7 +36,7 @@ void Player::Input()
 
 	if (KEY_PRESS(VK_LEFT))
 	{
-		if (KEY_PRESS(VK_DOWN) && _curState != State::JUMP)
+		if (KEY_PRESS(VK_DOWN) && _isFalling == false)
 		{
 			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
 		}
@@ -48,11 +45,11 @@ void Player::Input()
 			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME);
 		}
 		_sprite->SetLeft();
-		_attackCol1->GetTransform()->SetPosition(Vector2(-55.0f, 0.0f));
+		_whip->SetLeft();
 	}
 	if (KEY_PRESS(VK_RIGHT))
 	{
-		if (KEY_PRESS(VK_DOWN) && _curState != State::JUMP)
+		if (KEY_PRESS(VK_DOWN) && _isFalling == false)
 		{
 			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME * 0.5f);
 		}
@@ -61,17 +58,17 @@ void Player::Input()
 			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME);
 		}
 		_sprite->SetRight();
-		_attackCol1->GetTransform()->SetPosition(Vector2(55.0f, 0.0f));
+		_whip->SetRight();
 	}
-
-	if (_curState == State::ATTACK)
-		return;
 
 	if (_curState == State::JUMP)
 		return;
 
-	if (KEY_PRESS(VK_DOWN))
+	if (KEY_PRESS(VK_DOWN) && _isFalling == false)
 	{
+		if (_isAttack == true)
+			EndAttack();
+
 		if (_curState != State::CRAWL)
 			SetAction(State::CROUCH);
 
@@ -91,10 +88,13 @@ void Player::Input()
 
 		return;
 	}
-	else if (KEY_UP(VK_DOWN))
+	else if (KEY_UP(VK_DOWN) && _isFalling == false)
 	{
 		SetAction(State::IDLE);
 	}
+
+	if (_curState == State::ATTACK)
+		return;
 
 	if (KEY_PRESS(VK_LEFT))
 	{
@@ -138,8 +138,10 @@ void Player::Jump()
 
 void Player::Attack()
 {
-	if (KEY_PRESS(VK_DOWN))
+	if (_curState == State::CROUCH || _curState == State::CRAWL)
 		return;
+
+	_whip->Attack();
 
 	if (_isAttack == true)
 	{
@@ -159,7 +161,6 @@ void Player::Update()
 	_whip->Update();
 	_col->Update();
 	_crouchCol->Update();
-	_attackCol1->Update();
 	_transform->Update();
 	_actions[_curState]->Update();
 
@@ -173,7 +174,6 @@ void Player::Render()
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
 	_crouchCol->Render();
-	_attackCol1->Render();
 	_col->Render();
 }
 
@@ -188,6 +188,19 @@ void Player::SetAction(State state)
 
 	_curState = state;
 	_actions[_curState]->Play();
+}
+
+void Player::EndAttack()
+{
+	_isAttack = false;
+	_whip->End();
+	if (_isFalling == false)
+		SetAction(State::IDLE);
+	else
+	{
+		SetAction(State::JUMP);
+
+	}
 }
 
 void Player::CreateAction()

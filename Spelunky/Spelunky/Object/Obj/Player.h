@@ -31,11 +31,7 @@ public:
 			return;
 		SetAction(State::IDLE);
 	}
-	void EndAttack() 
-	{
-		_isAttack = false;
-		SetAction(State::IDLE);
-	}
+	void EndAttack();
 
 	shared_ptr<RectCollider> GetCollider() { return _col; }
 	bool& IsFalling() { return _isFalling; }
@@ -47,7 +43,6 @@ private:
 
 	shared_ptr<RectCollider> _col;
 	shared_ptr<RectCollider> _crouchCol;
-	shared_ptr<RectCollider> _attackCol1;
 	shared_ptr<Transform> _transform;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Sprite_Frame> _sprite;

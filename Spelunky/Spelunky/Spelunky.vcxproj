@@ -189,6 +189,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Spelunky.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Object\Obj\Tile.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Object\Obj\Whip.h" />
   </ItemGroup>
@@ -237,12 +238,14 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Spelunky.cpp" />
     <ClCompile Include="Object\Obj\Whip.cpp" />
+    <ClCompile Include="Object\Obj\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spelunky.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Texture\char_yellow.png" />
+    <Image Include="Resource\Texture\floor_cave.png" />
     <Image Include="Resource\Texture\winter.png" />
     <Image Include="small.ico" />
     <Image Include="Spelunky.ico" />

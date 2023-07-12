@@ -5,6 +5,8 @@ Whip::Whip()
 {
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
+	_col = make_shared<RectCollider>(Vector2(100.0f, 30.0f));
+	_col->GetTransform()->SetParent(_transform);
 
 	shared_ptr<SRV> srv = ADD_SRV(L"Resource/Texture/char_yellow.png");
 	Vector2 imageSize = srv->GetImageSize();
@@ -43,21 +45,34 @@ void Whip::End()
 
 void Whip::Update()
 {
-	if (KEY_DOWN('X'))
-		Attack();
-
 	if (_isActive == false)
 		return;
 
-	if (_action->GetCurIndex() <= 2)
-		_transform->SetPosition(Vector2(-55.0f, -10.0f));
+	if (_action->GetCurIndex() < 3)
+	{
+		_transform->SetPosition(_backPos);
+		if (_action->GetCurIndex() == 0)
+			_col->GetTransform()->SetScale(Vector2(1.0f, 3.0f));
+		else
+			_col->GetTransform()->SetScale(Vector2(1.0f, 1.5f));
+	}
+	else if (_action->GetCurIndex() == 3)
+	{
+		_transform->SetPosition(_frontPos + Vector2(0.0f, 20.0f));
+		_col->GetTransform()->SetScale(Vector2(0.7f, 1.2f));
+	}
 	else
-		_transform->SetPosition(Vector2(55.0f, -10.0f));
+	{
+		_transform->SetPosition(_frontPos);
+		_col->GetTransform()->SetScale(Vector2(1.0f, 1.0f));
+
+	}
 
 	_transform->Update();
 	_action->Update();
 	_sprite->SetCurClip(_action->GetCurClip());
 	_sprite->Update();
+	_col->Update();
 }
 
 void Whip::Render()
@@ -67,14 +82,19 @@ void Whip::Render()
 
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
+	_col->Render();
 }
 
 void Whip::SetLeft()
 {
 	_sprite->SetLeft();
+	_frontPos = Vector2(-55.0f, -35.0f);
+	_backPos = Vector2(55.0f, -10.0f);
 }
 
 void Whip::SetRight()
 {
 	_sprite->SetRight();
+	_frontPos = Vector2(55.0f, -35.0f);
+	_backPos = Vector2(-55.0f, -10.0f);
 }
