@@ -1,18 +1,24 @@
 #include "framework.h"
 #include "Player.h"
+#include "Whip.h"
 
 Player::Player()
 {
 	_col = make_shared<RectCollider>(Vector2(60.0f, 80.0f));
 	_crouchCol = make_shared<RectCollider>(Vector2(60.0f, 40.0f));
+	_attackCol1 = make_shared<RectCollider>(Vector2(50.0f, 20.0f));
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
+	_whip = make_shared<Whip>();
 
 	_transform->SetParent(_col->GetTransform());
 	_transform->SetPosition(Vector2(0.0f, 10.0f));
 	
 	_crouchCol->GetTransform()->SetParent(_col->GetTransform());
 	_crouchCol->GetTransform()->SetPosition(Vector2(0.0f, -20.0f));
+	_attackCol1->GetTransform()->SetParent(_col->GetTransform());
+	_attackCol1->GetTransform()->SetPosition(Vector2(55.0f, 0.0f));
+	_whip->GetTransform()->SetParent(_col->GetTransform());
 
 	_col->GetTransform()->SetPosition(CENTER);
 	CreateAction();
@@ -42,6 +48,7 @@ void Player::Input()
 			_col->GetTransform()->AddVector2(-RIGHT_VECTOR * _speed * DELTA_TIME);
 		}
 		_sprite->SetLeft();
+		_attackCol1->GetTransform()->SetPosition(Vector2(-55.0f, 0.0f));
 	}
 	if (KEY_PRESS(VK_RIGHT))
 	{
@@ -54,6 +61,7 @@ void Player::Input()
 			_col->GetTransform()->AddVector2(RIGHT_VECTOR * _speed * DELTA_TIME);
 		}
 		_sprite->SetRight();
+		_attackCol1->GetTransform()->SetPosition(Vector2(55.0f, 0.0f));
 	}
 
 	if (_curState == State::ATTACK)
@@ -106,10 +114,13 @@ void Player::Input()
 
 void Player::Jump()
 {
-	if (_isFalling == true)
+	if (_isFalling == true && _isAttack == false)
 		SetAction(State::JUMP);
-	else if (_curState == JUMP && _isFalling == false)
+	else if (_curState == JUMP && _isFalling == false && _isAttack == false)
 		SetAction(State::IDLE);
+
+	if (_actions[State::JUMP]->GetCurIndex() == 7)
+		_actions[State::JUMP]->Pause();
 
 	_jumpPower -= GRAVITY * 9;
 
@@ -127,6 +138,15 @@ void Player::Jump()
 
 void Player::Attack()
 {
+	if (KEY_PRESS(VK_DOWN))
+		return;
+
+	if (_isAttack == true)
+	{
+		_actions[State::ATTACK]->Pause();
+		_actions[State::ATTACK]->Reset();
+		_actions[State::ATTACK]->Play();
+	}
 	SetAction(State::ATTACK);
 	_isAttack = true;
 }
@@ -136,8 +156,10 @@ void Player::Update()
 	Input();
 	Jump();
 
+	_whip->Update();
 	_col->Update();
 	_crouchCol->Update();
+	_attackCol1->Update();
 	_transform->Update();
 	_actions[_curState]->Update();
 
@@ -147,9 +169,11 @@ void Player::Update()
 
 void Player::Render()
 {
+	_whip->Render();
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
 	_crouchCol->Render();
+	_attackCol1->Render();
 	_col->Render();
 }
 

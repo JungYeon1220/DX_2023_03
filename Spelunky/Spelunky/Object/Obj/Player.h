@@ -25,7 +25,12 @@ public:
 	void Render();
 
 	void SetAction(State state);
-	void SetIdle() { SetAction(State::IDLE); }
+	void SetIdle()
+	{
+		if (_isAttack == true)
+			return;
+		SetAction(State::IDLE);
+	}
 	void EndAttack() 
 	{
 		_isAttack = false;
@@ -42,9 +47,12 @@ private:
 
 	shared_ptr<RectCollider> _col;
 	shared_ptr<RectCollider> _crouchCol;
+	shared_ptr<RectCollider> _attackCol1;
 	shared_ptr<Transform> _transform;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Sprite_Frame> _sprite;
+
+	shared_ptr<class Whip> _whip;
 
 	float _speed = 300.0f;
 	bool _isCrouching = false;

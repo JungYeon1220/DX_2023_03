@@ -190,6 +190,7 @@
     <ClInclude Include="Spelunky.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="Object\Obj\Whip.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Framework\Camera\Camera.cpp" />
@@ -235,6 +236,7 @@
     <ClCompile Include="Scene\BasicScene\TutorialScene.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Spelunky.cpp" />
+    <ClCompile Include="Object\Obj\Whip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spelunky.rc" />
