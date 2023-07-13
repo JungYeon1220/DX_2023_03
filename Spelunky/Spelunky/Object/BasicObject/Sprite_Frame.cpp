@@ -5,6 +5,7 @@ Sprite_Frame::Sprite_Frame(wstring path, Vector2 maxFrame)
 	: Sprite(path)
 {
 	_size = Vector2(_srv.lock()->GetImageSize().x / maxFrame.x, _srv.lock()->GetImageSize().y / maxFrame.y);
+	_actionBuffer->_data.size = _size;
 	Sprite::CreateVertices();
 	Sprite::CreateData(path);
 }
