@@ -6,9 +6,15 @@
 TutorialScene::TutorialScene()
 {
 	_player = make_shared<Player>();
-	_rect = make_shared<RectCollider>(Vector2(1000.0f, 500.0f));
-	_tile = make_shared<Tile>();
-	_rect->GetTransform()->SetPosition(Vector2(CENTER.x, 0.0f));
+
+	for (int i = 0; i < 10; i++)
+	{
+		shared_ptr<Tile> tile = make_shared<Tile>();
+		tile->SetPosition(Vector2((i + 0.5f) * tile->GetSize()  , 105.0f));
+		tile->TileSelect(Tile::Type::NORMAL);
+
+		_tiles.push_back(tile);
+	}
 }
 
 TutorialScene::~TutorialScene()
@@ -17,23 +23,33 @@ TutorialScene::~TutorialScene()
 
 void TutorialScene::Update()
 {
-	_player->Update();
-	_rect->Update();
-	_tile->Update();
-
-	if (_rect->Block(_player->GetCollider()))
+	bool check = false;
+	for (auto tile : _tiles)
 	{
-		_player->IsFalling() = false;
+		if (tile->GetCollider()->Block(_player->GetCollider()))
+		{
+			check = true;
+		}
+		tile->Update();
 	}
-	else
+
+	if (check == false)
 	{
 		_player->IsFalling() = true;
 	}
+	else
+	{
+		_player->IsFalling() = false;
+	}
+
+	_player->Update();
 }
 
 void TutorialScene::Render()
 {
-	_rect->Render();
 	_player->Render();
-	_tile->Render();
+	for (auto tile : _tiles)
+	{
+		tile->Render();
+	}
 }

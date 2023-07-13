@@ -122,7 +122,8 @@ void Player::Jump()
 	if (_actions[State::JUMP]->GetCurIndex() == 7)
 		_actions[State::JUMP]->Pause();
 
-	_jumpPower -= GRAVITY * 9;
+	if (_isFalling == true)
+		_jumpPower -= GRAVITY * 9;
 
 	if (_jumpPower < -_maxFalling)
 		_jumpPower = -_maxFalling;

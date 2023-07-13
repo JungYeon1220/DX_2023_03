@@ -12,12 +12,15 @@ public:
 
 	void TileSelect(Type value);
 	void SetPosition(Vector2 pos) { _pos = pos; }
+	bool Block(shared_ptr<Collider> col);
 
 	void Update();
 	void Render();
 
 	shared_ptr<RectCollider> GetCollider() { return _col; }
 	float GetSize() { return _sprite->GetClipsize().x; }
+	Type GetType() { return _type; }
+
 private:
 	shared_ptr<RectCollider> _col;
 	shared_ptr<Sprite_Frame> _sprite;

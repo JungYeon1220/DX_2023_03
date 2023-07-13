@@ -22,24 +22,13 @@ void Tile::TileSelect(Tile::Type value)
 		_selected = Vector2(0, 0);
 }
 
+bool Tile::Block(shared_ptr<Collider> col)
+{
+	return false;
+}
+
 void Tile::Update()
 {
-	if (_col->IsCollision(MOUSE_POS))
-	{
-		if (KEY_DOWN(VK_LBUTTON))
-		{
-			if(_type == Tile::Type::EMPTY)
-				TileSelect(Tile::Type::NORMAL);
-			else if(_type == Tile::Type::NORMAL)
-				TileSelect(Tile::Type::EMPTY);
-		}
-		_col->SetRed();
-	}
-	else
-	{
-		_col->SetGreen();
-	}
-
 	_col->GetTransform()->SetPosition(_pos);
 	_transform->Update();
 	_sprite->SetCurClip(_selected);
