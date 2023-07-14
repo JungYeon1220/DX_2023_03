@@ -29,6 +29,7 @@ public:
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 	Vector2 GetWorldPos() { return _transform->GetWorldPos(); }
+	Type GetType() { return _type; }
 
 protected:
 	Type _type = Type::NONE;

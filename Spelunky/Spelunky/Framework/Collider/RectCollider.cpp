@@ -290,6 +290,21 @@ bool RectCollider::Block(shared_ptr<CircleCollider> col)
     return true;
 }
 
+bool RectCollider::Block(shared_ptr<Collider> col)
+{
+    switch (col->GetType())
+    {
+    case Collider::Type::RECT:
+        return Block(dynamic_pointer_cast<RectCollider>(col));
+    case Collider::Type::CIRCLE:
+        return Block(dynamic_pointer_cast<CircleCollider>(col));
+    case Collider::Type::NONE:
+        return false;
+    default:
+        return false;
+    }
+}
+
 RectCollider::AABB_Info RectCollider::GetAABB_Info()
 {
     AABB_Info info;

@@ -23,6 +23,7 @@ public:
 
 	void Update();
 	void Render();
+	void PostRender();
 
 	void SetAction(State state);
 	void SetIdle()

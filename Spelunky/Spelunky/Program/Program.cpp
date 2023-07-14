@@ -8,7 +8,7 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<TutorialScene>();
+	_curScene = make_shared<TileMapScene>();
 
 	_view = make_shared<MatrixBuffer>();
 	_proj = make_shared<MatrixBuffer>();
@@ -51,6 +51,7 @@ void Program::Render()
 	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
 	//ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
+	ImGui::Text("mousePos X: %f, Y: %f", MOUSE_POS.x, MOUSE_POS.y);
 	_curScene->PostRender();
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

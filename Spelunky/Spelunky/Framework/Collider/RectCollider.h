@@ -39,6 +39,7 @@ public:
 
 	bool Block(shared_ptr<RectCollider> col);
 	bool Block(shared_ptr<CircleCollider> col);
+	bool Block(shared_ptr<Collider> col);
 
 	AABB_Info GetAABB_Info();
 	OBB_Info GetOBB_Info();

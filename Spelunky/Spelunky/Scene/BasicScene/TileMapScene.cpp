@@ -5,8 +5,6 @@
 
 TileMapScene::TileMapScene()
 {
-	_player = make_shared<Player>();
-
 	_tileMap.resize(_poolCountY);
 	for (int y = 0; y < _poolCountY; y++)
 	{
@@ -16,7 +14,7 @@ TileMapScene::TileMapScene()
 			shared_ptr<Tile> tile = make_shared<Tile>();
 			float size = tile->GetSize();
 			tile->SetPosition(_offSet + Vector2(size * x, size * y));
-			tile->TileSelect(Tile::Type::EMPTY);
+			tile->SetType(Tile::Type::EMPTY);
 
 			_tileMap[y].push_back(tile);
 		}
@@ -39,9 +37,9 @@ void TileMapScene::Update()
 				if (KEY_DOWN(VK_LBUTTON))
 				{
 					if (tile->GetType() == Tile::Type::EMPTY)
-						tile->TileSelect(Tile::Type::NORMAL);
+						tile->SetType(Tile::Type::NORMAL);
 					else if (tile->GetType() == Tile::Type::NORMAL)
-						tile->TileSelect(Tile::Type::EMPTY);
+						tile->SetType(Tile::Type::EMPTY);
 				}
 				tile->GetCollider()->SetRed();
 			}
@@ -50,33 +48,13 @@ void TileMapScene::Update()
 				tile->GetCollider()->SetGreen();
 			}
 
-		}
-	}
-
-
-	_player->IsFalling() = false;
-	for (auto tileArr : _tileMap)
-	{
-		for (auto tile : tileArr)
-		{
-			if (tile->GetType() == Tile::Type::NORMAL)
-			{
-				if (tile->GetCollider()->Block(_player->GetCollider()))
-				{
-					_player->IsFalling() = true;
-				}
-			}
-
 			tile->Update();
 		}
 	}
-
-	_player->Update();
 }
 
 void TileMapScene::Render()
 {
-	_player->Render();
 	for (auto tileArr : _tileMap)
 	{
 		for (auto tile : tileArr)
@@ -86,8 +64,4 @@ void TileMapScene::Render()
 
 void TileMapScene::PostRender()
 {
-	if (ImGui::Button("RESET", { 50.0f, 50.0f }))
-	{
-		_player->GetCollider()->GetTransform()->SetPosition(CENTER);
-	}
 }

@@ -6,16 +6,18 @@ public:
 	{
 		EMPTY,
 		NORMAL,
+		LADDER
 	};
 	Tile();
 	~Tile();
 
-	void TileSelect(Type value);
+	void SetType(Type value);
 	void SetPosition(Vector2 pos) { _pos = pos; }
 	bool Block(shared_ptr<Collider> col);
 
 	void Update();
 	void Render();
+	void CreateClips();
 
 	shared_ptr<RectCollider> GetCollider() { return _col; }
 	float GetSize() { return _sprite->GetClipsize().x; }
@@ -25,6 +27,7 @@ private:
 	shared_ptr<RectCollider> _col;
 	shared_ptr<Sprite_Frame> _sprite;
 	shared_ptr<Transform> _transform;
+	vector<Action::Clip> _clips;
 
 	Vector2 _pos = CENTER;
 	Vector2 _selected = Vector2(0, 0);

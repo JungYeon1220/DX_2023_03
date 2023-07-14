@@ -122,8 +122,7 @@ void Player::Jump()
 	if (_actions[State::JUMP]->GetCurIndex() == 7)
 		_actions[State::JUMP]->Pause();
 
-	if (_isFalling == true)
-		_jumpPower -= GRAVITY * 9;
+	_jumpPower -= GRAVITY * 8;
 
 	if (_jumpPower < -_maxFalling)
 		_jumpPower = -_maxFalling;
@@ -132,7 +131,7 @@ void Player::Jump()
 
 	if (KEY_DOWN('Z') && _isFalling == false)
 	{
-		_jumpPower = 1500.0f;
+		_jumpPower = 1000.0f;
 		_isFalling = true;
 	}
 }
@@ -176,6 +175,14 @@ void Player::Render()
 	_sprite->Render();
 	_crouchCol->Render();
 	_col->Render();
+}
+
+void Player::PostRender()
+{
+	ImGui::Text("x pos : %f", _col->GetWorldPos().x);
+	ImGui::Text("y pos : %f", _col->GetWorldPos().y);
+	ImGui::Text("jump power : %f", _jumpPower);
+	ImGui::Text("is falling : %d", _isFalling);
 }
 
 void Player::SetAction(State state)
