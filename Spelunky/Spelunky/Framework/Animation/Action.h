@@ -32,6 +32,7 @@ public:
 	void Pause();
 	void Stop();
 	void Reset();
+	void SetReverse(bool value) { _isReverse = value; }
 
 	Clip GetCurClip() { return _clips[_curClipIndex]; }
 	UINT GetCurIndex() { return _curClipIndex; }

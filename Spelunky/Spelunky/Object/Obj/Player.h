@@ -6,12 +6,13 @@ public:
 	{
 		IDLE,
 		RUN,
-		STUN,
-		CROUCH,
+		DEAD,
+		LAY_DOWN,
 		CRAWL,
-		FLIP,
+		STUN,
 		JUMP,
-		ATTACK
+		ATTACK,
+		CLIMB_RADDER
 	};
 
 	Player();
@@ -20,6 +21,7 @@ public:
 	void Input();
 	void Jump();
 	void Attack();
+	void ClimbRadder();
 
 	void Update();
 	void Render();
@@ -35,7 +37,9 @@ public:
 	void EndAttack();
 
 	shared_ptr<RectCollider> GetCollider() { return _col; }
+	shared_ptr<CircleCollider> GetFeetCollider() { return _feetCol; }
 	bool& IsFalling() { return _isFalling; }
+	bool& isClimb() { return _isClimb; }
 
 private:
 	void CreateAction();
@@ -44,6 +48,7 @@ private:
 
 	shared_ptr<RectCollider> _col;
 	shared_ptr<RectCollider> _crouchCol;
+	shared_ptr<CircleCollider> _feetCol;
 	shared_ptr<Transform> _transform;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Sprite_Frame> _sprite;
@@ -51,12 +56,13 @@ private:
 	shared_ptr<class Whip> _whip;
 
 	float _speed = 300.0f;
-	bool _isCrouching = false;
+	bool _isLaying = false;
 
 	bool _isFalling = false;
 	float _jumpPower = 0.0f;
-	float _maxFalling = 800.0f;
+	float _maxFalling = 700.0f;
 
 	bool _isAttack = false;
+	bool _isClimb = false;
 };
 

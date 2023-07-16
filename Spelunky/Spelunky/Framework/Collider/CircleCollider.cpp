@@ -44,7 +44,7 @@ void CircleCollider::CreateVertices()
 
     for (int i = 0; i < 37; i++)
     {
-        v.pos = { _radius * cos(i * PI / 18.0f), _radius * sin(i * PI / 18.0f), 0.0f };
+        v.pos = { _radius * cosf(i * PI / 18.0f), _radius * sinf(i * PI / 18.0f), 0.0f };
         _vertices.push_back(v);
     }
 }

@@ -141,6 +141,9 @@
     <ClInclude Include="Scene\BasicScene\TileMapScene.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\Math\MathUtility.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Spelunky.cpp">
@@ -254,6 +257,9 @@
     <ClCompile Include="Scene\BasicScene\TileMapScene.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\Math\MathUtility.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spelunky.rc">
@@ -274,6 +280,9 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\Texture\floor_cave.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="Resource\Texture\floormisc.png">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

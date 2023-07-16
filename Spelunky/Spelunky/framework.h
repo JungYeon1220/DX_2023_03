@@ -20,6 +20,7 @@
 #include <unordered_map>
 #include <algorithm>
 #include <wrl/client.h>
+#include <functional>
 
 #include <d3d11.h>
 #include <d3dcompiler.h>
@@ -45,6 +46,7 @@ using namespace Microsoft::WRL;
 
 // Math
 #include "Framework/Math/Vector2.h"
+#include "Framework/Math/MathUtility.h"
 #include "Framework/Math/Transform.h"
 
 // Utility

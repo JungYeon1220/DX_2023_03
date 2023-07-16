@@ -88,13 +88,13 @@ void Whip::Render()
 void Whip::SetLeft()
 {
 	_sprite->SetLeft();
-	_frontPos = Vector2(-55.0f, -35.0f);
-	_backPos = Vector2(55.0f, -10.0f);
+	_frontPos = Vector2(-55.0f, -20.0f);
+	_backPos = Vector2(55.0f, 0.0f);
 }
 
 void Whip::SetRight()
 {
 	_sprite->SetRight();
-	_frontPos = Vector2(55.0f, -35.0f);
-	_backPos = Vector2(-55.0f, -10.0f);
+	_frontPos = Vector2(55.0f, -20.0f);
+	_backPos = Vector2(-55.0f, 0.0f);
 }

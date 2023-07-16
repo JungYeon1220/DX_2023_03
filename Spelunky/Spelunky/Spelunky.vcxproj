@@ -177,6 +177,7 @@
     <ClInclude Include="Framework\Utility\InputManager.h" />
     <ClInclude Include="Framework\Utility\Timer.h" />
     <ClInclude Include="Framework\Utility\tinyxml2.h" />
+    <ClInclude Include="Framework\Math\MathUtility.h" />
     <ClInclude Include="Object\BasicObject\Effect.h" />
     <ClInclude Include="Object\BasicObject\Quad.h" />
     <ClInclude Include="Object\BasicObject\Sprite.h" />
@@ -228,6 +229,7 @@
     <ClCompile Include="Framework\Utility\InputManager.cpp" />
     <ClCompile Include="Framework\Utility\Timer.cpp" />
     <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
+    <ClCompile Include="Framework\Math\MathUtility.cpp" />
     <ClCompile Include="Object\BasicObject\Effect.cpp" />
     <ClCompile Include="Object\BasicObject\Quad.cpp" />
     <ClCompile Include="Object\BasicObject\Sprite.cpp" />
@@ -247,6 +249,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\Texture\char_yellow.png" />
+    <Image Include="Resource\Texture\floormisc.png" />
     <Image Include="Resource\Texture\floor_cave.png" />
     <Image Include="Resource\Texture\winter.png" />
     <Image Include="small.ico" />

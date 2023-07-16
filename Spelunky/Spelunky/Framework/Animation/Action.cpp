@@ -40,8 +40,17 @@ void Action::Update()
 		break;
 		case Action::LOOP:
 		{
-			_curClipIndex++;
-			_curClipIndex %= _clips.size();
+			if (_isReverse == true)
+			{
+				if (_curClipIndex <= 0)
+					_curClipIndex = _clips.size() - 1;
+				_curClipIndex--;
+			}
+			else
+			{
+				_curClipIndex++;
+				_curClipIndex %= _clips.size();
+			}
 		}
 		break;
 		case Action::PINGPONG:
@@ -69,7 +78,6 @@ void Action::Update()
 void Action::Play()
 {
 	_isPlay = true;
-	_isReverse = false;
 	_time = 0.0f;
 }
 

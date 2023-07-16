@@ -21,8 +21,8 @@ private:
 	shared_ptr<Sprite_Frame> _sprite;
 	shared_ptr<Action> _action;
 
-	Vector2 _frontPos = Vector2(55.0f, -35.0f);
-	Vector2 _backPos = Vector2(-55.0f, -10.0f);
+	Vector2 _frontPos = Vector2(55.0f, -20.0f);
+	Vector2 _backPos = Vector2(-55.0f, 0.0f);
 
 	shared_ptr<RectCollider> _col;
 

@@ -11,7 +11,10 @@ public:
 
 private:
 	shared_ptr<class Player> _player;
-	shared_ptr<class Tile> _tile;
+	shared_ptr<class Tile> _radder1;
+	shared_ptr<class Tile> _radder2;
+	shared_ptr<class Tile> _block1;
+	shared_ptr<class Tile> _block2;
 	vector<shared_ptr<class Tile>> _tiles;
 };
 

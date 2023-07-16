@@ -13,7 +13,7 @@ TileMapScene::TileMapScene()
 		{
 			shared_ptr<Tile> tile = make_shared<Tile>();
 			float size = tile->GetSize();
-			tile->SetPosition(_offSet + Vector2(size * x, size * y));
+			tile->SetPosition(_offSet + Vector2(size * x, size * y) - CENTER);
 			tile->SetType(Tile::Type::EMPTY);
 
 			_tileMap[y].push_back(tile);
@@ -32,7 +32,7 @@ void TileMapScene::Update()
 	{
 		for (auto tile : tileArr)
 		{
-			if (tile->GetCollider()->IsCollision(MOUSE_POS))
+			if (tile->GetCollider()->IsCollision(W_MOUSE_POS))
 			{
 				if (KEY_DOWN(VK_LBUTTON))
 				{
