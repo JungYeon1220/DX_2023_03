@@ -6,7 +6,8 @@ Player::Player()
 {
 	_col = make_shared<RectCollider>(Vector2(60.0f, 80.0f));
 	_crouchCol = make_shared<RectCollider>(Vector2(60.0f, 40.0f));
-	_feetCol = make_shared<CircleCollider>(5.0f);
+	_feetCol = make_shared<CircleCollider>(15.0f);
+	_headCol = make_shared<CircleCollider>(10.0f);
 	_transform = make_shared<Transform>();
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
 	_whip = make_shared<Whip>();
@@ -18,6 +19,8 @@ Player::Player()
 	_crouchCol->GetTransform()->SetPosition(Vector2(0.0f, -20.0f));
 	_feetCol->GetTransform()->SetParent(_col->GetTransform());
 	_feetCol->GetTransform()->SetPosition(Vector2(0.0f, -40.0f));
+	_headCol->GetTransform()->SetParent(_col->GetTransform());
+	_headCol->GetTransform()->SetPosition(Vector2(0.0f, 40.0f));
 	_whip->GetTransform()->SetParent(_col->GetTransform());
 
 	_col->GetTransform()->SetPosition(Vector2(0.1f, 0.1f));
@@ -33,6 +36,18 @@ Player::~Player()
 
 void Player::Input()
 {
+
+	if (KEY_DOWN('X'))
+	{
+		Attack();
+	}
+
+	if (_isClimb == true && _canClimb == true)
+	{
+		ClimbRadder();
+		return;
+	}
+
 	if (KEY_PRESS(VK_LEFT))
 	{
 		_sprite->SetLeft();
@@ -42,17 +57,6 @@ void Player::Input()
 	{
 		_sprite->SetRight();
 		_whip->SetRight();
-	}
-
-	if (KEY_DOWN('X'))
-	{
-		Attack();
-	}
-
-	if (_isClimb == true)
-	{
-		ClimbRadder();
-		return;
 	}
 
 	if (KEY_PRESS(VK_LEFT))
@@ -132,9 +136,6 @@ void Player::Input()
 
 void Player::Jump()
 {
-	if (_isClimb == true)
-		return;
-
 	if (_isFalling == true && _isAttack == false)
 		SetAction(State::JUMP);
 	else if (_curState == JUMP && _isFalling == false && _isAttack == false)
@@ -183,6 +184,9 @@ void Player::Attack()
 
 void Player::ClimbRadder()
 {
+	if (_canClimb == false)
+		return;
+
 	SetAction(State::CLIMB_RADDER);
 	_isAttack = false;
 	_isFalling = false;
@@ -215,6 +219,7 @@ void Player::ClimbRadder()
 	if (KEY_DOWN('Z'))
 	{
 		_isClimb = false;
+		_canClimb = false;
 		Jump();
 	}
 }
@@ -223,11 +228,21 @@ void Player::Update()
 {
 	Input();
 	Jump();
+	if (_canClimb == false)
+	{
+		_climbTime += DELTA_TIME;
+	}
+	if (_climbTime >= 0.2f)
+	{
+		_canClimb = true;
+		_climbTime = 0.0f;
+	}
 
 	_whip->Update();
 	_col->Update();
 	_crouchCol->Update();
 	_feetCol->Update();
+	_headCol->Update();
 	_transform->Update();
 	_actions[_curState]->Update();
 
@@ -242,6 +257,7 @@ void Player::Render()
 	_sprite->Render();
 	_crouchCol->Render();
 	_feetCol->Render();
+	_headCol->Render();
 	_col->Render();
 }
 

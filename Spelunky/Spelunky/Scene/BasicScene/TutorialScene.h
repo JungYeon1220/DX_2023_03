@@ -15,6 +15,7 @@ private:
 	shared_ptr<class Tile> _radder2;
 	shared_ptr<class Tile> _block1;
 	shared_ptr<class Tile> _block2;
+	shared_ptr<class Tile> _oneWay;
 	vector<shared_ptr<class Tile>> _tiles;
 };
 

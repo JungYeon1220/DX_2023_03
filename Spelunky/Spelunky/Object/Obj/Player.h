@@ -38,6 +38,8 @@ public:
 
 	shared_ptr<RectCollider> GetCollider() { return _col; }
 	shared_ptr<CircleCollider> GetFeetCollider() { return _feetCol; }
+	shared_ptr<CircleCollider> GetHeadCollider() { return _headCol; }
+	float& GetJumpPower() { return _jumpPower; }
 	bool& IsFalling() { return _isFalling; }
 	bool& isClimb() { return _isClimb; }
 
@@ -49,6 +51,7 @@ private:
 	shared_ptr<RectCollider> _col;
 	shared_ptr<RectCollider> _crouchCol;
 	shared_ptr<CircleCollider> _feetCol;
+	shared_ptr<CircleCollider> _headCol;
 	shared_ptr<Transform> _transform;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Sprite_Frame> _sprite;
@@ -64,5 +67,8 @@ private:
 
 	bool _isAttack = false;
 	bool _isClimb = false;
+
+	bool _canClimb = true;
+	float _climbTime = 0.0f;
 };
 
