@@ -4,16 +4,25 @@
 
 Player::Player()
 {
-	_col = make_shared<RectCollider>(Vector2(60.0f, 80.0f));
+	_col = make_shared<RectCollider>(_playerSize);
 	_crouchCol = make_shared<RectCollider>(Vector2(60.0f, 40.0f));
 	_feetCol = make_shared<CircleCollider>(15.0f);
 	_headCol = make_shared<CircleCollider>(10.0f);
+	_grabCol = make_shared<CircleCollider>(10.0f);
+
 	_transform = make_shared<Transform>();
+	_upTransform = make_shared<Transform>();
+	_downTransform = make_shared<Transform>();
+
 	_sprite = make_shared<Sprite_Frame>(L"Resource/Texture/char_yellow.png", Vector2(16, 16));
 	_whip = make_shared<Whip>();
 
 	_transform->SetParent(_col->GetTransform());
-	_transform->SetPosition(Vector2(0.0f, 10.0f));
+	_transform->SetPosition(Vector2(0.0f, 15.0f));
+	_upTransform->SetParent(_col->GetTransform());
+	_upTransform->SetPosition(Vector2(0.0f, 300.0f));
+	_downTransform->SetParent(_col->GetTransform());
+	_downTransform->SetPosition(Vector2(0.0f, -300.0f));
 	
 	_crouchCol->GetTransform()->SetParent(_col->GetTransform());
 	_crouchCol->GetTransform()->SetPosition(Vector2(0.0f, -20.0f));
@@ -21,6 +30,9 @@ Player::Player()
 	_feetCol->GetTransform()->SetPosition(Vector2(0.0f, -40.0f));
 	_headCol->GetTransform()->SetParent(_col->GetTransform());
 	_headCol->GetTransform()->SetPosition(Vector2(0.0f, 40.0f));
+	_grabCol->GetTransform()->SetParent(_col->GetTransform());
+	_grabCol->GetTransform()->SetPosition(Vector2(25.0f, 30.0f));
+
 	_whip->GetTransform()->SetParent(_col->GetTransform());
 
 	_col->GetTransform()->SetPosition(Vector2(0.1f, 0.1f));
@@ -48,15 +60,28 @@ void Player::Input()
 		return;
 	}
 
+	if (_isGrabLedge == true)
+	{
+		GrabLedge();
+		return;
+	}
+
 	if (KEY_PRESS(VK_LEFT))
 	{
-		_sprite->SetLeft();
-		_whip->SetLeft();
+		_col->GetTransform()->SetScale(Vector2(-1, +1));
+		//_sprite->SetLeft();
+		//_whip->SetLeft();
+		//_grabCol->GetTransform()->SetPosition(Vector2(-25.0f, 30.0f));
+		_isLeft = true;
 	}
 	if (KEY_PRESS(VK_RIGHT))
 	{
-		_sprite->SetRight();
-		_whip->SetRight();
+		_col->GetTransform()->SetScale(Vector2(+1, +1));
+
+		//_sprite->SetRight();
+		//_whip->SetRight();
+		//_grabCol->GetTransform()->SetPosition(Vector2(25.0f, 30.0f));
+		_isLeft = false;
 	}
 
 	if (KEY_PRESS(VK_LEFT))
@@ -82,9 +107,20 @@ void Player::Input()
 		}
 	}
 
-
 	if (_curState == State::JUMP)
 		return;
+
+	if (KEY_PRESS(VK_UP) && _isFalling == false && _curState != State::RUN)
+	{
+		if (_isAttack == true)
+			EndAttack();
+
+		SetAction(State::LOOK_UP);
+	}
+	else if (KEY_UP(VK_UP) && _curState != State::RUN)
+	{
+		SetAction(State::IDLE);
+	}
 
 	if (KEY_PRESS(VK_DOWN) && _isFalling == false)
 	{
@@ -154,6 +190,14 @@ void Player::Jump()
 
 	_col->GetTransform()->AddVector2(Vector2(0.0f, _jumpPower * DELTA_TIME));
 
+	if (_onOneWay == true)
+	{
+		if (KEY_PRESS(VK_DOWN) && KEY_DOWN('Z'))
+		{
+			return;
+		}
+	}
+
 	if (KEY_DOWN('Z') && _isFalling == false)
 	{
 		_jumpPower = 1200.0f;
@@ -166,6 +210,9 @@ void Player::Attack()
 {
 	if (_isClimb == true)
 		_isClimb = false;
+
+	if (_isGrabLedge == true)
+		_isGrabLedge = false;
 
 	if (_curState == State::LAY_DOWN || _curState == State::CRAWL)
 		return;
@@ -224,6 +271,33 @@ void Player::ClimbRadder()
 	}
 }
 
+void Player::GrabLedge()
+{
+	SetAction(State::LEDGE_GRAB);
+
+	_isAttack = false;
+	_isFalling = false;
+	_whip->End();
+
+	if (KEY_DOWN('Z'))
+	{
+		_isGrabLedge = false;
+		Jump();
+	}
+	else if (KEY_PRESS(VK_DOWN))
+	{
+		_isGrabLedge = false;
+	}
+	else if (_isLeft == true && KEY_DOWN(VK_RIGHT))
+	{
+		_isGrabLedge = false;
+	}
+	else if (_isLeft == false && KEY_DOWN(VK_LEFT))
+	{
+		_isGrabLedge = false;
+	}
+}
+
 void Player::Update()
 {
 	Input();
@@ -231,11 +305,37 @@ void Player::Update()
 	if (_canClimb == false)
 	{
 		_climbTime += DELTA_TIME;
+		_isClimb = false;
 	}
-	if (_climbTime >= 0.2f)
+	if (_climbTime >= 0.3f)
 	{
 		_canClimb = true;
 		_climbTime = 0.0f;
+	}
+
+	if (_curState == State::LOOK_UP || _curState == State::LAY_DOWN)
+	{
+		_lookTime += DELTA_TIME;
+	}
+	else
+	{
+		_lookTime = 0.0f;
+	}
+
+	if (_lookTime >= 0.7f)
+	{
+		if (_curState == State::LOOK_UP)
+		{
+			CAMERA->SetTarget(_upTransform);
+		}
+		else if (_curState == State::LAY_DOWN)
+		{
+			CAMERA->SetTarget(_downTransform);
+		}
+	}
+	else
+	{
+		CAMERA->SetTarget(_col->GetTransform());
 	}
 
 	_whip->Update();
@@ -243,7 +343,10 @@ void Player::Update()
 	_crouchCol->Update();
 	_feetCol->Update();
 	_headCol->Update();
+	_grabCol->Update();
 	_transform->Update();
+	_upTransform->Update();
+	_downTransform->Update();
 	_actions[_curState]->Update();
 
 	_sprite->SetCurClip(_actions[_curState]->GetCurClip());
@@ -258,6 +361,7 @@ void Player::Render()
 	_crouchCol->Render();
 	_feetCol->Render();
 	_headCol->Render();
+	_grabCol->Render();
 	_col->Render();
 }
 
@@ -418,6 +522,32 @@ void Player::CreateAction()
 		}
 
 		shared_ptr<Action> action = make_shared<Action>(clips, "CLIMB_RADDER", Action::LOOP);
+		_actions.push_back(action);
+	}
+
+	{
+		vector<Action::Clip> clips;
+		for (int i = 11; i < 12; i++)
+		{
+			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 3.0f / maxFrame.y);
+			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
+			clips.push_back(clip);
+		}
+
+		shared_ptr<Action> action = make_shared<Action>(clips, "LEDGE_GRAB", Action::LOOP);
+		_actions.push_back(action);
+	}
+
+	{
+		vector<Action::Clip> clips;
+		for (int i = 3; i < 4; i++)
+		{
+			Vector2 startPos = Vector2((i * imageSize.x) / maxFrame.x, imageSize.y * 8.0f / maxFrame.y);
+			Action::Clip clip = Action::Clip(startPos.x, startPos.y, size.x, size.y, srv);
+			clips.push_back(clip);
+		}
+
+		shared_ptr<Action> action = make_shared<Action>(clips, "LOOK_UP", Action::LOOP);
 		_actions.push_back(action);
 	}
 }

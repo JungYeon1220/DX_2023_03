@@ -8,7 +8,9 @@ public:
 		NORMAL,
 		LADDER,
 
-		ONE_WAY
+		ONE_WAY,
+
+		UNBREAKABLE,
 	};
 	Tile();
 	~Tile();
@@ -31,6 +33,7 @@ private:
 	shared_ptr<Sprite_Frame> _sprite;
 	shared_ptr<Sprite_Frame> _floorSprite;
 	shared_ptr<Sprite_Frame> _miscSprite;
+	shared_ptr<Sprite_Frame> _borderSprite;
 	shared_ptr<Transform> _transform;
 	vector<Action::Clip> _clips;
 
@@ -38,6 +41,6 @@ private:
 	Vector2 _selected = Vector2(0, 0);
 	Type _type = EMPTY;
 
-	bool _isActive = false;
+	bool _isActive = true;
 };
 

@@ -10,7 +10,7 @@ Timer::Timer()
 	// 프로그램이 시작할 때 지금까지 CPU의 진동수
 	QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime);
 
-	_timeScale = 1.0 / (float)_periodFrequency;
+	_timeScale = 1.0f / (float)_periodFrequency;
 }
 
 Timer::~Timer()

@@ -36,8 +36,8 @@ public:
 private:
 	static Timer* _instance;
 
-	float _timeScale = 0.0;
-	float _deltaTime = 0.0; // 한번 업데이트에 걸리는 시간
+	float _timeScale = 0.0f;
+	float _deltaTime = 0.0f; // 한번 업데이트에 걸리는 시간
 
 	unsigned __int64 _curDamageTime = 0;
 	unsigned __int64 _lastTime = 0;
@@ -46,8 +46,8 @@ private:
 	unsigned int _frameRate = 0;
 	unsigned int _frameCount = 0;
 
-	float _oneSecCount = 0.0;
-	float _runTime = 0.0;
-	float _lockFPS = 0.0;
+	float _oneSecCount = 0.0f;
+	float _runTime = 0.0f;
+	float _lockFPS = 0.0f;
 };
 

@@ -39,5 +39,7 @@ private:
 
 	shared_ptr<SamplerState> _sampler;
 
+	ID3D11RasterizerState* rasterizerState = nullptr;
+
 };
 

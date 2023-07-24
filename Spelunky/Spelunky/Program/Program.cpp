@@ -39,7 +39,7 @@ void Program::Render()
 	ALPHA->SetState();
 	_curScene->Render();
 
-	//ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
+	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 	//ImGui::Text("DeltaTime : %1f", Timer::GetInstance()->GetDeltaTime());
 	//ImGui::Text("RunTime : %1f", Timer::GetInstance()->GetRunTime());
 	ImGui::Text("mousePos X: %f, Y: %f", WIN_MOUSE_POS.x, WIN_MOUSE_POS.y);

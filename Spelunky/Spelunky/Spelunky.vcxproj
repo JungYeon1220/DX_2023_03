@@ -178,6 +178,8 @@
     <ClInclude Include="Framework\Utility\Timer.h" />
     <ClInclude Include="Framework\Utility\tinyxml2.h" />
     <ClInclude Include="Framework\Math\MathUtility.h" />
+    <ClInclude Include="Object\Obj\Tile\Normal.h" />
+    <ClInclude Include="Object\Obj\Map.h" />
     <ClInclude Include="Object\BasicObject\Effect.h" />
     <ClInclude Include="Object\BasicObject\Quad.h" />
     <ClInclude Include="Object\BasicObject\Sprite.h" />
@@ -190,7 +192,7 @@
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Spelunky.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Object\Obj\Tile.h" />
+    <ClInclude Include="Object\Obj\Tile\Tile.h" />
     <ClInclude Include="Scene\BasicScene\TileMapScene.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Object\Obj\Whip.h" />
@@ -230,6 +232,8 @@
     <ClCompile Include="Framework\Utility\Timer.cpp" />
     <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
     <ClCompile Include="Framework\Math\MathUtility.cpp" />
+    <ClCompile Include="Object\Obj\Tile\Normal.cpp" />
+    <ClCompile Include="Object\Obj\Map.cpp" />
     <ClCompile Include="Object\BasicObject\Effect.cpp" />
     <ClCompile Include="Object\BasicObject\Quad.cpp" />
     <ClCompile Include="Object\BasicObject\Sprite.cpp" />
@@ -241,13 +245,14 @@
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Spelunky.cpp" />
     <ClCompile Include="Object\Obj\Whip.cpp" />
-    <ClCompile Include="Object\Obj\Tile.cpp" />
+    <ClCompile Include="Object\Obj\Tile\Tile.cpp" />
     <ClCompile Include="Scene\BasicScene\TileMapScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Spelunky.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resource\Texture\border_main.png" />
     <Image Include="Resource\Texture\char_yellow.png" />
     <Image Include="Resource\Texture\floormisc.png" />
     <Image Include="Resource\Texture\floor_cave.png" />

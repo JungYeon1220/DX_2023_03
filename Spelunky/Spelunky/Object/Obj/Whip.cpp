@@ -48,6 +48,7 @@ void Whip::Update()
 	if (_isActive == false)
 		return;
 
+	_action->Update();
 	if (_action->GetCurIndex() < 3)
 	{
 		_transform->SetPosition(_backPos);
@@ -58,7 +59,10 @@ void Whip::Update()
 	}
 	else if (_action->GetCurIndex() == 3)
 	{
-		_transform->SetPosition(_frontPos + Vector2(0.0f, 20.0f));
+		if(_isLeft)
+			_transform->SetPosition(_frontPos + Vector2(15.0f, 40.0f));
+		else
+			_transform->SetPosition(_frontPos + Vector2(-15.0f, 40.0f));
 		_col->GetTransform()->SetScale(Vector2(0.7f, 1.2f));
 	}
 	else
@@ -69,7 +73,6 @@ void Whip::Update()
 	}
 
 	_transform->Update();
-	_action->Update();
 	_sprite->SetCurClip(_action->GetCurClip());
 	_sprite->Update();
 	_col->Update();
@@ -88,13 +91,15 @@ void Whip::Render()
 void Whip::SetLeft()
 {
 	_sprite->SetLeft();
-	_frontPos = Vector2(-55.0f, -20.0f);
-	_backPos = Vector2(55.0f, 0.0f);
+	_frontPos = Vector2(-55.0f, -15.0f);
+	_backPos = Vector2(60.0f, 40.0f);
+	_isLeft = true;
 }
 
 void Whip::SetRight()
 {
 	_sprite->SetRight();
-	_frontPos = Vector2(55.0f, -20.0f);
-	_backPos = Vector2(-55.0f, 0.0f);
+	_frontPos = Vector2(60.0f, -15.0f);
+	_backPos = Vector2(-55.0f, 40.0f);
+	_isLeft = false;
 }
