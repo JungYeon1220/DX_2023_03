@@ -9,7 +9,7 @@ Tile::Tile()
 	_borderSprite = make_shared<Sprite_Frame>(L"Resource/Texture/border_main.png", Vector2(8, 8), Vector2(100.0f, 100.0f));
 	_sprite = _floorSprite;
 
-	_col = make_shared<RectCollider>(_sprite->GetClipsize());
+	_col = make_shared<RectCollider>(Vector2(100.0f, 100.0f));
 	_transform->SetParent(_col->GetTransform());
 
 	CreateClips();
@@ -33,6 +33,9 @@ void Tile::SetType(Tile::Type value)
 
 bool Tile::Block(shared_ptr<Collider> col)
 {
+	if (_type == Tile::Type::EMPTY)
+		return false;
+
 	Vector2 colPos = col->GetWorldPos();
 	Vector2 pos = _col->GetWorldPos();
 	Vector2 halfSize = _sprite->GetClipsize() * 0.5f;
@@ -62,15 +65,20 @@ bool Tile::Block(shared_ptr<Collider> col)
 
 void Tile::Update()
 {
+	if (_type == Tile::Type::EMPTY)
+		return;
 	_col->GetTransform()->SetPosition(_pos);
 	_transform->Update();
-	_sprite->SetCurClip(_clips[_type]);
+	_sprite->SetCurClip(Vector2(0,0));
 	_sprite->Update();
 	_col->Update();
 }
 
 void Tile::Render()
 {
+	if (_type == Tile::Type::EMPTY)
+		return;
+
 	_transform->SetWorldBuffer(0);
 	_sprite->Render();
 	_col->Render();

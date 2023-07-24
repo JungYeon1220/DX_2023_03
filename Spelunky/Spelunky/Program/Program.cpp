@@ -8,7 +8,7 @@ Program::Program()
 {
 	srand(static_cast<unsigned int>(time(nullptr)));
 
-	_curScene = make_shared<TutorialScene>();
+	_curScene = make_shared<TileMapScene>();
 
 	Timer::GetInstance()->LockFPS(60);
 }

@@ -13,7 +13,7 @@ Sprite_Frame::Sprite_Frame(wstring path, Vector2 maxFrame)
 Sprite_Frame::Sprite_Frame(wstring path, Vector2 maxFrame, Vector2 size)
 	: Sprite(path, Vector2(size.x, size.y))
 {
-	_actionBuffer->_data.size = size;
+	_actionBuffer->_data.size = Vector2(_actionBuffer->_data.imageSize.x / maxFrame.x, _actionBuffer->_data.imageSize.y / maxFrame.y);
 	Sprite::CreateVertices();
 	Sprite::CreateData(path);
 }

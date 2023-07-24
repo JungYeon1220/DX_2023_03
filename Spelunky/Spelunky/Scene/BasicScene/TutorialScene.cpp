@@ -6,7 +6,7 @@
 
 TutorialScene::TutorialScene()
 {
-	//_map = make_shared<Map>();
+	_map = make_shared<Map>();
 	_player = make_shared<Player>();
 
 	_radder1 = make_shared<Tile>();
@@ -154,7 +154,7 @@ void TutorialScene::Update()
 	if(ladderCheck == false)
 		_player->isClimb() = false;
 
-	//_map->Update();
+	_map->Update();
 }
 
 void TutorialScene::Render()
@@ -164,28 +164,28 @@ void TutorialScene::Render()
 		if (tile->GetType() == Tile::Type::LADDER || tile->GetType() == Tile::Type::ONE_WAY)
 			tile->Render();
 	}
-	//for (int i = 0; i < _map->PoolCount().y; i++)
-	//{
-	//	for (int j = 0; j < _map->PoolCount().x; j++)
-	//	{
-	//		if (_map->GetTile(j, i)->GetType() == Tile::Type::LADDER || _map->GetTile(j, i)->GetType() == Tile::Type::ONE_WAY)
-	//			_map->GetTile(j, i)->Render();
-	//	}
-	//}
+	for (int i = 0; i < _map->PoolCount().y; i++)
+	{
+		for (int j = 0; j < _map->PoolCount().x; j++)
+		{
+			if (_map->GetTile(j, i)->GetType() == Tile::Type::LADDER || _map->GetTile(j, i)->GetType() == Tile::Type::ONE_WAY)
+				_map->GetTile(j, i)->Render();
+		}
+	}
 	_player->Render();
 	for (auto tile : _tiles)
 	{
 		if(tile->GetType() == Tile::Type::NORMAL)
 			tile->Render();
 	}
-	//for (int i = 0; i < _map->PoolCount().y; i++)
-	//{
-	//	for (int j = 0; j < _map->PoolCount().x; j++)
-	//	{
-	//		if (_map->GetTile(j, i)->GetType() == Tile::Type::NORMAL || _map->GetTile(j, i)->GetType() == Tile::Type::UNBREAKABLE)
-	//			_map->GetTile(j, i)->Render();
-	//	}
-	//}
+	for (int i = 0; i < _map->PoolCount().y; i++)
+	{
+		for (int j = 0; j < _map->PoolCount().x; j++)
+		{
+			if (_map->GetTile(j, i)->GetType() == Tile::Type::NORMAL || _map->GetTile(j, i)->GetType() == Tile::Type::UNBREAKABLE)
+				_map->GetTile(j, i)->Render();
+		}
+	}
 }
 
 void TutorialScene::PostRender()

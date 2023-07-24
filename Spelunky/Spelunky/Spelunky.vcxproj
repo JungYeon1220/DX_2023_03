@@ -178,6 +178,8 @@
     <ClInclude Include="Framework\Utility\Timer.h" />
     <ClInclude Include="Framework\Utility\tinyxml2.h" />
     <ClInclude Include="Framework\Math\MathUtility.h" />
+    <ClInclude Include="Object\Obj\Tiles.h" />
+    <ClInclude Include="Object\Obj\Tile\Normal.h" />
     <ClInclude Include="Object\Obj\Tile\Normal.h" />
     <ClInclude Include="Object\Obj\Map.h" />
     <ClInclude Include="Object\BasicObject\Effect.h" />
@@ -232,6 +234,7 @@
     <ClCompile Include="Framework\Utility\Timer.cpp" />
     <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
     <ClCompile Include="Framework\Math\MathUtility.cpp" />
+    <ClCompile Include="Object\Obj\Tile\Normal.cpp" />
     <ClCompile Include="Object\Obj\Tile\Normal.cpp" />
     <ClCompile Include="Object\Obj\Map.cpp" />
     <ClCompile Include="Object\BasicObject\Effect.cpp" />
