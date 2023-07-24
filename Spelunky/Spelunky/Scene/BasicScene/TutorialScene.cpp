@@ -19,7 +19,7 @@ TutorialScene::TutorialScene()
 	for (int i = 0; i < 10; i++)
 	{
 		shared_ptr<Tile> tile = make_shared<Tile>();
-		tile->SetPosition(Vector2((i + 0.5f) * 50.0f, 50.0f) - CENTER);
+		tile->SetPosition(Vector2((i + 0.5f) * 100.0f, 50.0f) - CENTER);
 		tile->SetType(Tile::Type::NORMAL);
 
 		_tiles.push_back(tile);

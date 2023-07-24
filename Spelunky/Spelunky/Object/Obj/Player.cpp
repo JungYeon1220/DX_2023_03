@@ -68,19 +68,19 @@ void Player::Input()
 
 	if (KEY_PRESS(VK_LEFT))
 	{
-		_col->GetTransform()->SetScale(Vector2(-1, +1));
-		//_sprite->SetLeft();
-		//_whip->SetLeft();
-		//_grabCol->GetTransform()->SetPosition(Vector2(-25.0f, 30.0f));
+		//_col->GetTransform()->SetScale(Vector2(-1, +1));
+		_sprite->SetLeft();
+		_whip->SetLeft();
+		_grabCol->GetTransform()->SetPosition(Vector2(-25.0f, 30.0f));
 		_isLeft = true;
 	}
 	if (KEY_PRESS(VK_RIGHT))
 	{
-		_col->GetTransform()->SetScale(Vector2(+1, +1));
+		//_col->GetTransform()->SetScale(Vector2(+1, +1));
 
-		//_sprite->SetRight();
-		//_whip->SetRight();
-		//_grabCol->GetTransform()->SetPosition(Vector2(25.0f, 30.0f));
+		_sprite->SetRight();
+		_whip->SetRight();
+		_grabCol->GetTransform()->SetPosition(Vector2(25.0f, 30.0f));
 		_isLeft = false;
 	}
 
